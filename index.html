@@ -1463,17 +1463,31 @@
         }
 
         /* ================= LEVEL 2: FOOD RECOGNITION ================= */
+        // 根據老師上傳的 food 資料夾圖檔，精確對應 9 款韓國道地美食與飲料
         const FOODS = [
-            { id: "tteokbokki", nameKo: "떡볶이", roma: "Tteokbokki", nameZh: "辣炒年糕", icon: "🍡" },
-            { id: "gimbap", nameKo: "김밥", roma: "Gimbap", nameZh: "紫菜包飯", icon: "🍱" },
-            { id: "chicken", nameKo: "치킨", roma: "Fried Chicken", nameZh: "韓式炸雞", icon: "🍗" },
-            { id: "ramyen", nameKo: "라면", roma: "Ramen", nameZh: "韓式拉麵", icon: "🍜" },
-            { id: "bibimbap", nameKo: "비빔밥", roma: "Bibimbap", nameZh: "石鍋拌飯", icon: "🥗" },
-            { id: "mandu", nameKo: "만두", roma: "Mandu", nameZh: "韓式蒸餃", icon: "🥟" },
-            { id: "eomuk", nameKo: "어묵", roma: "Odem", nameZh: "魚板串", icon: "🍢" },
-            { id: "hotteok", nameKo: "호떡", roma: "Hotteok", nameZh: "黑糖煎餅", icon: "🥞" },
-            { id: "bingsu", nameKo: "빙수", roma: "Bingsu", nameZh: "牛奶刨冰", icon: "🍧" }
+            { id: "banana_milk", nameKo: "바나나 우유", roma: "Ba-na-na U-yu", nameZh: "香蕉牛奶", icon: "🍌", file: "ba-na-na u-yu" },
+            { id: "bingsu", nameKo: "빙수", roma: "Bing-su", nameZh: "刨冰", icon: "🍧", file: "bing-su" },
+            { id: "chicken", nameKo: "치킨", roma: "Chi-kin", nameZh: "韓式炸雞", icon: "🍗", file: "chi-kin" },
+            { id: "eomuk", nameKo: "어묵", roma: "Eo-muk", nameZh: "魚板串", icon: "🍢", file: "eo-muk" },
+            { id: "hatdogeu", nameKo: "핫도그", roma: "Hat-do-geu", nameZh: "韓式熱狗", icon: "🌭", file: "hat-do-geu" },
+            { id: "hotteok", nameKo: "호떡", roma: "Ho-tteok", nameZh: "黑糖煎餅", icon: "🥞", file: "ho-tteok" },
+            { id: "gimbap", nameKo: "김밥", roma: "Kimbap", nameZh: "紫菜包飯", icon: "🍱", file: "kimbap" },
+            { id: "ramyen", nameKo: "라면", roma: "Ra-myeon", nameZh: "韓式拉麵", icon: "🍜", file: "ra-myeon" },
+            { id: "tteokbokki", nameKo: "떡볶이", roma: "Tteok-bok-ki", nameZh: "辣炒年糕", icon: "🍡", file: "tteok-bok-ki" }
         ];
+
+        // 圖檔優先與 Emoji 自動備援元件渲染器
+        function renderFoodDisplay(item, sizeClass = "h-20") {
+            return `
+                <div class="relative flex items-center justify-center ${sizeClass} w-full my-1">
+                    <img src="food/${item.file}.png" 
+                         onerror="this.onerror=null; this.src='food/${item.file}.jpg'; this.onerror=function(){ this.style.display='none'; this.nextElementSibling.style.display='block'; }" 
+                         alt="${item.nameZh}" 
+                         class="object-contain h-full max-w-full rounded-xl drop-shadow" />
+                    <span class="hidden text-5xl select-none">${item.icon}</span>
+                </div>
+            `;
+        }
 
         function initL2() {
             state.l2Questions = shuffleArray(FOODS).slice(0, 5);
@@ -1499,10 +1513,10 @@
 
             choices.forEach(item => {
                 const card = document.createElement('div');
-                card.className = "bubble-card bg-white p-6 rounded-3xl border-4 border-orange-200 hover:border-orange-400 text-center cursor-pointer shadow-md transition transform active:scale-95 flex flex-col items-center justify-center";
+                card.className = "bubble-card bg-white p-4 rounded-3xl border-4 border-orange-200 hover:border-orange-400 text-center cursor-pointer shadow-md transition transform active:scale-95 flex flex-col items-center justify-center";
                 card.innerHTML = `
-                    <div class="text-7xl mb-3">${item.icon}</div>
-                    <span class="text-xl font-black text-slate-800">${item.nameZh}</span>
+                    ${renderFoodDisplay(item, "h-24")}
+                    <span class="text-lg font-black text-slate-800 mt-1">${item.nameZh}</span>
                 `;
                 card.onclick = () => {
                     if (item.id === target.id) {
@@ -1594,7 +1608,7 @@
             { foodId: "tteokbokki", count: 3, koSent: "떡볶이 삼인분 주세요!", hint: "請給我 3 份辣炒年糕！" },
             { foodId: "chicken", count: 2, koSent: "치킨 이인분 주세요!", hint: "請給我 2 份韓式炸雞！" },
             { foodId: "gimbap", count: 1, koSent: "김밥 일인분 주세요!", hint: "請給我 1 條紫菜包飯！" },
-            { foodId: "mandu", count: 4, koSent: "만두 사인분 주세요!", hint: "請給我 4 份韓式蒸餃！" },
+            { foodId: "eomuk", count: 4, koSent: "어묵 사인분 주세요!", hint: "請給我 4 串魚板！" },
             { foodId: "ramyen", count: 2, koSent: "라면 이인분 주세요!", hint: "請給我 2 碗韓式拉麵！" }
         ];
 
@@ -1607,7 +1621,7 @@
 
         function renderL4() {
             const q = state.l4Questions[state.l4Idx];
-            state.l4Counts = { tteokbokki: 0, chicken: 0, gimbap: 0, mandu: 0, ramyen: 0 };
+            state.l4Counts = { tteokbokki: 0, chicken: 0, gimbap: 0, eomuk: 0, ramyen: 0, banana_milk: 0, hatdogeu: 0, hotteok: 0, bingsu: 0 };
             state.l4HintRevealed = false;
 
             document.getElementById('l4-q-index').innerText = state.l4Idx + 1;
@@ -1644,12 +1658,12 @@
             const grid = document.getElementById('l4-food-grid');
             grid.innerHTML = '';
 
-            const activeFoods = FOODS.filter(f => ['tteokbokki', 'chicken', 'gimbap', 'mandu', 'ramyen'].includes(f.id));
+            const activeFoods = FOODS.filter(f => ['tteokbokki', 'chicken', 'gimbap', 'eomuk', 'ramyen', 'banana_milk'].includes(f.id));
 
             activeFoods.forEach(food => {
                 const currentCnt = state.l4Counts[food.id] || 0;
                 const card = document.createElement('div');
-                card.className = "bubble-card bg-white p-4 rounded-2xl border-3 border-rose-200 hover:border-rose-400 text-center cursor-pointer shadow flex flex-col items-center justify-between";
+                card.className = "bubble-card bg-white p-3 rounded-2xl border-3 border-rose-200 hover:border-rose-400 text-center cursor-pointer shadow flex flex-col items-center justify-between";
                 card.onclick = () => {
                     audio.playPop();
                     state.l4Counts[food.id] = (state.l4Counts[food.id] || 0) + 1;
@@ -1657,8 +1671,8 @@
                 };
 
                 card.innerHTML = `
-                    <div class="text-5xl mb-2">${food.icon}</div>
-                    <span class="font-black text-slate-800 text-sm">${food.nameZh}</span>
+                    ${renderFoodDisplay(food, "h-16")}
+                    <span class="font-black text-slate-800 text-xs mt-1">${food.nameZh}</span>
                     <span class="text-xs font-bold text-rose-600 mt-1 bg-rose-50 px-2 py-0.5 rounded-full">
                         目前點購: <strong class="text-base">${currentCnt}</strong> 份
                     </span>
