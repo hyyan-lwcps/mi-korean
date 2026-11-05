@@ -622,35 +622,36 @@
     <!-- ================= MODALS SECTION ================= -->
 
     <!-- Modal 1: Student Selection Entrance -->
-    <div id="studentSelectModal" class="fixed inset-0 bg-slate-900/70 backdrop-blur-md z-50 flex items-center justify-center p-4">
-        <div class="bg-white p-6 md:p-8 rounded-3xl border-4 border-amber-300 max-w-xl w-full text-center shadow-2xl animate-pop-in max-h-[90vh] flex flex-col justify-between">
-            <div>
-                <div class="w-16 h-16 bg-gradient-to-tr from-amber-400 to-orange-400 text-white rounded-3xl flex items-center justify-center text-3xl mx-auto mb-3 shadow-lg">
+    <div id="studentSelectModal" class="fixed inset-0 bg-slate-900/70 backdrop-blur-md z-50 flex items-center justify-center p-3 sm:p-4">
+        <div class="bg-white p-5 md:p-7 rounded-3xl border-4 border-amber-300 max-w-xl w-full text-center shadow-2xl animate-pop-in max-h-[85vh] flex flex-col overflow-hidden">
+            <!-- Modal Header Content (Fixed Header) -->
+            <div class="shrink-0 mb-2">
+                <div class="w-14 h-14 bg-gradient-to-tr from-amber-400 to-orange-400 text-white rounded-2xl flex items-center justify-center text-2xl mx-auto mb-2 shadow-md">
                     🇰🇷
                 </div>
                 <h3 class="text-2xl md:text-3xl font-black text-slate-800 mb-1">안녕하세요!</h3>
                 <p class="text-slate-500 font-bold text-xs md:text-sm mb-3">請點擊你的姓名登入：</p>
 
-                <!-- Teacher Demo Mode Quick Action Button -->
-                <button onclick="openPinModalForTeacher()" class="w-full mb-4 py-3 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white font-black rounded-2xl text-xs md:text-sm shadow-md transition transform active:scale-95 flex items-center justify-center gap-2 border-2 border-purple-300">
-                    <span class="text-xl">🍎</span>
-                    <span>教師專區 / 課堂示範模式 (需輸入教師 PIN 碼)</span>
+                <!-- Teacher Demo Mode Quick Action Button (Hidden PIN Hint) -->
+                <button onclick="openPinModalForTeacher()" class="w-full py-2.5 px-4 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white font-black rounded-2xl text-xs md:text-sm shadow-md transition transform active:scale-95 flex items-center justify-center gap-2 border-2 border-purple-300">
+                    <span class="text-lg">🍎</span>
+                    <span>教師專區 / 課堂示範模式</span>
                 </button>
 
                 <!-- Class Tabs (3A / 3B) -->
-                <div class="flex items-center justify-center gap-2 mb-4">
-                    <button id="tabBtn3A" onclick="switchClassTab('3A')" class="px-5 py-2 rounded-xl font-black text-sm transition bg-amber-400 text-slate-900 shadow">
+                <div class="flex items-center justify-center gap-2 mt-3 mb-1">
+                    <button id="tabBtn3A" onclick="switchClassTab('3A')" class="px-5 py-1.5 rounded-xl font-black text-sm transition bg-amber-400 text-slate-900 shadow">
                         🎒 3A 班 (7位)
                     </button>
-                    <button id="tabBtn3B" onclick="switchClassTab('3B')" class="px-5 py-2 rounded-xl font-black text-sm transition bg-slate-100 text-slate-600 hover:bg-slate-200">
+                    <button id="tabBtn3B" onclick="switchClassTab('3B')" class="px-5 py-1.5 rounded-xl font-black text-sm transition bg-slate-100 text-slate-600 hover:bg-slate-200">
                         🎒 3B 班 (9位)
                     </button>
                 </div>
+            </div>
 
-                <!-- Student Cards Container (Only Chinese & Korean Names) -->
-                <div id="studentCardsGrid" class="grid grid-cols-2 sm:grid-cols-3 gap-3 max-h-[45vh] overflow-y-auto p-1">
-                    <!-- Dynamic Student Cards -->
-                </div>
+            <!-- Student Cards Container (Flex-1 with overflow-y-auto to prevent modal overflow) -->
+            <div id="studentCardsGrid" class="grid grid-cols-2 sm:grid-cols-3 gap-2.5 overflow-y-auto p-1.5 flex-1 min-h-0 border-t border-slate-100 pt-3">
+                <!-- Dynamic Student Cards -->
             </div>
         </div>
     </div>
@@ -998,7 +999,8 @@
             state.inputPinStr = '';
 
             document.getElementById('pinStudentName').innerText = `教師專區 (선생님)`;
-            document.getElementById('pinModalSub').innerText = `請輸入教師 PIN 碼 (預設: 9999)：`;
+            // Removed password hint "(預設: 9999)" from subtext for security
+            document.getElementById('pinModalSub').innerText = `請輸入教師驗證 PIN 碼：`;
             document.getElementById('pinErrMsg').innerText = '';
             
             updatePinDisplayBoxes();
