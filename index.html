@@ -205,11 +205,11 @@
                             </div>
                             <h3 class="text-2xl font-black mb-1">情境反應王</h3>
                             <p class="text-teal-950 font-bold text-xs md:text-sm opacity-90">
-                                日常禮貌用語：根據情境二選一選出正確應答！（含 맛있어요! 美食情境）
+                                課堂必備 5 大句型：안녕하세요 / 감사합니다 / 미안해요 / 괜찮아요 / 맛있어요 二選一聽辨！
                             </p>
                         </div>
                         <div class="mt-4 flex items-center justify-between text-xs font-black text-teal-950">
-                            <span>禮貌用語 (5 題)</span>
+                            <span>5 大基礎句型 (5 題)</span>
                             <span class="w-8 h-8 bg-white text-teal-700 rounded-full flex items-center justify-center text-sm shadow"><i class="fa-solid fa-play"></i></span>
                         </div>
                     </div>
@@ -592,48 +592,76 @@
                 </div>
 
                 <div class="flex flex-wrap items-center justify-between gap-3 bg-slate-100 p-4 rounded-2xl border border-slate-200">
-                    <div class="flex items-center gap-2">
+                    <div class="flex items-center gap-2" id="colorPickerGroup">
                         <span class="text-xs font-black text-slate-500">筆觸顏色:</span>
-                        <button onclick="setPenColor('#1E293B')" class="w-8 h-8 rounded-full bg-slate-800 ring-2 ring-offset-1 ring-slate-400"></button>
-                        <button onclick="setPenColor('#EF4444')" class="w-8 h-8 rounded-full bg-red-500 hover:scale-110 transition"></button>
-                        <button onclick="setPenColor('#3B82F6')" class="w-8 h-8 rounded-full bg-blue-500 hover:scale-110 transition"></button>
-                        <button onclick="setPenColor('#EC4899')" class="w-8 h-8 rounded-full bg-pink-500 hover:scale-110 transition"></button>
+                        <button onclick="setPenColor('#1E293B', this)" class="w-8 h-8 rounded-full bg-slate-800 ring-2 ring-offset-2 ring-slate-800 scale-110 transition transform active:scale-95"></button>
+                        <button onclick="setPenColor('#EF4444', this)" class="w-8 h-8 rounded-full bg-red-500 transition transform active:scale-95"></button>
+                        <button onclick="setPenColor('#3B82F6', this)" class="w-8 h-8 rounded-full bg-blue-500 transition transform active:scale-95"></button>
+                        <button onclick="setPenColor('#EC4899', this)" class="w-8 h-8 rounded-full bg-pink-500 transition transform active:scale-95"></button>
+                    </div>
+
+                    <div class="flex items-center gap-2" id="widthPickerGroup">
+                        <span class="text-xs font-black text-slate-500">筆劃粗細:</span>
+                        <button onclick="setPenWidth(6, this)" class="px-3 py-1 bg-white font-bold text-xs rounded-lg border text-slate-700 transition">細</button>
+                        <button onclick="setPenWidth(12, this)" class="px-3 py-1 bg-white font-bold text-xs rounded-lg border ring-2 ring-blue-500 text-blue-600 font-black transition">中</button>
+                        <button onclick="setPenWidth(20, this)" class="px-3 py-1 bg-white font-bold text-xs rounded-lg border text-slate-700 transition">粗</button>
                     </div>
 
                     <div class="flex items-center gap-2">
-                        <span class="text-xs font-black text-slate-500">筆劃粗細:</span>
-                        <button onclick="setPenWidth(6)" class="px-3 py-1 bg-white font-bold text-xs rounded-lg border">細</button>
-                        <button onclick="setPenWidth(12)" class="px-3 py-1 bg-white font-bold text-xs rounded-lg border ring-2 ring-blue-400">中</button>
-                        <button onclick="setPenWidth(20)" class="px-3 py-1 bg-white font-bold text-xs rounded-lg border">粗</button>
+                        <button onclick="clearTracingCanvas()" class="px-4 py-2 bg-rose-500 hover:bg-rose-600 text-white font-black text-xs rounded-xl shadow transition">
+                            🧹 清除重寫
+                        </button>
+                        <button onclick="evaluateHandwritingNeatness()" class="px-5 py-2 bg-gradient-to-r from-amber-400 to-orange-400 hover:brightness-110 text-slate-900 font-black text-xs rounded-xl shadow-md transition transform active:scale-95 flex items-center gap-1.5">
+                            <span>🤖 自動感應工整度</span>
+                        </button>
                     </div>
-
-                    <button onclick="clearTracingCanvas()" class="px-4 py-2 bg-rose-500 hover:bg-rose-600 text-white font-black text-xs rounded-xl shadow transition">
-                        🧹 清除重寫
-                    </button>
                 </div>
             </div>
         </div>
 
     </main>
 
+    <!-- Custom Alert Modal -->
+    <div id="customAlertModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white p-6 rounded-3xl border-4 border-amber-400 max-w-sm w-full text-center shadow-2xl animate-pop-in">
+            <div class="w-14 h-14 bg-amber-100 text-amber-600 rounded-2xl flex items-center justify-center text-3xl mx-auto mb-3">
+                🔔
+            </div>
+            <p id="customAlertMessage" class="text-base font-black text-slate-800 mb-5 leading-relaxed"></p>
+            <button onclick="closeCustomAlert()" class="w-full py-2.5 bg-amber-400 hover:bg-amber-500 text-slate-900 font-black rounded-xl text-sm shadow transition">
+                確定
+            </button>
+        </div>
+    </div>
+
     <!-- Footer -->
     <footer class="no-print border-t border-amber-200 bg-white/70 py-3 text-center text-xs text-slate-500 font-bold">
         <p>P3 韓語教學團隊專用教具 • 全期綜合闖關 (Session 1 ~ 4)</p>
     </footer>
 
-
-    <!-- ================= MODALS SECTION ================= -->
-
-    <!-- Custom Alert Notification Modal (Replaces browser alert) -->
-    <div id="customAlertModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
-        <div class="bg-white p-6 rounded-3xl border-4 border-amber-400 max-w-sm w-full text-center shadow-2xl animate-pop-in">
-            <div class="w-14 h-14 bg-amber-100 text-amber-600 rounded-full flex items-center justify-center text-3xl mx-auto mb-3">
-                🔔
+    <!-- Modal 6: Handwriting Neatness Evaluation Result -->
+    <div id="neatnessModal" class="fixed inset-0 bg-slate-900/70 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white p-6 md:p-8 rounded-3xl border-4 border-amber-400 max-w-sm w-full text-center shadow-2xl animate-pop-in">
+            <div id="neatnessIcon" class="w-20 h-20 bg-amber-100 text-amber-600 rounded-full flex items-center justify-center text-4xl mx-auto mb-3 shadow-inner">
+                🌟
             </div>
-            <h3 class="text-xl font-black text-slate-800 mb-2">課堂小提示</h3>
-            <p id="customAlertMessage" class="text-slate-600 font-bold text-sm mb-5">訊息提示內容</p>
-            <button onclick="closeCustomAlert()" class="px-6 py-2.5 bg-amber-400 hover:bg-amber-500 text-slate-900 font-black rounded-xl text-sm shadow transition">
-                知道了
+            <h3 class="text-2xl font-black text-slate-800 mb-1">工整度感應結果</h3>
+            <p class="text-slate-500 font-bold text-xs mb-3">AI 筆劃重合度辨識完成</p>
+
+            <div class="bg-amber-50/80 p-4 rounded-2xl border-2 border-amber-200 mb-4">
+                <span class="text-xs font-black text-amber-800 uppercase block mb-1">自動感應工整度得分</span>
+                <div class="text-5xl font-black text-amber-600 my-1" id="neatnessScoreText">92%</div>
+                <div id="neatnessStars" class="text-amber-400 text-xl my-1">⭐⭐⭐⭐⭐</div>
+                <p id="neatnessFeedback" class="text-slate-700 font-black text-sm mt-2">字形超級標準工整！真是寫字小達人！</p>
+            </div>
+
+            <div id="neatnessRewardBadge" class="bg-emerald-100 text-emerald-800 px-3 py-1.5 rounded-xl font-black text-xs mb-5 flex items-center justify-center gap-1">
+                <span>⭐ 獲得額外獎勵：</span>
+                <span id="neatnessTokenEarned" class="text-sm">+20 Token</span>
+            </div>
+
+            <button onclick="closeNeatnessModal()" class="w-full py-3 bg-amber-400 hover:bg-amber-500 text-slate-900 font-black rounded-2xl text-sm shadow transition">
+                收到！繼續練習
             </button>
         </div>
     </div>
@@ -655,14 +683,27 @@
                     <span>教師專區 / 課堂示範模式</span>
                 </button>
 
-                <!-- Class Tabs (3A / 3B) -->
-                <div class="flex items-center justify-center gap-2 mt-3 mb-1">
-                    <button id="tabBtn3A" onclick="switchClassTab('3A')" class="px-5 py-1.5 rounded-xl font-black text-sm transition bg-amber-400 text-slate-900 shadow">
-                        🎒 3A 班 (7位)
-                    </button>
-                    <button id="tabBtn3B" onclick="switchClassTab('3B')" class="px-5 py-1.5 rounded-xl font-black text-sm transition bg-slate-100 text-slate-600 hover:bg-slate-200">
-                        🎒 3B 班 (9位)
-                    </button>
+                <!-- Class Tabs (3A-3D, 4A-4D 8-Class Grid) -->
+                <div class="mt-3 mb-1 bg-amber-50/80 p-2.5 rounded-2xl border border-amber-200">
+                    <div class="text-[11px] font-black text-amber-800 text-left mb-1.5 flex items-center justify-between">
+                        <span>🎒 小三 (P3) 班別快選：</span>
+                    </div>
+                    <div class="grid grid-cols-4 gap-1.5 mb-2">
+                        <button id="tabBtn3A" onclick="switchClassTab('3A')" class="py-1.5 px-1 rounded-xl font-black text-xs transition bg-amber-400 text-slate-900 shadow ring-2 ring-amber-500">3A 班</button>
+                        <button id="tabBtn3B" onclick="switchClassTab('3B')" class="py-1.5 px-1 rounded-xl font-black text-xs transition bg-white text-slate-600 hover:bg-amber-100 border border-amber-200">3B 班</button>
+                        <button id="tabBtn3C" onclick="switchClassTab('3C')" class="py-1.5 px-1 rounded-xl font-black text-xs transition bg-white text-slate-600 hover:bg-amber-100 border border-amber-200">3C 班</button>
+                        <button id="tabBtn3D" onclick="switchClassTab('3D')" class="py-1.5 px-1 rounded-xl font-black text-xs transition bg-white text-slate-600 hover:bg-amber-100 border border-amber-200">3D 班</button>
+                    </div>
+
+                    <div class="text-[11px] font-black text-purple-800 text-left mb-1.5">
+                        🚀 小四 (P4) 班別快選：
+                    </div>
+                    <div class="grid grid-cols-4 gap-1.5">
+                        <button id="tabBtn4A" onclick="switchClassTab('4A')" class="py-1.5 px-1 rounded-xl font-black text-xs transition bg-white text-slate-600 hover:bg-purple-100 border border-purple-200">4A 班</button>
+                        <button id="tabBtn4B" onclick="switchClassTab('4B')" class="py-1.5 px-1 rounded-xl font-black text-xs transition bg-white text-slate-600 hover:bg-purple-100 border border-purple-200">4B 班</button>
+                        <button id="tabBtn4C" onclick="switchClassTab('4C')" class="py-1.5 px-1 rounded-xl font-black text-xs transition bg-white text-slate-600 hover:bg-purple-100 border border-purple-200">4C 班</button>
+                        <button id="tabBtn4D" onclick="switchClassTab('4D')" class="py-1.5 px-1 rounded-xl font-black text-xs transition bg-white text-slate-600 hover:bg-purple-100 border border-purple-200">4D 班</button>
+                    </div>
                 </div>
             </div>
 
@@ -673,7 +714,7 @@
         </div>
     </div>
 
-    <!-- Modal 2: 4-Digit PIN Entry -->
+    <!-- Modal 2: 4-Digit PIN Entry (FIXED KEYPAD LAYOUT & HANDLERS) -->
     <div id="pinModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
         <div id="pinModalBox" class="bg-white p-6 rounded-3xl border-4 border-amber-300 max-w-sm w-full text-center shadow-2xl animate-pop-in">
             <div class="w-14 h-14 bg-amber-100 text-amber-700 rounded-2xl flex items-center justify-center text-2xl mx-auto mb-2">
@@ -695,26 +736,30 @@
 
             <p id="pinErrMsg" class="text-xs font-bold text-rose-500 h-4 mb-2"></p>
 
-            <!-- On-Screen Touch Keypad -->
+            <!-- On-Screen Touch Keypad: Dedicated Class Letters A, B, C, D -->
+            <div class="grid grid-cols-4 gap-2 mb-3">
+                <button onclick="pressPinKey('A')" class="py-2.5 bg-emerald-100 hover:bg-emerald-200 text-emerald-900 border-2 border-emerald-300 font-black rounded-xl text-base shadow-sm transition transform active:scale-95">A</button>
+                <button onclick="pressPinKey('B')" class="py-2.5 bg-emerald-100 hover:bg-emerald-200 text-emerald-900 border-2 border-emerald-300 font-black rounded-xl text-base shadow-sm transition transform active:scale-95">B</button>
+                <button onclick="pressPinKey('C')" class="py-2.5 bg-emerald-100 hover:bg-emerald-200 text-emerald-900 border-2 border-emerald-300 font-black rounded-xl text-base shadow-sm transition transform active:scale-95">C</button>
+                <button onclick="pressPinKey('D')" class="py-2.5 bg-emerald-100 hover:bg-emerald-200 text-emerald-900 border-2 border-emerald-300 font-black rounded-xl text-base shadow-sm transition transform active:scale-95">D</button>
+            </div>
+
+            <!-- Standard Numeric Keypad (3-Column Grid: 1-9, 0, Backspace) -->
             <div class="grid grid-cols-3 gap-2 mb-4">
-                <button onclick="pressPinKey('3')" class="py-3 bg-amber-100 hover:bg-amber-200 text-amber-900 font-black rounded-xl text-lg shadow-sm">3</button>
-                <button onclick="pressPinKey('A')" class="py-3 bg-amber-100 hover:bg-amber-200 text-amber-900 font-black rounded-xl text-lg shadow-sm">A</button>
-                <button onclick="pressPinKey('B')" class="py-3 bg-amber-100 hover:bg-amber-200 text-amber-900 font-black rounded-xl text-lg shadow-sm">B</button>
+                <button onclick="pressPinKey('1')" class="py-3 bg-slate-100 hover:bg-slate-200 font-black rounded-xl text-lg shadow-sm transition transform active:scale-95">1</button>
+                <button onclick="pressPinKey('2')" class="py-3 bg-slate-100 hover:bg-slate-200 font-black rounded-xl text-lg shadow-sm transition transform active:scale-95">2</button>
+                <button onclick="pressPinKey('3')" class="py-3 bg-slate-100 hover:bg-slate-200 font-black rounded-xl text-lg shadow-sm transition transform active:scale-95">3</button>
                 
-                <button onclick="pressPinKey('1')" class="py-3 bg-slate-100 hover:bg-slate-200 font-black rounded-xl text-lg shadow-sm">1</button>
-                <button onclick="pressPinKey('2')" class="py-3 bg-slate-100 hover:bg-slate-200 font-black rounded-xl text-lg shadow-sm">2</button>
-                <button onclick="pressPinKey('3')" class="py-3 bg-slate-100 hover:bg-slate-200 font-black rounded-xl text-lg shadow-sm">3</button>
+                <button onclick="pressPinKey('4')" class="py-3 bg-slate-100 hover:bg-slate-200 font-black rounded-xl text-lg shadow-sm transition transform active:scale-95">4</button>
+                <button onclick="pressPinKey('5')" class="py-3 bg-slate-100 hover:bg-slate-200 font-black rounded-xl text-lg shadow-sm transition transform active:scale-95">5</button>
+                <button onclick="pressPinKey('6')" class="py-3 bg-slate-100 hover:bg-slate-200 font-black rounded-xl text-lg shadow-sm transition transform active:scale-95">6</button>
                 
-                <button onclick="pressPinKey('4')" class="py-3 bg-slate-100 hover:bg-slate-200 font-black rounded-xl text-lg shadow-sm">4</button>
-                <button onclick="pressPinKey('5')" class="py-3 bg-slate-100 hover:bg-slate-200 font-black rounded-xl text-lg shadow-sm">5</button>
-                <button onclick="pressPinKey('6')" class="py-3 bg-slate-100 hover:bg-slate-200 font-black rounded-xl text-lg shadow-sm">6</button>
+                <button onclick="pressPinKey('7')" class="py-3 bg-slate-100 hover:bg-slate-200 font-black rounded-xl text-lg shadow-sm transition transform active:scale-95">7</button>
+                <button onclick="pressPinKey('8')" class="py-3 bg-slate-100 hover:bg-slate-200 font-black rounded-xl text-lg shadow-sm transition transform active:scale-95">8</button>
+                <button onclick="pressPinKey('9')" class="py-3 bg-slate-100 hover:bg-slate-200 font-black rounded-xl text-lg shadow-sm transition transform active:scale-95">9</button>
                 
-                <button onclick="pressPinKey('7')" class="py-3 bg-slate-100 hover:bg-slate-200 font-black rounded-xl text-lg shadow-sm">7</button>
-                <button onclick="pressPinKey('8')" class="py-3 bg-slate-100 hover:bg-slate-200 font-black rounded-xl text-lg shadow-sm">8</button>
-                <button onclick="pressPinKey('9')" class="py-3 bg-slate-100 hover:bg-slate-200 font-black rounded-xl text-lg shadow-sm">9</button>
-                
-                <button onclick="pressPinKey('0')" class="col-span-2 py-3 bg-slate-100 hover:bg-slate-200 font-black rounded-xl text-lg shadow-sm">0</button>
-                <button onclick="pressPinBackspace()" class="py-3 bg-rose-100 hover:bg-rose-200 text-rose-700 font-black rounded-xl text-base shadow-sm">⌫</button>
+                <button onclick="pressPinKey('0')" class="col-span-2 py-3 bg-slate-100 hover:bg-slate-200 font-black rounded-xl text-lg shadow-sm transition transform active:scale-95">0</button>
+                <button onclick="pressPinBackspace()" class="py-3 bg-rose-100 hover:bg-rose-200 text-rose-700 font-black rounded-xl text-base shadow-sm transition transform active:scale-95">⌫</button>
             </div>
 
             <button onclick="closePinModal()" class="text-xs font-bold text-slate-400 hover:text-slate-600">
@@ -756,7 +801,7 @@
         </div>
     </div>
 
-    <!-- Modal 3.5: Level 4 Dedicated Tier Selector Modal (No Timed Mode) -->
+    <!-- Modal 3.5: Level 4 Dedicated Tier Selector Modal -->
     <div id="level4ModeModal" class="fixed inset-0 bg-slate-900/70 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
         <div class="bg-white p-6 md:p-8 rounded-3xl border-4 border-rose-400 max-w-md w-full text-center shadow-2xl animate-pop-in max-h-[90vh] overflow-y-auto">
             <div class="w-16 h-16 bg-rose-100 text-rose-600 rounded-full flex items-center justify-center text-3xl mx-auto mb-2">
@@ -912,6 +957,9 @@
                 const utter = new SpeechSynthesisUtterance(cleanText);
                 utter.lang = 'ko-KR';
                 utter.rate = 0.85;
+                utter.onerror = () => {
+                    console.warn("SpeechSynthesis error or ko-KR voice not installed.");
+                };
                 window.speechSynthesis.speak(utter);
             }
         }
@@ -961,7 +1009,7 @@
             { id: "eomuk", nameKo: "어묵", nameZh: "魚糕串", roma: "eo-muk", emoji: "🍢" },
             { id: "hatdogeu", nameKo: "핫도그", nameZh: "韓式熱狗", roma: "hat-do-geu", emoji: "🌭" },
             { id: "hotteok", nameKo: "호떡", nameZh: "黑糖煎餅", roma: "ho-tteok", emoji: "🥞" },
-            { id: "gimbap", nameKo: "김밥", nameZh: "紫菜包飯", roma: "kimbap", emoji: "🍣" },
+            { id: "gimbap", nameKo: "김밥", nameZh: "紫菜包飯", roma: "kimbap", emoji: "🍙" },
             { id: "ramyen", nameKo: "라면", nameZh: "韓式拉麵", roma: "ra-myeon", emoji: "🍜" },
             { id: "tteokbokki", nameKo: "떡볶이", nameZh: "辣炒年糕", roma: "tteok-bok-ki", emoji: "🍡" }
         ];
@@ -1168,16 +1216,21 @@
             audio.playPop();
             state.activeClassTab = cls;
             
-            const btn3A = document.getElementById('tabBtn3A');
-            const btn3B = document.getElementById('tabBtn3B');
-
-            if (cls === '3A') {
-                btn3A.className = "px-5 py-2 rounded-xl font-black text-sm transition bg-amber-400 text-slate-900 shadow ring-2 ring-amber-500";
-                btn3B.className = "px-5 py-2 rounded-xl font-black text-sm transition bg-slate-100 text-slate-600 hover:bg-slate-200";
-            } else {
-                btn3B.className = "px-5 py-2 rounded-xl font-black text-sm transition bg-amber-400 text-slate-900 shadow ring-2 ring-amber-500";
-                btn3A.className = "px-5 py-2 rounded-xl font-black text-sm transition bg-slate-100 text-slate-600 hover:bg-slate-200";
-            }
+            const classes = ['3A', '3B', '3C', '3D', '4A', '4B', '4C', '4D'];
+            classes.forEach(c => {
+                const btn = document.getElementById(`tabBtn${c}`);
+                if (!btn) return;
+                const isP3 = c.startsWith('3');
+                if (c === cls) {
+                    btn.className = isP3 
+                        ? "py-1.5 px-1 rounded-xl font-black text-xs transition bg-amber-400 text-slate-900 shadow ring-2 ring-amber-500"
+                        : "py-1.5 px-1 rounded-xl font-black text-xs transition bg-purple-600 text-white shadow ring-2 ring-purple-400";
+                } else {
+                    btn.className = isP3 
+                        ? "py-1.5 px-1 rounded-xl font-black text-xs transition bg-white text-slate-600 hover:bg-amber-100 border border-amber-200"
+                        : "py-1.5 px-1 rounded-xl font-black text-xs transition bg-white text-slate-600 hover:bg-purple-100 border border-purple-200";
+                }
+            });
             renderStudentCardsGrid();
         }
 
@@ -1186,6 +1239,16 @@
             grid.innerHTML = '';
 
             const filteredStudents = STUDENTS.filter(s => s.class === state.activeClassTab);
+
+            if (filteredStudents.length === 0) {
+                grid.innerHTML = `
+                    <div class="col-span-2 sm:col-span-3 py-8 text-center text-slate-400 font-bold text-xs bg-slate-50 rounded-2xl border-2 border-dashed border-slate-200">
+                        <span class="text-2xl block mb-1">📂</span>
+                        <span>${state.activeClassTab} 班暫無學生資料</span>
+                    </div>
+                `;
+                return;
+            }
 
             filteredStudents.forEach(student => {
                 const card = document.createElement('button');
@@ -1548,13 +1611,48 @@
             showHome();
         }
 
-        /* ================= LEVEL 1: SCENARIO RESPONSES ================= */
+        /* ================= LEVEL 1: SCENARIO RESPONSES (STRICT 5 PHRASES) ================= */
         const L1_DATA = [
-            { icon: "🏫", scenario: "早上上學遇見韓語老師", options: [{ text: "안녕하세요!", ko: "안녕하세요!", correct: true }, { text: "맛있게 드세요!", ko: "맛있게 드세요!", correct: false }] },
-            { icon: "🍱", scenario: "準備與同學一起享用午餐美味炸雞", options: [{ text: "맛있게 드세요!", ko: "맛있게 드세요!", correct: true }, { text: "안녕히 가세요!", ko: "안녕히 가세요!", correct: false }] },
-            { icon: "🎁", scenario: "收到同學送的精美禮物", options: [{ text: "감사합니다!", ko: "감사합니다!", correct: true }, { text: "죄송합니다!", ko: "죄송합니다!", correct: false }] },
-            { icon: "🚪", scenario: "放學離開教室向老師道別", options: [{ text: "안녕히 계세요!", ko: "안녕히 계세요!", correct: true }, { text: "반갑습니다!", ko: "반갑습니다!", correct: false }] },
-            { icon: "👟", scenario: "不小心踩到同學的腳", options: [{ text: "죄송합니다!", ko: "죄송합니다!", correct: true }, { text: "감사합니다!", ko: "감사합니다!", correct: false }] }
+            { 
+                icon: "🏫", 
+                scenario: "早上在校門口遇見老師或同學時", 
+                options: [
+                    { text: "안녕하세요!", ko: "안녕하세요!", correct: true }, 
+                    { text: "감사합니다!", ko: "감사합니다!", correct: false }
+                ] 
+            },
+            { 
+                icon: "🎁", 
+                scenario: "收到同學送給你的生日禮物時", 
+                options: [
+                    { text: "감사합니다!", ko: "감사합니다!", correct: true }, 
+                    { text: "미안해요!", ko: "미안해요!", correct: false }
+                ] 
+            },
+            { 
+                icon: "👟", 
+                scenario: "不小心踩到同學的鞋子時道歉", 
+                options: [
+                    { text: "미안해요!", ko: "미안해요!", correct: true }, 
+                    { text: "괜찮아요!", ko: "괜찮아요!", correct: false }
+                ] 
+            },
+            { 
+                icon: "🤝", 
+                scenario: "同學向你道歉說對不起時回答", 
+                options: [
+                    { text: "괜찮아요!", ko: "괜찮아요!", correct: true }, 
+                    { text: "안녕하세요!", ko: "안녕하세요!", correct: false }
+                ] 
+            },
+            { 
+                icon: "🍗", 
+                scenario: "品嚐到好吃的韓式炸雞時誇讚", 
+                options: [
+                    { text: "맛있어요!", ko: "맛있어요!", correct: true }, 
+                    { text: "미안해요!", ko: "미안해요!", correct: false }
+                ] 
+            }
         ];
 
         function initL1() {
@@ -1756,7 +1854,6 @@
             document.getElementById('l4-hint-text').innerText = `${q.hint} 💡 (${q.grammarTip})`;
             document.getElementById('l4-hint-btn').classList.remove('hidden');
 
-            // 固定當前題目的食物卡片組合與順序，避免點擊修改數量時重新亂數換卡
             const targetIds = q.foods.map(f => f.id);
             const targetItems = FOODS.filter(f => targetIds.includes(f.id));
             const countNeeded = state.l4Tier === 'beginner' ? 3 : 6;
@@ -1860,13 +1957,13 @@
             }
         }
 
-        /* ================= LEVEL 5: FAMILY MEMBERS ================= */
+        /* ================= LEVEL 5: FAMILY MEMBERS (ROMANIZED PRONUNCIATIONS ONLY) ================= */
         const L5_DATA = [
             { isGirl: true, speaker: "👧 我是女生", target: "這是我的「哥哥」", avatar: "👨‍🦱", options: [{ text: "오빠 (Oppa)", correct: true }, { text: "형 (Hyung)", correct: false }, { text: "언니 (Unni)", correct: false }, { text: "누나 (Noona)", correct: false }] },
             { isGirl: false, speaker: "👦 我是男生", target: "這是我的「哥哥」", avatar: "👨‍🦱", options: [{ text: "형 (Hyung)", correct: true }, { text: "오빠 (Oppa)", correct: false }, { text: "누나 (Noona)", correct: false }, { text: "언니 (Unni)", correct: false }] },
             { isGirl: true, speaker: "👧 我是女生", target: "這是我的「姊姊」", avatar: "👩‍🦱", options: [{ text: "언니 (Unni)", correct: true }, { text: "누나 (Noona)", correct: false }, { text: "오빠 (Oppa)", correct: false }, { text: "형 (Hyung)", correct: false }] },
             { isGirl: false, speaker: "👦 我是男生", target: "這是我的「姊姊」", avatar: "👩‍🦱", options: [{ text: "누나 (Noona)", correct: true }, { text: "언니 (Unni)", correct: false }, { text: "형 (Hyung)", correct: false }, { text: "오빠 (Oppa)", correct: false }] },
-            { isGirl: true, speaker: "👧 我是女生", target: "這是我的「爸爸」", avatar: "👨", options: [{ text: "아버지 (Father)", correct: true }, { text: "어머니 (Mother)", correct: false }, { text: "동생 (Sibling)", correct: false }, { text: "오빠 (Oppa)", correct: false }] }
+            { isGirl: true, speaker: "👧 我是女生", target: "這是我的「爸爸」", avatar: "👨", options: [{ text: "아버지 (Abeoji)", correct: true }, { text: "어머니 (Eomoni)", correct: false }, { text: "동생 (Dongsaeng)", correct: false }, { text: "오빠 (Oppa)", correct: false }] }
         ];
 
         function initL5() {
@@ -1911,6 +2008,18 @@
         let tracingCanvas, tracingCtx, isDrawing = false;
         let penColor = '#1E293B', penWidth = 12;
 
+        function getCurrentTracingKoreanText() {
+            if (state.isTeacherMode) {
+                const sel = document.getElementById('teacherTracingSelect');
+                if (sel && sel.value !== 'teacher') {
+                    const s = STUDENTS.find(item => item.id == sel.value);
+                    if (s) return s.kr;
+                }
+                return '선생님';
+            }
+            return state.studentKo;
+        }
+
         function startTracing() {
             audio.playPop();
             hideAllTabs();
@@ -1923,7 +2032,7 @@
             if (!tracingCanvas) return;
             tracingCtx = tracingCanvas.getContext('2d');
 
-            drawTracingBackground(state.studentKo);
+            drawTracingBackground(getCurrentTracingKoreanText());
 
             tracingCanvas.onmousedown = startDraw;
             tracingCanvas.onmousemove = draw;
@@ -1956,11 +2065,15 @@
             tracingCtx.stroke();
             tracingCtx.setLineDash([]);
 
+            // 過濾並確保傳入畫布背景的僅為韓文字符
+            const cleanKrText = textStr.replace(/[^\uAC00-\uD7AF]/g, '');
+            const textToRender = cleanKrText || textStr;
+
             tracingCtx.font = 'bold 110px "Comic Sans MS", "Chalkboard SE", "Malgun Gothic", sans-serif';
             tracingCtx.fillStyle = '#CBD5E1';
             tracingCtx.textAlign = 'center';
             tracingCtx.textBaseline = 'middle';
-            tracingCtx.fillText(textStr, 300, 130);
+            tracingCtx.fillText(textToRender, 300, 130);
         }
 
         function getCanvasPos(evt) {
@@ -1976,6 +2089,13 @@
         function startDraw(e) {
             isDrawing = true;
             const pos = getCanvasPos(e);
+            
+            // 繪製單點落筆 (即刻補上圓點，確保觸控/滑鼠單次點擊順暢落筆)
+            tracingCtx.beginPath();
+            tracingCtx.arc(pos.x, pos.y, penWidth / 2, 0, Math.PI * 2);
+            tracingCtx.fillStyle = penColor;
+            tracingCtx.fill();
+
             tracingCtx.beginPath();
             tracingCtx.moveTo(pos.x, pos.y);
             tracingCtx.strokeStyle = penColor;
@@ -1997,21 +2117,157 @@
 
         function clearTracingCanvas() {
             audio.playPop();
-            drawTracingBackground(state.isTeacherMode ? (document.getElementById('tracingStudentTitle').innerText.includes('선생님') ? '선생님' : state.studentKo) : state.studentKo);
+            drawTracingBackground(getCurrentTracingKoreanText());
         }
 
-        function setPenColor(col) {
+        function setPenColor(col, btnEl) {
             audio.playPop();
             penColor = col;
+            
+            const group = document.getElementById('colorPickerGroup');
+            if (group) {
+                group.querySelectorAll('button').forEach(btn => {
+                    btn.classList.remove('ring-2', 'ring-offset-2', 'ring-slate-800', 'ring-red-500', 'ring-blue-500', 'ring-pink-500', 'scale-110');
+                });
+            }
+            if (btnEl) {
+                btnEl.classList.add('ring-2', 'ring-offset-2', 'scale-110');
+                if (col === '#1E293B') btnEl.classList.add('ring-slate-800');
+                else if (col === '#EF4444') btnEl.classList.add('ring-red-500');
+                else if (col === '#3B82F6') btnEl.classList.add('ring-blue-500');
+                else if (col === '#EC4899') btnEl.classList.add('ring-pink-500');
+            }
         }
 
-        function setPenWidth(w) {
+        function setPenWidth(w, btnEl) {
             audio.playPop();
             penWidth = w;
+            
+            const group = document.getElementById('widthPickerGroup');
+            if (group) {
+                group.querySelectorAll('button').forEach(btn => {
+                    btn.classList.remove('ring-2', 'ring-blue-500', 'font-black', 'text-blue-600');
+                    btn.classList.add('text-slate-700');
+                });
+            }
+            if (btnEl) {
+                btnEl.classList.remove('text-slate-700');
+                btnEl.classList.add('ring-2', 'ring-blue-500', 'font-black', 'text-blue-600');
+            }
         }
 
         function speakTracingName() {
-            audio.speak(state.studentKo);
+            audio.speak(getCurrentTracingKoreanText());
+        }
+
+        /* ================= AUTOMATIC NEATNESS EVALUATION ENGINE ================= */
+        function evaluateHandwritingNeatness() {
+            if (!tracingCanvas) return;
+            audio.playPop();
+
+            const w = tracingCanvas.width;
+            const h = tracingCanvas.height;
+            const textStr = getCurrentTracingKoreanText();
+
+            const refCanvas = document.createElement('canvas');
+            refCanvas.width = w;
+            refCanvas.height = h;
+            const refCtx = refCanvas.getContext('2d');
+
+            refCtx.fillStyle = '#000000';
+            refCtx.fillRect(0, 0, w, h);
+            refCtx.font = 'bold 110px "Comic Sans MS", "Chalkboard SE", "Malgun Gothic", sans-serif';
+            refCtx.fillStyle = '#FFFFFF';
+            refCtx.textAlign = 'center';
+            refCtx.textBaseline = 'middle';
+            refCtx.fillText(textStr, 300, 130);
+
+            const refImgData = refCtx.getImageData(0, 0, w, h).data;
+            const userImgData = tracingCtx.getImageData(0, 0, w, h).data;
+
+            let templatePixelCount = 0;
+            let userPixelCount = 0;
+            let overlapCount = 0;
+
+            for (let y = 0; y < h; y += 3) {
+                for (let x = 0; x < w; x += 3) {
+                    const idx = (y * w + x) * 4;
+
+                    const isTemplate = refImgData[idx] > 200;
+                    
+                    const r = userImgData[idx];
+                    const g = userImgData[idx + 1];
+                    const b = userImgData[idx + 2];
+                    
+                    const isUserStroke = (r < 190 && g < 190) || (r > 200 && g < 100);
+
+                    if (isTemplate) templatePixelCount++;
+                    if (isUserStroke) {
+                        userPixelCount++;
+                        if (isTemplate) overlapCount++;
+                    }
+                }
+            }
+
+            if (userPixelCount < 40) {
+                showCustomAlert("⚠️ 畫布上的筆劃太少囉！請先沿著灰字完整描寫名字再進行感應驗證！");
+                return;
+            }
+
+            const coverageRatio = Math.min(1.0, overlapCount / Math.max(1, templatePixelCount));
+            const precisionRatio = overlapCount / Math.max(1, userPixelCount);
+
+            let finalScore = Math.round((coverageRatio * 0.65 + precisionRatio * 0.35) * 100 * 1.35);
+            finalScore = Math.min(100, Math.max(15, finalScore));
+
+            showNeatnessResultModal(finalScore);
+        }
+
+        function showNeatnessResultModal(score) {
+            const modal = document.getElementById('neatnessModal');
+            const scoreText = document.getElementById('neatnessScoreText');
+            const starsText = document.getElementById('neatnessStars');
+            const feedbackText = document.getElementById('neatnessFeedback');
+            const rewardText = document.getElementById('neatnessTokenEarned');
+            const icon = document.getElementById('neatnessIcon');
+
+            scoreText.innerText = `${score}%`;
+
+            let rewardTokens = 10;
+            if (score >= 90) {
+                icon.innerText = "🏆";
+                starsText.innerText = "⭐⭐⭐⭐⭐";
+                feedbackText.innerText = "🌟 神筆馬良！字形超級工整標準！";
+                rewardTokens = 25;
+            } else if (score >= 75) {
+                icon.innerText = "🌟";
+                starsText.innerText = "⭐⭐⭐⭐";
+                feedbackText.innerText = "👍 非常優秀！筆劃非常貼合樣板！";
+                rewardTokens = 20;
+            } else if (score >= 60) {
+                icon.innerText = "✏️";
+                starsText.innerText = "⭐⭐⭐";
+                feedbackText.innerText = "💪 寫得很好！再接再厲會更工整喔！";
+                rewardTokens = 15;
+            } else {
+                icon.innerText = "🌱";
+                starsText.innerText = "⭐⭐";
+                feedbackText.innerText = "🎯 繼續加油！試著沿著灰字中心描寫更精準！";
+                rewardTokens = 10;
+            }
+
+            rewardText.innerText = `+${rewardTokens} Token`;
+            addScore(rewardTokens);
+
+            confetti({ particleCount: 80, spread: 60, origin: { y: 0.6 } });
+            audio.playCorrect();
+
+            modal.classList.remove('hidden');
+        }
+
+        function closeNeatnessModal() {
+            audio.playPop();
+            document.getElementById('neatnessModal').classList.add('hidden');
         }
 
         /* ================= INITIALIZATION ================= */
