@@ -287,11 +287,11 @@
                             </div>
                             <h3 class="text-2xl font-black mb-1">家庭成員大作戰</h3>
                             <p class="text-indigo-100 font-bold text-xs md:text-sm">
-                                男女視角稱呼配對：包含 오빠/형/언니/누나 與爸爸媽媽弟妹 8 大家人！
+                                男女視角稱呼配對：隨機 5 題挑戰 오빠/형/언니/누나 與爸爸媽媽弟妹 8 大家人！
                             </p>
                         </div>
                         <div class="mt-4 flex items-center justify-between text-xs font-black text-indigo-100">
-                            <span>家庭稱呼 (5 題)</span>
+                            <span>家庭稱呼 (隨機 5 題)</span>
                             <span class="w-8 h-8 bg-white text-indigo-600 rounded-full flex items-center justify-center text-sm shadow"><i class="fa-solid fa-play"></i></span>
                         </div>
                     </div>
@@ -396,7 +396,7 @@
                 </div>
 
                 <div id="l1-options" class="grid grid-cols-1 sm:grid-cols-2 gap-5 max-w-2xl mx-auto">
-                    <!-- Dynamic 2 choices -->
+                    <!-- Dynamic choices -->
                 </div>
             </div>
         </div>
@@ -438,7 +438,1185 @@
                 <div class="flex items-center justify-between mb-4 border-b-2 border-sky-100 pb-3">
                     <button onclick="showHome()" class="text-sm font-bold text-slate-500 hover:text-slate-800">
                         <i class="fa-solid fa-chevron-left mr-1"></i> 返回選單
-"안녕하세요!", options: [
+                    </button>
+                    <span class="text-xs font-black bg-sky-100 text-sky-800 px-3 py-1 rounded-full">關卡 3 • 題目 <span id="l3-q-index">1</span> / 5</span>
+                </div>
+
+                <div class="bg-sky-50 p-6 md:p-8 rounded-3xl border-3 border-sky-200 text-center mb-6">
+                    <div id="l3-prompt-icon" class="text-6xl mb-2">🔢</div>
+                    <div class="flex items-center justify-center gap-3">
+                        <h3 id="l3-prompt-main" class="text-4xl md:text-5xl font-black text-slate-800">
+                            數字 5
+                        </h3>
+                        <button onclick="playCurrentL3NumberAudio()" class="w-12 h-12 bg-sky-400 hover:bg-sky-500 text-white rounded-2xl flex items-center justify-center text-xl shadow-md transition">
+                            🔊
+                        </button>
+                    </div>
+                    <p id="l3-prompt-sub" class="text-slate-500 font-bold text-sm mt-2">
+                        請選出對應的韓文數字單字：
+                    </p>
+                </div>
+
+                <div id="l3-number-options" class="grid grid-cols-1 sm:grid-cols-2 gap-5 max-w-xl mx-auto">
+                    <!-- Dynamic choices -->
+                </div>
+            </div>
+        </div>
+
+
+        <!-- ================= LEVEL 4: 小吃攤點餐大師 ================= -->
+        <div id="tab-level4" class="tab-content hidden animate-pop-in">
+            <div class="glass-panel p-6 md:p-8 rounded-3xl shadow-2xl">
+                <div class="flex items-center justify-between mb-4 border-b-2 border-pink-100 pb-3">
+                    <button onclick="showHome()" class="text-sm font-bold text-slate-500 hover:text-slate-800">
+                        <i class="fa-solid fa-chevron-left mr-1"></i> 返回選單
+                    </button>
+                    <div class="flex items-center gap-2">
+                        <span id="l4-tier-badge" class="text-xs font-black bg-purple-100 text-purple-800 px-2.5 py-1 rounded-full">🌱 初級點餐</span>
+                        <span class="text-xs font-black bg-rose-100 text-rose-800 px-3 py-1 rounded-full">關卡 4 • 題目 <span id="l4-q-index">1</span> / 5</span>
+                    </div>
+                </div>
+
+                <div class="bg-rose-50 p-5 rounded-3xl border-3 border-rose-200 mb-6">
+                    <div class="flex items-start gap-4">
+                        <div class="text-5xl shrink-0 bg-white p-2 rounded-2xl shadow-sm">🧑‍🦱</div>
+                        <div class="flex-1">
+                            <div class="flex items-center justify-between flex-wrap gap-2">
+                                <span class="text-xs font-black text-rose-600 bg-rose-100 px-2.5 py-0.5 rounded-full">純韓文聽與讀 (-인분)</span>
+                                <button onclick="playCurrentL4Audio()" class="text-xs font-bold text-rose-700 bg-white px-2.5 py-1 rounded-lg shadow-sm border border-rose-200 hover:bg-rose-100">
+                                    🔊 重聽點餐
+                                </button>
+                            </div>
+                            <h3 id="l4-demand-korean" class="text-2xl md:text-3xl font-black text-slate-800 mt-2 tracking-wide">
+                                "치킨 이인분 주세요!"
+                            </h3>
+                        </div>
+                    </div>
+
+                    <div class="mt-4 pt-3 border-t border-rose-200/60 flex items-center justify-between flex-wrap gap-2">
+                        <button id="l4-hint-btn" onclick="revealL4Hint()" class="px-3.5 py-1.5 bg-amber-400 hover:bg-amber-500 text-amber-950 font-black text-xs rounded-xl shadow transition flex items-center gap-1.5">
+                            <span>💡 顯示中文提示</span>
+                            <span class="bg-amber-200 text-amber-900 px-1.5 py-0.5 rounded-md font-extrabold text-[10px]">-10 積分 Token</span>
+                        </button>
+
+                        <div id="l4-hint-text" class="hidden text-sm font-black text-rose-700 bg-white px-3 py-1 rounded-xl shadow-inner border border-rose-200">
+                            <!-- Hint text -->
+                        </div>
+                    </div>
+                </div>
+
+                <p class="text-center font-bold text-xs text-slate-500 mb-3">
+                    👇 點擊對應食物圖片來增加份量（點擊增加 / 扣減）：
+                </p>
+                <div id="l4-food-grid" class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+                    <!-- Dynamic foods (3 or 6 depending on tier) -->
+                </div>
+
+                <div class="flex justify-center gap-4">
+                    <button onclick="resetL4Selection()" class="px-5 py-3 bg-slate-200 hover:bg-slate-300 text-slate-700 font-black rounded-2xl text-sm transition">
+                        🔄 다시 (重置)
+                    </button>
+                    <button onclick="submitL4Order()" class="px-8 py-3 bg-gradient-to-r from-rose-500 to-pink-500 hover:brightness-110 text-white font-black rounded-2xl text-base shadow-lg transition transform active:scale-95">
+                        🍱 제출 (上菜驗證)
+                    </button>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- ================= LEVEL 5: 家庭成員大作戰 ================= -->
+        <div id="tab-level5" class="tab-content hidden animate-pop-in">
+            <div class="glass-panel p-6 md:p-8 rounded-3xl shadow-2xl">
+                <div class="flex items-center justify-between mb-4 border-b-2 border-indigo-100 pb-3">
+                    <button onclick="showHome()" class="text-sm font-bold text-slate-500 hover:text-slate-800">
+                        <i class="fa-solid fa-chevron-left mr-1"></i> 返回選單
+                    </button>
+                    <span class="text-xs font-black bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full">關卡 5 • 題目 <span id="l5-q-index">1</span> / 5</span>
+                </div>
+
+                <div class="bg-indigo-50/90 p-6 rounded-3xl border-3 border-indigo-200 text-center mb-6">
+                    <div class="inline-block mb-2">
+                        <span id="l5-speaker-badge" class="px-4 py-1 bg-pink-500 text-white font-black text-sm rounded-full shadow-sm">
+                            👧 我是女生
+                        </span>
+                    </div>
+                    <div id="l5-family-avatar" class="text-7xl my-2 animate-bounce-short">
+                        👨‍🦱
+                    </div>
+                    <h3 id="l5-target-title" class="text-2xl md:text-3xl font-black text-slate-800">
+                        這是我的「哥哥」
+                    </h3>
+                    <p class="text-slate-500 font-bold text-xs mt-1">請選擇正確的韓文稱呼（點擊答案自動發音）：</p>
+                </div>
+
+                <div id="l5-options-grid" class="grid grid-cols-2 gap-4 max-w-xl mx-auto">
+                    <!-- Dynamic -->
+                </div>
+            </div>
+        </div>
+
+
+        <!-- ================= MODULE: 韓文姓名描紅練習 ================= -->
+        <div id="tab-tracing" class="tab-content hidden animate-pop-in">
+            <div class="glass-panel p-6 md:p-8 rounded-3xl shadow-2xl">
+                <div class="flex items-center justify-between mb-4 border-b-2 border-blue-100 pb-3">
+                    <button onclick="showHome()" class="text-sm font-bold text-slate-500 hover:text-slate-800">
+                        <i class="fa-solid fa-chevron-left mr-1"></i> 返回選單
+                    </button>
+                    <span class="text-xs font-black bg-blue-100 text-blue-800 px-3 py-1 rounded-full">✍️ 韓文姓名描紅書寫模組</span>
+                </div>
+
+                <div class="bg-blue-50 p-5 rounded-3xl border-3 border-blue-200 mb-5">
+                    <div class="flex items-center justify-between flex-wrap gap-3">
+                        <div>
+                            <span class="text-xs font-black text-blue-800 block">當前練習學生:</span>
+                            <div class="flex items-center gap-2 flex-wrap">
+                                <h3 id="tracingStudentTitle" class="text-2xl font-black text-slate-800">
+                                    鄭仲恩 (정중은)
+                                </h3>
+                                <!-- Teacher Tracing Dropdown -->
+                                <select id="teacherTracingSelect" onchange="changeTeacherTracingStudent(this.value)" class="hidden bg-white border-2 border-blue-400 font-bold text-xs px-3 py-1.5 rounded-xl text-blue-900 focus:outline-none shadow-sm">
+                                    <option value="teacher">🍎 示範：선생님 (老師)</option>
+                                    <!-- Dynamic populated options -->
+                                </select>
+                            </div>
+                        </div>
+                        <button onclick="speakTracingName()" class="px-4 py-2.5 bg-blue-500 hover:bg-blue-600 text-white font-black rounded-2xl shadow transition flex items-center gap-2">
+                            <span>🔊 聽韓文讀音</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="relative bg-white rounded-3xl border-4 border-blue-200 shadow-inner flex justify-center items-center p-2 mb-4 overflow-hidden">
+                    <canvas id="tracingCanvas" width="600" height="260" class="w-full max-w-[600px] h-[260px] bg-slate-50 rounded-2xl cursor-crosshair"></canvas>
+                </div>
+
+                <div class="flex flex-wrap items-center justify-between gap-3 bg-slate-100 p-4 rounded-2xl border border-slate-200">
+                    <div class="flex items-center gap-2" id="colorPickerGroup">
+                        <span class="text-xs font-black text-slate-500">筆觸顏色:</span>
+                        <button onclick="setPenColor('#1E293B', this)" class="w-8 h-8 rounded-full bg-slate-800 ring-2 ring-offset-2 ring-slate-800 scale-110 transition transform active:scale-95"></button>
+                        <button onclick="setPenColor('#EF4444', this)" class="w-8 h-8 rounded-full bg-red-500 transition transform active:scale-95"></button>
+                        <button onclick="setPenColor('#3B82F6', this)" class="w-8 h-8 rounded-full bg-blue-500 transition transform active:scale-95"></button>
+                        <button onclick="setPenColor('#EC4899', this)" class="w-8 h-8 rounded-full bg-pink-500 transition transform active:scale-95"></button>
+                    </div>
+
+                    <div class="flex items-center gap-2" id="widthPickerGroup">
+                        <span class="text-xs font-black text-slate-500">筆劃粗細:</span>
+                        <button onclick="setPenWidth(6, this)" class="px-3 py-1 bg-white font-bold text-xs rounded-lg border text-slate-700 transition">細</button>
+                        <button onclick="setPenWidth(12, this)" class="px-3 py-1 bg-white font-bold text-xs rounded-lg border ring-2 ring-blue-500 text-blue-600 font-black transition">中</button>
+                        <button onclick="setPenWidth(20, this)" class="px-3 py-1 bg-white font-bold text-xs rounded-lg border text-slate-700 transition">粗</button>
+                    </div>
+
+                    <div class="flex items-center gap-2">
+                        <button onclick="clearTracingCanvas()" class="px-4 py-2 bg-rose-500 hover:bg-rose-600 text-white font-black text-xs rounded-xl shadow transition">
+                            🧹 清除重寫
+                        </button>
+                        <button onclick="evaluateHandwritingNeatness()" class="px-5 py-2 bg-gradient-to-r from-amber-400 to-orange-400 hover:brightness-110 text-slate-900 font-black text-xs rounded-xl shadow-md transition transform active:scale-95 flex items-center gap-1.5">
+                            <span>🤖 自動感應工整度</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Custom Alert Modal -->
+    <div id="customAlertModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white p-6 rounded-3xl border-4 border-amber-400 max-w-sm w-full text-center shadow-2xl animate-pop-in">
+            <div class="w-14 h-14 bg-amber-100 text-amber-600 rounded-2xl flex items-center justify-center text-3xl mx-auto mb-3">
+                🔔
+            </div>
+            <p id="customAlertMessage" class="text-base font-black text-slate-800 mb-5 leading-relaxed"></p>
+            <button onclick="closeCustomAlert()" class="w-full py-2.5 bg-amber-400 hover:bg-amber-500 text-slate-900 font-black rounded-xl text-sm shadow transition">
+                確定
+            </button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="no-print border-t border-amber-200 bg-white/70 py-3 text-center text-xs text-slate-500 font-bold">
+        <p>P3 韓語教學團隊專用教具 • 全期綜合闖關 (Session 1 ~ 4)</p>
+    </footer>
+
+    <!-- Modal 6: Handwriting Neatness Evaluation Result -->
+    <div id="neatnessModal" class="fixed inset-0 bg-slate-900/70 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white p-6 md:p-8 rounded-3xl border-4 border-amber-400 max-w-sm w-full text-center shadow-2xl animate-pop-in">
+            <div id="neatnessIcon" class="w-20 h-20 bg-amber-100 text-amber-600 rounded-full flex items-center justify-center text-4xl mx-auto mb-3 shadow-inner">
+                🌟
+            </div>
+            <h3 class="text-2xl font-black text-slate-800 mb-1">工整度感應結果</h3>
+            <p class="text-slate-500 font-bold text-xs mb-3">AI 筆劃重合度辨識完成</p>
+
+            <div class="bg-amber-50/80 p-4 rounded-2xl border-2 border-amber-200 mb-4">
+                <span class="text-xs font-black text-amber-800 uppercase block mb-1">自動感應工整度得分</span>
+                <div class="text-5xl font-black text-amber-600 my-1" id="neatnessScoreText">92%</div>
+                <div id="neatnessStars" class="text-amber-400 text-xl my-1">⭐⭐⭐⭐⭐</div>
+                <p id="neatnessFeedback" class="text-slate-700 font-black text-sm mt-2">字形超級標準工整！真是寫字小達人！</p>
+            </div>
+
+            <div id="neatnessRewardBadge" class="bg-emerald-100 text-emerald-800 px-3 py-1.5 rounded-xl font-black text-xs mb-5 flex items-center justify-center gap-1">
+                <span>⭐ 獲得額外獎勵：</span>
+                <span id="neatnessTokenEarned" class="text-sm">+20 Token</span>
+            </div>
+
+            <button onclick="closeNeatnessModal()" class="w-full py-3 bg-amber-400 hover:bg-amber-500 text-slate-900 font-black rounded-2xl text-sm shadow transition">
+                收到！繼續練習
+            </button>
+        </div>
+    </div>
+
+    <!-- Modal 1: Student Selection Entrance -->
+    <div id="studentSelectModal" class="fixed inset-0 bg-slate-900/70 backdrop-blur-md z-50 flex items-center justify-center p-3 sm:p-4">
+        <div class="bg-white p-5 md:p-7 rounded-3xl border-4 border-amber-300 max-w-xl w-full text-center shadow-2xl animate-pop-in max-h-[85vh] flex flex-col overflow-hidden">
+            <!-- Modal Header Content (Fixed Header) -->
+            <div class="shrink-0 mb-2">
+                <div class="w-14 h-14 bg-gradient-to-tr from-amber-400 to-orange-400 text-white rounded-2xl flex items-center justify-center text-2xl mx-auto mb-2 shadow-md">
+                    🇰🇷
+                </div>
+                <h3 class="text-2xl md:text-3xl font-black text-slate-800 mb-1">안녕하세요!</h3>
+                <p class="text-slate-500 font-bold text-xs md:text-sm mb-3">請點擊你的姓名登入：</p>
+
+                <!-- Teacher Demo Mode Quick Action Button -->
+                <button onclick="openPinModalForTeacher()" class="w-full py-2.5 px-4 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white font-black rounded-2xl text-xs md:text-sm shadow-md transition transform active:scale-95 flex items-center justify-center gap-2 border-2 border-purple-300">
+                    <span class="text-lg">🍎</span>
+                    <span>教師專區 / 課堂示範模式</span>
+                </button>
+
+                <!-- Class Tabs (3A-3D, 4A-4D 8-Class Grid) -->
+                <div class="mt-3 mb-1 bg-amber-50/80 p-2.5 rounded-2xl border border-amber-200">
+                    <div class="text-[11px] font-black text-amber-800 text-left mb-1.5 flex items-center justify-between">
+                        <span>🎒 小三 (P3) 班別快選：</span>
+                    </div>
+                    <div class="grid grid-cols-4 gap-1.5 mb-2">
+                        <button id="tabBtn3A" onclick="switchClassTab('3A')" class="py-1.5 px-1 rounded-xl font-black text-xs transition bg-amber-400 text-slate-900 shadow ring-2 ring-amber-500">3A 班</button>
+                        <button id="tabBtn3B" onclick="switchClassTab('3B')" class="py-1.5 px-1 rounded-xl font-black text-xs transition bg-white text-slate-600 hover:bg-amber-100 border border-amber-200">3B 班</button>
+                        <button id="tabBtn3C" onclick="switchClassTab('3C')" class="py-1.5 px-1 rounded-xl font-black text-xs transition bg-white text-slate-600 hover:bg-amber-100 border border-amber-200">3C 班</button>
+                        <button id="tabBtn3D" onclick="switchClassTab('3D')" class="py-1.5 px-1 rounded-xl font-black text-xs transition bg-white text-slate-600 hover:bg-amber-100 border border-amber-200">3D 班</button>
+                    </div>
+
+                    <div class="text-[11px] font-black text-purple-800 text-left mb-1.5">
+                        🚀 小四 (P4) 班別快選：
+                    </div>
+                    <div class="grid grid-cols-4 gap-1.5">
+                        <button id="tabBtn4A" onclick="switchClassTab('4A')" class="py-1.5 px-1 rounded-xl font-black text-xs transition bg-white text-slate-600 hover:bg-purple-100 border border-purple-200">4A 班</button>
+                        <button id="tabBtn4B" onclick="switchClassTab('4B')" class="py-1.5 px-1 rounded-xl font-black text-xs transition bg-white text-slate-600 hover:bg-purple-100 border border-purple-200">4B 班</button>
+                        <button id="tabBtn4C" onclick="switchClassTab('4C')" class="py-1.5 px-1 rounded-xl font-black text-xs transition bg-white text-slate-600 hover:bg-purple-100 border border-purple-200">4C 班</button>
+                        <button id="tabBtn4D" onclick="switchClassTab('4D')" class="py-1.5 px-1 rounded-xl font-black text-xs transition bg-white text-slate-600 hover:bg-purple-100 border border-purple-200">4D 班</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Student Cards Container -->
+            <div id="studentCardsGrid" class="grid grid-cols-2 sm:grid-cols-3 gap-2.5 overflow-y-auto p-1.5 flex-1 min-h-0 border-t border-slate-100 pt-3">
+                <!-- Dynamic Student Cards -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 2: 4-Digit PIN Entry -->
+    <div id="pinModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
+        <div id="pinModalBox" class="bg-white p-6 rounded-3xl border-4 border-amber-300 max-w-sm w-full text-center shadow-2xl animate-pop-in">
+            <div class="w-14 h-14 bg-amber-100 text-amber-700 rounded-2xl flex items-center justify-center text-2xl mx-auto mb-2">
+                🔑
+            </div>
+            <h3 class="text-xl font-black text-slate-800">身分驗證 PIN 碼</h3>
+            <p id="pinModalTitle" class="text-xs font-bold text-slate-500 mb-1">
+                請 <span id="pinStudentName" class="text-amber-700 font-black">鄭仲恩</span> 同學輸入 4 位 PIN 碼：
+            </p>
+            <p id="pinModalSub" class="text-[11px] font-bold text-slate-400 mb-3"></p>
+
+            <!-- PIN Display Box -->
+            <div id="pinDisplay" class="flex justify-center gap-2 mb-3">
+                <div class="w-10 h-12 bg-slate-100 border-2 border-slate-300 rounded-xl flex items-center justify-center text-xl font-black text-slate-800" id="pinBox0"></div>
+                <div class="w-10 h-12 bg-slate-100 border-2 border-slate-300 rounded-xl flex items-center justify-center text-xl font-black text-slate-800" id="pinBox1"></div>
+                <div class="w-10 h-12 bg-slate-100 border-2 border-slate-300 rounded-xl flex items-center justify-center text-xl font-black text-slate-800" id="pinBox2"></div>
+                <div class="w-10 h-12 bg-slate-100 border-2 border-slate-300 rounded-xl flex items-center justify-center text-xl font-black text-slate-800" id="pinBox3"></div>
+            </div>
+
+            <p id="pinErrMsg" class="text-xs font-bold text-rose-500 h-4 mb-2"></p>
+
+            <!-- On-Screen Touch Keypad: Dedicated Class Letters A, B, C, D -->
+            <div class="grid grid-cols-4 gap-2 mb-3">
+                <button onclick="pressPinKey('A')" class="py-2.5 bg-emerald-100 hover:bg-emerald-200 text-emerald-900 border-2 border-emerald-300 font-black rounded-xl text-base shadow-sm transition transform active:scale-95">A</button>
+                <button onclick="pressPinKey('B')" class="py-2.5 bg-emerald-100 hover:bg-emerald-200 text-emerald-900 border-2 border-emerald-300 font-black rounded-xl text-base shadow-sm transition transform active:scale-95">B</button>
+                <button onclick="pressPinKey('C')" class="py-2.5 bg-emerald-100 hover:bg-emerald-200 text-emerald-900 border-2 border-emerald-300 font-black rounded-xl text-base shadow-sm transition transform active:scale-95">C</button>
+                <button onclick="pressPinKey('D')" class="py-2.5 bg-emerald-100 hover:bg-emerald-200 text-emerald-900 border-2 border-emerald-300 font-black rounded-xl text-base shadow-sm transition transform active:scale-95">D</button>
+            </div>
+
+            <!-- Standard Numeric Keypad (3-Column Grid: 1-9, 0, Backspace) -->
+            <div class="grid grid-cols-3 gap-2 mb-4">
+                <button onclick="pressPinKey('1')" class="py-3 bg-slate-100 hover:bg-slate-200 font-black rounded-xl text-lg shadow-sm transition transform active:scale-95">1</button>
+                <button onclick="pressPinKey('2')" class="py-3 bg-slate-100 hover:bg-slate-200 font-black rounded-xl text-lg shadow-sm transition transform active:scale-95">2</button>
+                <button onclick="pressPinKey('3')" class="py-3 bg-slate-100 hover:bg-slate-200 font-black rounded-xl text-lg shadow-sm transition transform active:scale-95">3</button>
+                
+                <button onclick="pressPinKey('4')" class="py-3 bg-slate-100 hover:bg-slate-200 font-black rounded-xl text-lg shadow-sm transition transform active:scale-95">4</button>
+                <button onclick="pressPinKey('5')" class="py-3 bg-slate-100 hover:bg-slate-200 font-black rounded-xl text-lg shadow-sm transition transform active:scale-95">5</button>
+                <button onclick="pressPinKey('6')" class="py-3 bg-slate-100 hover:bg-slate-200 font-black rounded-xl text-lg shadow-sm transition transform active:scale-95">6</button>
+                
+                <button onclick="pressPinKey('7')" class="py-3 bg-slate-100 hover:bg-slate-200 font-black rounded-xl text-lg shadow-sm transition transform active:scale-95">7</button>
+                <button onclick="pressPinKey('8')" class="py-3 bg-slate-100 hover:bg-slate-200 font-black rounded-xl text-lg shadow-sm transition transform active:scale-95">8</button>
+                <button onclick="pressPinKey('9')" class="py-3 bg-slate-100 hover:bg-slate-200 font-black rounded-xl text-lg shadow-sm transition transform active:scale-95">9</button>
+                
+                <button onclick="pressPinKey('0')" class="col-span-2 py-3 bg-slate-100 hover:bg-slate-200 font-black rounded-xl text-lg shadow-sm transition transform active:scale-95">0</button>
+                <button onclick="pressPinBackspace()" class="py-3 bg-rose-100 hover:bg-rose-200 text-rose-700 font-black rounded-xl text-base shadow-sm transition transform active:scale-95">⌫</button>
+            </div>
+
+            <button onclick="closePinModal()" class="text-xs font-bold text-slate-400 hover:text-slate-600">
+                取消，返回選擇姓名
+            </button>
+        </div>
+    </div>
+
+    <!-- Modal 3: Standard Mode Selection (For Level 1, 2, 3, 5) -->
+    <div id="modeModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white p-6 md:p-8 rounded-3xl border-4 border-amber-300 max-w-md w-full text-center shadow-2xl animate-pop-in">
+            <div class="w-16 h-16 bg-amber-100 text-amber-600 rounded-full flex items-center justify-center text-3xl mx-auto mb-3">
+                🎮
+            </div>
+            <h3 class="text-2xl font-black text-slate-800 mb-1">選擇挑戰模式</h3>
+            <p class="text-slate-500 font-bold text-xs mb-6">請選擇你想體驗的關卡挑戰難度：</p>
+
+            <div class="grid grid-cols-1 gap-4">
+                <button onclick="confirmStartLevel(false)" class="bubble-card p-4 rounded-2xl border-3 border-teal-300 bg-teal-50 hover:bg-teal-100 flex items-center gap-4 text-left transition">
+                    <span class="text-4xl">🌱</span>
+                    <div>
+                        <h4 class="font-black text-teal-900 text-lg">輕鬆練習 (Normal)</h4>
+                        <p class="text-teal-700 text-xs font-bold">不設時間限制，適合精準複習！ (+10 Token)</p>
+                    </div>
+                </button>
+
+                <button onclick="confirmStartLevel(true)" class="bubble-card p-4 rounded-2xl border-3 border-amber-400 bg-amber-50 hover:bg-amber-100 flex items-center gap-4 text-left transition">
+                    <span class="text-4xl">⚡</span>
+                    <div>
+                        <h4 class="font-black text-amber-900 text-lg">限時挑戰 (Timed Challenge)</h4>
+                        <p class="text-amber-700 text-xs font-bold">每題 10 秒倒數！答對雙倍 Token (+20 Token)！</p>
+                    </div>
+                </button>
+            </div>
+
+            <button onclick="closeModeModal()" class="mt-5 text-xs font-black text-slate-400 hover:text-slate-600">
+                取消返回
+            </button>
+        </div>
+    </div>
+
+    <!-- Modal 3.5: Level 4 Dedicated Tier Selector Modal -->
+    <div id="level4ModeModal" class="fixed inset-0 bg-slate-900/70 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white p-6 md:p-8 rounded-3xl border-4 border-rose-400 max-w-md w-full text-center shadow-2xl animate-pop-in max-h-[90vh] overflow-y-auto">
+            <div class="w-16 h-16 bg-rose-100 text-rose-600 rounded-full flex items-center justify-center text-3xl mx-auto mb-2">
+                🍱
+            </div>
+            <h3 class="text-2xl md:text-3xl font-black text-slate-800 mb-1">小吃攤點餐大師</h3>
+            <p class="text-slate-500 font-bold text-xs mb-5">請選擇點餐難度階梯：</p>
+
+            <div class="flex flex-col gap-4 text-left">
+                <!-- Tier 1: Beginner -->
+                <button onclick="startLevel4WithTier('beginner', false)" class="bubble-card bg-teal-50 border-3 border-teal-300 p-4 rounded-2xl flex items-center justify-between hover:bg-teal-100 transition cursor-pointer">
+                    <div>
+                        <span class="font-black text-teal-900 text-base block mb-0.5">🌱 初級點餐 (3張圖片)</span>
+                        <span class="text-xs text-teal-700 font-bold block">1種美食品項 • 純漢語數字 (-인분)</span>
+                    </div>
+                    <span class="px-3.5 py-2 bg-teal-600 hover:bg-teal-700 text-white font-black rounded-xl text-xs shadow-sm shrink-0">
+                        開始點餐
+                    </span>
+                </button>
+
+                <!-- Tier 2: Intermediate -->
+                <button onclick="startLevel4WithTier('intermediate', false)" class="bubble-card bg-amber-50 border-3 border-amber-400 p-4 rounded-2xl flex items-center justify-between hover:bg-amber-100 transition cursor-pointer">
+                    <div>
+                        <span class="font-black text-amber-900 text-base block mb-0.5">⚡ 中級套餐 (6張圖片)</span>
+                        <span class="text-xs text-amber-700 font-bold block">2種美食組合 (하고) • 純漢語數字 (-인분)</span>
+                    </div>
+                    <span class="px-3.5 py-2 bg-amber-500 hover:bg-amber-600 text-slate-900 font-black rounded-xl text-xs shadow-sm shrink-0">
+                        開始點餐
+                    </span>
+                </button>
+            </div>
+
+            <button onclick="closeLevel4ModeModal()" class="mt-5 text-xs font-black text-slate-400 hover:text-slate-600">
+                取消返回選單
+            </button>
+        </div>
+    </div>
+
+    <!-- Modal 4: Level 6 Locked -->
+    <div id="lockedModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white p-6 md:p-8 rounded-3xl border-4 border-amber-300 max-w-md w-full text-center shadow-2xl animate-pop-in">
+            <div class="w-16 h-16 bg-slate-100 text-slate-400 rounded-full flex items-center justify-center text-3xl mx-auto mb-3">
+                🔒
+            </div>
+            <h3 class="text-2xl font-black text-slate-800 mb-2">關卡 6 尚未開放</h3>
+            <p class="text-slate-500 font-bold text-sm mb-6">「色彩與韓服體驗」將於 Session 5 課程揭曉，敬請期待！</p>
+            <button onclick="closeLockedModal()" class="px-6 py-2.5 bg-slate-800 hover:bg-slate-900 text-white font-black rounded-xl text-sm transition">
+                知道了
+            </button>
+        </div>
+    </div>
+
+    <!-- Modal 5: Certificate -->
+    <div id="certModal" class="fixed inset-0 bg-slate-900/70 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
+        <div id="printableCertModal" class="bg-white p-6 md:p-8 rounded-3xl border-8 border-amber-400 max-w-lg w-full text-center shadow-2xl animate-pop-in relative">
+            <div class="text-5xl mb-2">🏆</div>
+            <h2 class="text-2xl md:text-3xl font-black text-amber-900 mb-1">韓語小達人結業證書</h2>
+            <p class="text-xs text-amber-700 font-bold mb-4">P3 Korean Learning Champion</p>
+            <div class="bg-amber-50 p-4 rounded-2xl border-2 border-amber-200 mb-4 text-slate-800 text-sm font-bold leading-relaxed">
+                茲證明 <input id="certStudentName" type="text" readonly class="bg-transparent border-b-2 border-amber-500 font-black text-lg text-amber-900 text-center w-48 focus:outline-none"> 同學，順利完成 Session 1~4 韓語課堂綜合闖關任務！
+            </div>
+            <div class="flex justify-between items-center text-xs text-slate-500 font-bold px-2 mb-6">
+                <span>頒發日期：<span id="certDate">2026-11-06</span></span>
+                <span>認證：P3 韓語教學團隊</span>
+            </div>
+            <div class="flex justify-center gap-3 no-print">
+                <button onclick="window.print()" class="px-5 py-2.5 bg-amber-400 hover:bg-amber-500 text-amber-950 font-black rounded-xl text-sm transition shadow">
+                    🖨️ 列印證書
+                </button>
+                <button onclick="closeCertModal()" class="px-5 py-2.5 bg-slate-200 hover:bg-slate-300 text-slate-700 font-black rounded-xl text-sm transition">
+                    關閉
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= JAVASCRIPT ENGINE ================= -->
+    <script>
+        /* ================= AUDIO ENGINE ================= */
+        class AudioEngine {
+            constructor() {
+                this.ctx = null;
+            }
+            initCtx() {
+                if (!this.ctx) {
+                    const AudioCtx = window.AudioContext || window.webkitAudioContext;
+                    if (AudioCtx) this.ctx = new AudioCtx();
+                }
+                if (this.ctx && this.ctx.state === 'suspended') {
+                    this.ctx.resume();
+                }
+            }
+            playPop() {
+                try {
+                    this.initCtx();
+                    if (!this.ctx) return;
+                    const osc = this.ctx.createOscillator();
+                    const gain = this.ctx.createGain();
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(400, this.ctx.currentTime);
+                    osc.frequency.exponentialRampToValueAtTime(800, this.ctx.currentTime + 0.08);
+                    gain.gain.setValueAtTime(0.3, this.ctx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + 0.08);
+                    osc.connect(gain);
+                    gain.connect(this.ctx.destination);
+                    osc.start();
+                    osc.stop(this.ctx.currentTime + 0.08);
+                } catch(e){}
+            }
+            playCorrect() {
+                try {
+                    this.initCtx();
+                    if (!this.ctx) return;
+                    const now = this.ctx.currentTime;
+                    [523.25, 659.25, 783.99, 1046.50].forEach((freq, idx) => {
+                        const osc = this.ctx.createOscillator();
+                        const gain = this.ctx.createGain();
+                        osc.type = 'triangle';
+                        osc.frequency.value = freq;
+                        gain.gain.setValueAtTime(0, now + idx * 0.08);
+                        gain.gain.linearRampToValueAtTime(0.2, now + idx * 0.08 + 0.02);
+                        gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.08 + 0.3);
+                        osc.connect(gain);
+                        gain.connect(this.ctx.destination);
+                        osc.start(now + idx * 0.08);
+                        osc.stop(now + idx * 0.08 + 0.3);
+                    });
+                } catch(e){}
+            }
+            playWrong() {
+                try {
+                    this.initCtx();
+                    if (!this.ctx) return;
+                    const now = this.ctx.currentTime;
+                    [220, 180].forEach((freq, idx) => {
+                        const osc = this.ctx.createOscillator();
+                        const gain = this.ctx.createGain();
+                        osc.type = 'sawtooth';
+                        osc.frequency.value = freq;
+                        gain.gain.setValueAtTime(0.2, now + idx * 0.15);
+                        gain.gain.exponentialRampToValueAtTime(0.01, now + idx * 0.15 + 0.15);
+                        osc.connect(gain);
+                        gain.connect(this.ctx.destination);
+                        osc.start(now + idx * 0.15);
+                        osc.stop(now + idx * 0.15 + 0.15);
+                    });
+                } catch(e){}
+            }
+            speak(text) {
+                if (!('speechSynthesis' in window)) return;
+                window.speechSynthesis.cancel();
+                const cleanText = text.replace(/[!?,."']/g, '');
+                const utter = new SpeechSynthesisUtterance(cleanText);
+                utter.lang = 'ko-KR';
+                utter.rate = 0.85;
+                utter.onerror = () => {
+                    console.warn("SpeechSynthesis error or ko-KR voice not installed.");
+                };
+                window.speechSynthesis.speak(utter);
+            }
+        }
+
+        const audio = new AudioEngine();
+
+        /* ================= CUSTOM NOTIFICATION SYSTEM ================= */
+        function showCustomAlert(msg) {
+            audio.playPop();
+            document.getElementById('customAlertMessage').innerText = msg;
+            document.getElementById('customAlertModal').classList.remove('hidden');
+        }
+
+        function closeCustomAlert() {
+            audio.playPop();
+            document.getElementById('customAlertModal').classList.add('hidden');
+        }
+
+        /* ================= STUDENT DATABASE ================= */
+        const STUDENTS = [
+            // 3A 班 (7位)
+            { id: 1, name: "鄭仲恩", kr: "정중은", grade: "P3", gradeLabel: "小三", class: "3A", seat: "02", pin: "3A02", roma: "Jeong Jung-eun" },
+            { id: 2, name: "駱舒悠", kr: "낙서유", grade: "P3", gradeLabel: "小三", class: "3A", seat: "12", pin: "3A12", roma: "Nak Seo-yu" },
+            { id: 3, name: "譚茝元", kr: "담채원", grade: "P3", gradeLabel: "小三", class: "3A", seat: "15", pin: "3A15", roma: "Dam Chae-won" },
+            { id: 4, name: "曾亦辰", kr: "증역진", grade: "P3", gradeLabel: "小三", class: "3A", seat: "16", pin: "3A16", roma: "Jeung Yeok-jin" },
+            { id: 5, name: "吳泓澤", kr: "오홍택", grade: "P3", gradeLabel: "小三", class: "3A", seat: "20", pin: "3A20", roma: "O Hong-taek" },
+            { id: 6, name: "叶紫童", kr: "엽자동", grade: "P3", gradeLabel: "小三", class: "3A", seat: "21", pin: "3A21", roma: "Yeop Ja-dong" },
+            { id: 7, name: "張淇凱", kr: "장기개", grade: "P3", gradeLabel: "小三", class: "3A", seat: "25", pin: "3A25", roma: "Jang Gi-gae" },
+
+            // 3B 班 (9位)
+            { id: 8, name: "陳翊鑫", kr: "진익흠", grade: "P3", gradeLabel: "小三", class: "3B", seat: "01", pin: "3B01", roma: "Jin Ik-heum" },
+            { id: 9, name: "陳天陽", kr: "진천양", grade: "P3", gradeLabel: "小三", class: "3B", seat: "02", pin: "3B02", roma: "Jin Cheon-yang" },
+            { id: 10, name: "郭宇風", kr: "곽우풍", grade: "P3", gradeLabel: "小三", class: "3B", seat: "06", pin: "3B06", roma: "Gwak U-pung" },
+            { id: 11, name: "林芷翎", kr: "임지령", grade: "P3", gradeLabel: "小三", class: "3B", seat: "07", pin: "3B07", roma: "Im Ji-ryeong" },
+            { id: 12, name: "林若愚", kr: "임약우", grade: "P3", gradeLabel: "小三", class: "3B", seat: "08", pin: "3B08", roma: "Im Yak-u" },
+            { id: 13, name: "黃俊杰", kr: "황준걸", grade: "P3", gradeLabel: "小三", class: "3B", seat: "18", pin: "3B18", roma: "Hwang Jun-geol" },
+            { id: 14, name: "黃樂賢", kr: "황락현", grade: "P3", gradeLabel: "小三", class: "3B", seat: "19", pin: "3B19", roma: "Hwang Rak-hyeon" },
+            { id: 15, name: "楊尚恒", kr: "양상항", grade: "P3", gradeLabel: "小三", class: "3B", seat: "21", pin: "3B21", roma: "Yang Sang-hang" },
+            { id: 16, name: "張孟邦", kr: "장맹방", grade: "P3", gradeLabel: "小三", class: "3B", seat: "23", pin: "3B23", roma: "Jang Maeng-bang" }
+        ];
+
+        /* ================= FOOD DATABASE ================= */
+        const FOODS = [
+            { id: "banana_milk", nameKo: "바나나 우유", nameZh: "香蕉牛奶", roma: "ba-na-na u-yu", emoji: "🍌" },
+            { id: "bingsu", nameKo: "빙수", nameZh: "刨冰", roma: "bing-su", emoji: "🍧" },
+            { id: "chicken", nameKo: "치킨", nameZh: "韓式炸雞", roma: "chi-kin", emoji: "🍗" },
+            { id: "eomuk", nameKo: "어묵", nameZh: "魚糕串", roma: "eo-muk", emoji: "🍢" },
+            { id: "hatdogeu", nameKo: "핫도그", nameZh: "韓式熱狗", roma: "hat-do-geu", emoji: "🌭" },
+            { id: "hotteok", nameKo: "호떡", nameZh: "黑糖煎餅", roma: "ho-tteok", emoji: "🥞" },
+            { id: "gimbap", nameKo: "김밥", nameZh: "紫菜包飯", roma: "kimbap", emoji: "🍙" },
+            { id: "ramyen", nameKo: "라면", nameZh: "韓式拉麵", roma: "ra-myeon", emoji: "🍜" },
+            { id: "tteokbokki", nameKo: "떡볶이", nameZh: "辣炒年糕", roma: "tteok-bok-ki", emoji: "🍡" }
+        ];
+
+        function renderFoodDisplay(food, heightClass = "h-20") {
+            const filenameMap = {
+                'banana_milk': 'ba-na-na u-yu',
+                'bingsu': 'bing-su',
+                'chicken': 'chi-kin',
+                'eomuk': 'eo-muk',
+                'hatdogeu': 'hat-do-geu',
+                'hotteok': 'ho-tteok',
+                'gimbap': 'kimbap',
+                'ramyen': 'ra-myeon',
+                'tteokbokki': 'tteok-bok-ki'
+            };
+            const filename = filenameMap[food.id] || food.id;
+            return `
+                <div class="relative ${heightClass} flex items-center justify-center overflow-hidden rounded-xl">
+                    <img src="food/${filename}.png" 
+                         alt="${food.nameZh}" 
+                         class="max-h-full max-w-full object-contain"
+                         onerror="this.onerror=null; this.src='food/${filename}.jpg'; this.onerror=function(){ this.style.display='none'; this.nextElementSibling.style.display='block'; }">
+                    <span class="text-4xl hidden" style="display:none;">${food.emoji}</span>
+                </div>
+            `;
+        }
+
+        /* ================= SHUFFLE UTILITY ================= */
+        function shuffleArray(arr) {
+            const array = [...arr];
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        /* ================= GLOBAL STATE ================= */
+        let state = {
+            isTeacherMode: false,
+            studentId: 1,
+            studentZh: '鄭仲恩',
+            studentKo: '정중은',
+            grade: 'P3',
+            gradeLabel: '小三',
+            class: '3A',
+            seat: '02',
+            score: 0,
+            combo: 0,
+            l2Passed: false,
+            l3Passed: false,
+            
+            activeClassTab: '3A',
+            targetStudentForPin: null,
+            inputPinStr: '',
+
+            pendingLevel: null,
+            isTimedMode: false,
+            l4Tier: 'beginner',
+            timeLeft: 10,
+            timerInterval: null,
+
+            l1Questions: [], l1Idx: 0,
+            l2Questions: [], l2Idx: 0,
+            l3Questions: [], l3Idx: 0,
+            l4Questions: [], l4Idx: 0, l4Counts: {}, l4VisibleFoods: [], l4HintRevealed: false,
+            l5Questions: [], l5Idx: 0
+        };
+
+        function saveToLocalStorage() {
+            if (state.isTeacherMode) return;
+            const key = `p3_korean_${state.studentKo}`;
+            const data = {
+                score: state.score,
+                l2Passed: state.l2Passed,
+                l3Passed: state.l3Passed,
+                studentId: state.studentId
+            };
+            localStorage.setItem(key, JSON.stringify(data));
+        }
+
+        function loadFromLocalStorage() {
+            if (state.isTeacherMode) return;
+            const key = `p3_korean_${state.studentKo}`;
+            const dataStr = localStorage.getItem(key);
+            if (dataStr) {
+                try {
+                    const data = JSON.parse(dataStr);
+                    state.score = data.score || 0;
+                    state.l2Passed = !!data.l2Passed;
+                    state.l3Passed = !!data.l3Passed;
+                } catch(e) {}
+            } else {
+                state.score = 0;
+                state.l2Passed = false;
+                state.l3Passed = false;
+            }
+            updateHeaderUI();
+            checkL4UnlockStatus();
+            routeByGrade();
+        }
+
+        function enterTeacherMode() {
+            state.isTeacherMode = true;
+            state.studentId = 0;
+            state.studentZh = '教師示範';
+            state.studentKo = '선생님';
+            state.grade = 'P3';
+            state.gradeLabel = '教師模式';
+            state.class = '全解鎖';
+            state.seat = '00';
+            state.score = 999;
+            state.l2Passed = true;
+            state.l3Passed = true;
+
+            updateHeaderUI();
+            checkL4UnlockStatus();
+            routeByGrade();
+            populateTeacherTracingSelect();
+
+            document.getElementById('studentSelectModal').classList.add('hidden');
+            document.getElementById('pinModal').classList.add('hidden');
+            audio.speak('선생님');
+            audio.playCorrect();
+        }
+
+        function openPinModalForTeacher() {
+            audio.playPop();
+            state.targetStudentForPin = {
+                id: 0,
+                name: "教師專區",
+                kr: "선생님",
+                pin: "9999",
+                isTeacher: true
+            };
+            state.inputPinStr = '';
+
+            document.getElementById('pinStudentName').innerText = `教師專區 (선생님)`;
+            document.getElementById('pinModalSub').innerText = `請輸入教師驗證 PIN 碼：`;
+            document.getElementById('pinErrMsg').innerText = '';
+            
+            updatePinDisplayBoxes();
+            document.getElementById('pinModal').classList.remove('hidden');
+        }
+
+        function setTeacherGrade(grade) {
+            if (!state.isTeacherMode) return;
+            state.grade = grade;
+            const btnP3 = document.getElementById('btnTeacherP3');
+            const btnP4 = document.getElementById('btnTeacherP4');
+
+            if (grade === 'P3') {
+                btnP3.className = "px-2 py-0.5 rounded-lg text-xs font-black bg-purple-600 text-white shadow-sm";
+                btnP4.className = "px-2 py-0.5 rounded-lg text-xs font-black text-purple-800 hover:bg-purple-200";
+            } else {
+                btnP4.className = "px-2 py-0.5 rounded-lg text-xs font-black bg-purple-600 text-white shadow-sm";
+                btnP3.className = "px-2 py-0.5 rounded-lg text-xs font-black text-purple-800 hover:bg-purple-200";
+            }
+            routeByGrade();
+        }
+
+        function updateHeaderUI() {
+            document.getElementById('headerAvatarIcon').innerText = state.isTeacherMode ? '👩‍🏫' : '👤';
+            document.getElementById('headerStudentName').innerText = `${state.studentZh} (${state.studentKo})`;
+            document.getElementById('headerGradeBadge').innerText = `${state.class} 班 #${state.seat}`;
+            
+            const teacherSwitcher = document.getElementById('teacherGradeSwitcher');
+            if (state.isTeacherMode) {
+                teacherSwitcher.classList.remove('hidden');
+            } else {
+                teacherSwitcher.classList.add('hidden');
+            }
+
+            if (document.getElementById('heroStudentGreeting')) {
+                document.getElementById('heroStudentGreeting').innerText = state.studentZh;
+            }
+            if (document.getElementById('heroStudentGreetingP4')) {
+                document.getElementById('heroStudentGreetingP4').innerText = state.studentZh;
+            }
+            
+            document.getElementById('tracingBannerStudentName').innerText = state.studentZh;
+            document.getElementById('certStudentName').value = `${state.studentZh} (${state.studentKo})`;
+            document.getElementById('globalScore').innerText = state.score;
+        }
+
+        function routeByGrade() {
+            const p3Dashboard = document.getElementById('p3-dashboard');
+            const p4Dashboard = document.getElementById('p4-dashboard');
+
+            if (state.grade === 'P3') {
+                p3Dashboard.classList.remove('hidden');
+                p3Dashboard.classList.add('flex');
+                p4Dashboard.classList.add('hidden');
+            } else if (state.grade === 'P4') {
+                p3Dashboard.classList.add('hidden');
+                p4Dashboard.classList.remove('hidden');
+                p4Dashboard.classList.add('flex');
+            }
+        }
+
+        /* ================= CARD GRID LOGIN & CLASS TABS ================= */
+        function switchClassTab(cls) {
+            audio.playPop();
+            state.activeClassTab = cls;
+            
+            const classes = ['3A', '3B', '3C', '3D', '4A', '4B', '4C', '4D'];
+            classes.forEach(c => {
+                const btn = document.getElementById(`tabBtn${c}`);
+                if (!btn) return;
+                const isP3 = c.startsWith('3');
+                if (c === cls) {
+                    btn.className = isP3 
+                        ? "py-1.5 px-1 rounded-xl font-black text-xs transition bg-amber-400 text-slate-900 shadow ring-2 ring-amber-500"
+                        : "py-1.5 px-1 rounded-xl font-black text-xs transition bg-purple-600 text-white shadow ring-2 ring-purple-400";
+                } else {
+                    btn.className = isP3 
+                        ? "py-1.5 px-1 rounded-xl font-black text-xs transition bg-white text-slate-600 hover:bg-amber-100 border border-amber-200"
+                        : "py-1.5 px-1 rounded-xl font-black text-xs transition bg-white text-slate-600 hover:bg-purple-100 border border-purple-200";
+                }
+            });
+            renderStudentCardsGrid();
+        }
+
+        function renderStudentCardsGrid() {
+            const grid = document.getElementById('studentCardsGrid');
+            grid.innerHTML = '';
+
+            const filteredStudents = STUDENTS.filter(s => s.class === state.activeClassTab);
+
+            if (filteredStudents.length === 0) {
+                grid.innerHTML = `
+                    <div class="col-span-2 sm:col-span-3 py-8 text-center text-slate-400 font-bold text-xs bg-slate-50 rounded-2xl border-2 border-dashed border-slate-200">
+                        <span class="text-2xl block mb-1">📂</span>
+                        <span>${state.activeClassTab} 班暫無學生資料</span>
+                    </div>
+                `;
+                return;
+            }
+
+            filteredStudents.forEach(student => {
+                const card = document.createElement('button');
+                card.className = "bubble-card bg-amber-50/90 border-2 border-amber-300 hover:border-amber-400 p-4 rounded-2xl flex flex-col items-center justify-center text-center transition group min-h-[75px] shadow-sm";
+                card.onclick = () => openPinModalForStudent(student);
+
+                card.innerHTML = `
+                    <span class="text-base md:text-lg font-black text-slate-800 group-hover:text-amber-900 leading-tight">${student.name}</span>
+                    <span class="text-xs font-bold text-amber-700 mt-1">${student.kr}</span>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function openPinModalForStudent(student) {
+            audio.playPop();
+            state.targetStudentForPin = student;
+            state.inputPinStr = '';
+
+            document.getElementById('pinStudentName').innerText = `${student.name} (${student.kr})`;
+            document.getElementById('pinModalSub').innerText = `請輸入 4 位 PIN 碼：`;
+            document.getElementById('pinErrMsg').innerText = '';
+            
+            updatePinDisplayBoxes();
+            document.getElementById('pinModal').classList.remove('hidden');
+        }
+
+        function closePinModal() {
+            audio.playPop();
+            document.getElementById('pinModal').classList.add('hidden');
+        }
+
+        function pressPinKey(char) {
+            if (state.inputPinStr.length < 4) {
+                audio.playPop();
+                state.inputPinStr += char;
+                updatePinDisplayBoxes();
+
+                if (state.inputPinStr.length === 4) {
+                    verifyPinCode();
+                }
+            }
+        }
+
+        function pressPinBackspace() {
+            if (state.inputPinStr.length > 0) {
+                audio.playPop();
+                state.inputPinStr = state.inputPinStr.slice(0, -1);
+                updatePinDisplayBoxes();
+                document.getElementById('pinErrMsg').innerText = '';
+            }
+        }
+
+        function updatePinDisplayBoxes() {
+            for (let i = 0; i < 4; i++) {
+                const box = document.getElementById(`pinBox${i}`);
+                if (i < state.inputPinStr.length) {
+                    box.innerText = "●";
+                    box.className = "w-10 h-12 bg-amber-100 border-2 border-amber-400 rounded-xl flex items-center justify-center font-black text-2xl text-amber-900 shadow-inner";
+                } else {
+                    box.innerText = "";
+                    box.className = "w-10 h-12 bg-slate-100 border-2 border-slate-300 rounded-xl flex items-center justify-center font-black text-xl text-slate-800 shadow-inner";
+                }
+            }
+        }
+
+        function verifyPinCode() {
+            const student = state.targetStudentForPin;
+            if (!student) return;
+
+            if (state.inputPinStr.toUpperCase() === student.pin.toUpperCase()) {
+                if (student.isTeacher) {
+                    enterTeacherMode();
+                    return;
+                }
+
+                state.isTeacherMode = false;
+                state.studentId = student.id;
+                state.studentZh = student.name;
+                state.studentKo = student.kr;
+                state.grade = student.grade;
+                state.gradeLabel = student.gradeLabel;
+                state.class = student.class;
+                state.seat = student.seat;
+
+                document.getElementById('teacherTracingSelect').classList.add('hidden');
+                loadFromLocalStorage();
+
+                document.getElementById('pinModal').classList.add('hidden');
+                document.getElementById('studentSelectModal').classList.add('hidden');
+                
+                audio.playCorrect();
+                audio.speak(state.studentKo);
+            } else {
+                audio.playWrong();
+                document.getElementById('pinErrMsg').innerText = student.isTeacher ? '❌ 教師 PIN 碼錯誤！' : '❌ PIN 碼錯誤！請重新輸入';
+                const boxModal = document.getElementById('pinModalBox');
+                boxModal.classList.add('animate-shake');
+                
+                setTimeout(() => {
+                    boxModal.classList.remove('animate-shake');
+                    state.inputPinStr = '';
+                    updatePinDisplayBoxes();
+                }, 600);
+            }
+        }
+
+        // Support Physical Keyboard Typing for PIN
+        document.addEventListener('keydown', function(e) {
+            const pinModal = document.getElementById('pinModal');
+            if (pinModal && !pinModal.classList.contains('hidden')) {
+                const key = e.key.toUpperCase();
+                if (/^[0-9A-D]$/.test(key)) {
+                    pressPinKey(key);
+                } else if (e.key === 'Backspace') {
+                    pressPinBackspace();
+                } else if (e.key === 'Enter') {
+                    if (state.inputPinStr.length === 4) {
+                        verifyPinCode();
+                    }
+                }
+            }
+        });
+
+        function populateTeacherTracingSelect() {
+            const sel = document.getElementById('teacherTracingSelect');
+            if (!sel) return;
+            sel.innerHTML = '<option value="teacher">🍎 示範：선생님 (老師)</option>';
+            STUDENTS.forEach(s => {
+                if (s.id !== 0 && s.id !== 101) {
+                    const opt = document.createElement('option');
+                    opt.value = s.id;
+                    opt.innerText = `${s.class}班 ${s.name} (${s.kr})`;
+                    sel.appendChild(opt);
+                }
+            });
+            sel.classList.remove('hidden');
+        }
+
+        function changeTeacherTracingStudent(val) {
+            audio.playPop();
+            if (val === 'teacher') {
+                document.getElementById('tracingStudentTitle').innerText = '선생님 (老師)';
+                audio.speak('선생님');
+                drawTracingBackground('선생님');
+            } else {
+                const s = STUDENTS.find(item => item.id == val);
+                if (s) {
+                    document.getElementById('tracingStudentTitle').innerText = `${s.name} (${s.kr})`;
+                    audio.speak(s.kr);
+                    drawTracingBackground(s.kr);
+                }
+            }
+        }
+
+        /* ================= NAVIGATION & MODALS ================= */
+        function hideAllTabs() {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.add('hidden'));
+            stopTimer();
+        }
+
+        function showHome() {
+            audio.playPop();
+            hideAllTabs();
+            document.getElementById('tab-home').classList.remove('hidden');
+            checkL4UnlockStatus();
+        }
+
+        function promptSelectStudent() {
+            audio.playPop();
+            switchClassTab(state.activeClassTab || '3A');
+            document.getElementById('studentSelectModal').classList.remove('hidden');
+        }
+
+        function checkL4UnlockStatus() {
+            const card = document.getElementById('card-level4');
+            const icon = document.getElementById('l4-card-icon');
+            const badge = document.getElementById('l4-card-badge');
+            const title = document.getElementById('l4-card-title');
+            const desc = document.getElementById('l4-card-desc');
+            const sub = document.getElementById('l4-card-sub');
+            const btn = document.getElementById('l4-card-btn');
+
+            const isUnlocked = (state.l2Passed && state.l3Passed) || state.isTeacherMode;
+
+            if (isUnlocked) {
+                card.className = "bubble-card bg-gradient-to-br from-rose-400 to-pink-500 p-6 rounded-3xl border-4 border-white cursor-pointer text-white flex flex-col justify-between shadow-lg";
+                icon.className = "w-14 h-14 bg-white text-rose-600 rounded-2xl flex items-center justify-center text-3xl shadow-md";
+                icon.innerText = "🍱";
+                badge.className = "bg-rose-900/30 text-white font-black text-xs px-3 py-1 rounded-full";
+                badge.innerText = state.isTeacherMode ? "🍎 教師模式 (已解鎖)" : "🎉 已通關解鎖";
+                title.className = "text-2xl font-black mb-1 text-white";
+                desc.className = "text-rose-100 font-bold text-xs md:text-sm";
+                sub.className = "text-rose-100 font-black";
+                sub.innerText = "韓文點餐大師 (雙階難度選單)";
+                btn.className = "w-8 h-8 bg-white text-rose-600 rounded-full flex items-center justify-center text-sm shadow";
+                btn.innerHTML = '<i class="fa-solid fa-play"></i>';
+            } else {
+                card.className = "bubble-card bg-slate-200 border-4 border-dashed border-slate-300 p-6 rounded-3xl cursor-pointer text-slate-400 opacity-85 transition flex flex-col justify-between";
+                icon.className = "w-14 h-14 bg-slate-100 text-slate-400 rounded-2xl flex items-center justify-center text-3xl shadow-inner";
+                icon.innerText = "🔒";
+                badge.className = "bg-slate-300 text-slate-600 font-black text-xs px-3 py-1 rounded-full";
+                badge.innerText = "🔒 完成關卡 2 & 3 解鎖";
+                title.className = "text-2xl font-black mb-1 text-slate-500";
+                desc.className = "text-slate-500 font-bold text-xs md:text-sm";
+                sub.className = "text-slate-400 font-black";
+                sub.innerText = "前置條件未達成";
+                btn.className = "w-8 h-8 bg-slate-300 text-slate-500 rounded-full flex items-center justify-center text-sm shadow";
+                btn.innerHTML = '<i class="fa-solid fa-lock"></i>';
+            }
+        }
+
+        function clickLevel4Card() {
+            audio.playPop();
+            const isUnlocked = (state.l2Passed && state.l3Passed) || state.isTeacherMode;
+            if (isUnlocked) {
+                openLevel4ModeModal();
+            } else {
+                showCustomAlert("🔒 請先通關 關卡 2 (美食) 與 關卡 3 (數字) 才能解鎖點餐大師！");
+            }
+        }
+
+        function openLevel4ModeModal() {
+            document.getElementById('level4ModeModal').classList.remove('hidden');
+        }
+
+        function closeLevel4ModeModal() {
+            document.getElementById('level4ModeModal').classList.add('hidden');
+        }
+
+        function startLevel4WithTier(tier, isTimed) {
+            state.l4Tier = tier;
+            state.isTimedMode = false;
+            closeLevel4ModeModal();
+            hideAllTabs();
+            initL4();
+        }
+
+        function openModeModal(levelNum) {
+            audio.playPop();
+            state.pendingLevel = levelNum;
+            document.getElementById('modeModal').classList.remove('hidden');
+        }
+
+        function closeModeModal() {
+            audio.playPop();
+            document.getElementById('modeModal').classList.add('hidden');
+        }
+
+        function confirmStartLevel(isTimed) {
+            state.isTimedMode = isTimed;
+            closeModeModal();
+            hideAllTabs();
+
+            switch (state.pendingLevel) {
+                case 1: initL1(); break;
+                case 2: initL2(); break;
+                case 3: initL3(); break;
+                case 5: initL5(); break;
+            }
+        }
+
+        function triggerLockedLevelModal() {
+            audio.playPop();
+            document.getElementById('lockedModal').classList.remove('hidden');
+        }
+
+        function closeLockedModal() {
+            audio.playPop();
+            document.getElementById('lockedModal').classList.add('hidden');
+        }
+
+        function openCertModal() {
+            audio.playPop();
+            document.getElementById('certModal').classList.remove('hidden');
+        }
+
+        function closeCertModal() {
+            audio.playPop();
+            document.getElementById('certModal').classList.add('hidden');
+        }
+
+        function addScore(points) {
+            const multiplier = state.isTimedMode ? 2 : 1;
+            const finalPts = points * multiplier;
+            state.score += finalPts;
+            saveToLocalStorage();
+            updateHeaderUI();
+        }
+
+        /* ================= TIMER ENGINE ================= */
+        function startTimer() {
+            stopTimer();
+            if (!state.isTimedMode) {
+                document.getElementById('timer-bar-container').classList.add('hidden');
+                return;
+            }
+            state.timeLeft = 10;
+            const bar = document.getElementById('timer-bar-container');
+            const txt = document.getElementById('timer-countdown-text');
+            bar.classList.remove('hidden');
+            txt.innerText = `${state.timeLeft}s`;
+
+            state.timerInterval = setInterval(() => {
+                state.timeLeft--;
+                txt.innerText = `${state.timeLeft}s`;
+                if (state.timeLeft <= 0) {
+                    stopTimer();
+                    audio.playWrong();
+                    showCustomAlert("⏰ 時間到！挑戰失敗，即將進入下一題！");
+                    nextQuestion();
+                }
+            }, 1000);
+        }
+
+        function stopTimer() {
+            if (state.timerInterval) clearInterval(state.timerInterval);
+            state.timerInterval = null;
+            const bar = document.getElementById('timer-bar-container');
+            if (bar) bar.classList.add('hidden');
+        }
+
+        function nextQuestion() {
+            stopTimer();
+            const currentTab = document.querySelector('.tab-content:not(.hidden)').id;
+
+            if (currentTab === 'tab-level1') {
+                state.l1Idx++;
+                if (state.l1Idx >= state.l1Questions.length) finishLevel(1);
+                else renderL1();
+            } else if (currentTab === 'tab-level2') {
+                state.l2Idx++;
+                if (state.l2Idx >= state.l2Questions.length) finishLevel(2);
+                else renderL2();
+            } else if (currentTab === 'tab-level3') {
+                state.l3Idx++;
+                if (state.l3Idx >= state.l3Questions.length) finishLevel(3);
+                else renderL3();
+            } else if (currentTab === 'tab-level4') {
+                state.l4Idx++;
+                if (state.l4Idx >= state.l4Questions.length) finishLevel(4);
+                else renderL4();
+            } else if (currentTab === 'tab-level5') {
+                state.l5Idx++;
+                if (state.l5Idx >= state.l5Questions.length) finishLevel(5);
+                else renderL5();
+            }
+        }
+
+        function finishLevel(levelNum) {
+            stopTimer();
+            confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+            audio.playCorrect();
+
+            if (levelNum === 2) state.l2Passed = true;
+            if (levelNum === 3) state.l3Passed = true;
+            saveToLocalStorage();
+
+            showCustomAlert(`🎉 恭喜完成關卡 ${levelNum}！已獲得 Token 獎勵！`);
+            showHome();
+        }
+
+        /* ================= LEVEL 1: SCENARIO RESPONSES (STRICT 5 PHRASES) ================= */
+        const L1_DATA = [
+            { 
+                icon: "🏫", 
+                scenario: "早上在校門口遇見老師或同學時", 
+                options: [
                     { text: "안녕하세요!", ko: "안녕하세요!", correct: true }, 
                     { text: "감사합니다!", ko: "감사합니다!", correct: false }
                 ] 
@@ -468,8 +1646,8 @@
                 ] 
             },
             { 
-                icon: "🍙", 
-                scenario: "品嚐到好吃的紫菜包飯(🍙)時誇讚", 
+                icon: "🍗", 
+                scenario: "品嚐到好吃的韓式炸雞時誇讚", 
                 options: [
                     { text: "맛있어요!", ko: "맛있어요!", correct: true }, 
                     { text: "미안해요!", ko: "미안해요!", correct: false }
@@ -638,14 +1816,14 @@
             beginner: [
                 { foods: [{ id: "tteokbokki", count: 3 }], koSent: "떡볶이 삼인분 주세요!", hint: "請給我 3 份辣炒年糕！", grammarTip: "인분 搭配漢語數字 (삼인분)" },
                 { foods: [{ id: "chicken", count: 2 }], koSent: "치킨 이인분 주세요!", hint: "請給我 2 份韓式炸雞！", grammarTip: "인분 搭配漢語數字 (이인분)" },
-                { foods: [{ id: "gimbap", count: 1 }], koSent: "김밥 일인분 주세요!", hint: "請給我 1 份紫菜包飯(🍙)！", grammarTip: "인분 搭配漢語數字 (일인분)" },
+                { foods: [{ id: "gimbap", count: 1 }], koSent: "김밥 일인분 주세요!", hint: "請給我 1 份紫菜包飯！", grammarTip: "인분 搭配漢語數字 (일인분)" },
                 { foods: [{ id: "eomuk", count: 4 }], koSent: "어묵 사인분 주세요!", hint: "請給我 4 份魚糕串！", grammarTip: "인분 搭配漢語數字 (사인분)" },
-                { foods: [{ id: "ramyen", count: 2 }], koSent: "라면 이인분 주세요!", hint: "請給我 2 份韓式拉麵！", grammarTip: "인분 搭配漢語數字 (이인分)" }
+                { foods: [{ id: "ramyen", count: 2 }], koSent: "라면 이인분 주세요!", hint: "請給我 2 份韓式拉麵！", grammarTip: "인분 搭配漢語數字 (이인분)" }
             ],
             intermediate: [
                 { foods: [{ id: "chicken", count: 2 }, { id: "ramyen", count: 1 }], koSent: "치킨 이인분하고 라면 일인분 주세요!", hint: "請給我 2 份炸雞和 1 份拉麵！", grammarTip: "인분 搭配漢語數字 + 하고" },
                 { foods: [{ id: "tteokbokki", count: 1 }, { id: "eomuk", count: 2 }], koSent: "떡볶이 일인분하고 어묵 이인분 주세요!", hint: "請給我 1 份辣炒年糕和 2 份魚糕串！", grammarTip: "인분 搭配漢語數字 + 하고" },
-                { foods: [{ id: "gimbap", count: 2 }, { id: "banana_milk", count: 1 }], koSent: "김밥 이인분하고 바나나 우유 일인분 주세요!", hint: "請給我 2 份紫菜包飯(🍙)和 1 份香蕉牛奶！", grammarTip: "인분 搭配漢語數字 + 하고" },
+                { foods: [{ id: "gimbap", count: 2 }, { id: "banana_milk", count: 1 }], koSent: "김밥 이인분하고 바나나 우유 일인분 주세요!", hint: "請給我 2 份紫菜包飯和 1 份香蕉牛奶！", grammarTip: "인분 搭配漢語數字 + 하고" },
                 { foods: [{ id: "hatdogeu", count: 2 }, { id: "ramyen", count: 1 }], koSent: "핫도그 이인분하고 라면 일인분 주세요!", hint: "請給我 2 份熱狗和 1 份拉麵！", grammarTip: "인분 搭配漢語數字 + 하고" },
                 { foods: [{ id: "hotteok", count: 3 }, { id: "bingsu", count: 1 }], koSent: "호떡 삼인분하고 빙수 일인분 주세요!", hint: "請給我 3 份黑糖煎餅和 1 份刨冰！", grammarTip: "인분 搭配漢語數字 + 하고" }
             ]
@@ -676,7 +1854,6 @@
             document.getElementById('l4-hint-text').innerText = `${q.hint} 💡 (${q.grammarTip})`;
             document.getElementById('l4-hint-btn').classList.remove('hidden');
 
-            // 固定當前題目的食物卡片組合與順序，避免點擊修改數量時重新亂數換卡
             const targetIds = q.foods.map(f => f.id);
             const targetItems = FOODS.filter(f => targetIds.includes(f.id));
             const countNeeded = state.l4Tier === 'beginner' ? 3 : 6;
@@ -780,20 +1957,21 @@
             }
         }
 
-        /* ================= LEVEL 5: FAMILY MEMBERS ================= */
+        /* ================= LEVEL 5: FAMILY MEMBERS (RANDOM 5 QUESTIONS, UNIFIED NUNA) ================= */
         const L5_DATA = [
             { isGirl: true, speaker: "👧 我是女生", target: "這是我的「哥哥」", avatar: "👨‍🦱", options: [{ text: "오빠 (Oppa)", correct: true }, { text: "형 (Hyung)", correct: false }, { text: "언니 (Unni)", correct: false }, { text: "누나 (Nuna)", correct: false }] },
             { isGirl: false, speaker: "👦 我是男生", target: "這是我的「哥哥」", avatar: "👨‍🦱", options: [{ text: "형 (Hyung)", correct: true }, { text: "오빠 (Oppa)", correct: false }, { text: "누나 (Nuna)", correct: false }, { text: "언니 (Unni)", correct: false }] },
             { isGirl: true, speaker: "👧 我是女生", target: "這是我的「姊姊」", avatar: "👩‍🦱", options: [{ text: "언니 (Unni)", correct: true }, { text: "누나 (Nuna)", correct: false }, { text: "오빠 (Oppa)", correct: false }, { text: "형 (Hyung)", correct: false }] },
             { isGirl: false, speaker: "👦 我是男生", target: "這是我的「姊姊」", avatar: "👩‍🦱", options: [{ text: "누나 (Nuna)", correct: true }, { text: "언니 (Unni)", correct: false }, { text: "형 (Hyung)", correct: false }, { text: "오빠 (Oppa)", correct: false }] },
-            { isGirl: true, speaker: "👧 我是女生", target: "這是我的「媽媽」", avatar: "👩", options: [{ text: "엄마 (Eomma)", correct: true }, { text: "아빠 (Appa)", correct: false }, { text: "동생 (Dongsaeng)", correct: false }, { text: "오빠 (Oppa)", correct: false }] },
-            { isGirl: false, speaker: "👦 我是男生", target: "這是我的「媽媽」", avatar: "👩", options: [{ text: "엄마 (Eomma)", correct: true }, { text: "아빠 (Appa)", correct: false }, { text: "동생 (Dongsaeng)", correct: false }, { text: "형 (Hyung)", correct: false }] },
-            { isGirl: true, speaker: "👧 我是女生", target: "這是我的「爸爸」", avatar: "👨", options: [{ text: "아빠 (Appa)", correct: true }, { text: "엄마 (Eomma)", correct: false }, { text: "동생 (Dongsaeng)", correct: false }, { text: "오빠 (Oppa)", correct: false }] },
-            { isGirl: false, speaker: "👦 我是男生", target: "這是我的「爸爸」", avatar: "👨", options: [{ text: "아빠 (Appa)", correct: true }, { text: "엄마 (Eomma)", correct: false }, { text: "동생 (Dongsaeng)", correct: false }, { text: "형 (Hyung)", correct: false }] },
+            { isGirl: true, speaker: "👧 我是女生", target: "這是我的「爸爸」", avatar: "👨", options: [{ text: "아빠 (Appa)", correct: true }, { text: "엄마 (Eomma)", correct: false }, { text: "남동생 (Namdongsaeng)", correct: false }, { text: "오빠 (Oppa)", correct: false }] },
+            { isGirl: false, speaker: "👦 我是男生", target: "這是我的「媽媽」", avatar: "👩", options: [{ text: "엄마 (Eomma)", correct: true }, { text: "아빠 (Appa)", correct: false }, { text: "누나 (Nuna)", correct: false }, { text: "형 (Hyung)", correct: false }] },
+            { isGirl: false, speaker: "👦 我是男生", target: "這是我的「弟弟」", avatar: "👦", options: [{ text: "남동생 (Namdongsaeng)", correct: true }, { text: "여동생 (Yeodongsaeng)", correct: false }, { text: "형 (Hyung)", correct: false }, { text: "누나 (Nuna)", correct: false }] },
+            { isGirl: true, speaker: "👧 我是女生", target: "這是我的「妹妹」", avatar: "👧", options: [{ text: "여동생 (Yeodongsaeng)", correct: true }, { text: "남동생 (Namdongsaeng)", correct: false }, { text: "언니 (Unni)", correct: false }, { text: "오빠 (Oppa)", correct: false }] }
         ];
 
         function initL5() {
-            state.l5Questions = shuffleArray(L5_DATA);
+            // 每次隨機擷取 5 條題目
+            state.l5Questions = shuffleArray(L5_DATA).slice(0, 5);
             state.l5Idx = 0;
             document.getElementById('tab-level5').classList.remove('hidden');
             renderL5();
@@ -809,7 +1987,9 @@
             const grid = document.getElementById('l5-options-grid');
             grid.innerHTML = '';
 
-            q.options.forEach(opt => {
+            // 使用 shuffleArray 隨機打亂 4 個選項按鈕位置
+            const shuffledOptions = shuffleArray(q.options);
+            shuffledOptions.forEach(opt => {
                 const btn = document.createElement('button');
                 btn.className = "bubble-card p-4 bg-white border-3 border-indigo-200 hover:border-indigo-400 rounded-2xl text-center shadow-sm font-black text-indigo-950 text-base transition transform active:scale-95";
                 btn.innerText = opt.text;
@@ -834,6 +2014,18 @@
         let tracingCanvas, tracingCtx, isDrawing = false;
         let penColor = '#1E293B', penWidth = 12;
 
+        function getCurrentTracingKoreanText() {
+            if (state.isTeacherMode) {
+                const sel = document.getElementById('teacherTracingSelect');
+                if (sel && sel.value !== 'teacher') {
+                    const s = STUDENTS.find(item => item.id == sel.value);
+                    if (s) return s.kr;
+                }
+                return '선생님';
+            }
+            return state.studentKo;
+        }
+
         function startTracing() {
             audio.playPop();
             hideAllTabs();
@@ -845,19 +2037,16 @@
             tracingCanvas = document.getElementById('tracingCanvas');
             if (!tracingCanvas) return;
             tracingCtx = tracingCanvas.getContext('2d');
-            
-            // Clear canvas and draw name as trace guide
-            clearTracingCanvas();
 
-            // Setup mouse/touch events
+            drawTracingBackground(getCurrentTracingKoreanText());
+
             tracingCanvas.onmousedown = startDraw;
             tracingCanvas.onmousemove = draw;
             tracingCanvas.onmouseup = stopDraw;
             tracingCanvas.onmouseleave = stopDraw;
 
-            // Touch support
             tracingCanvas.ontouchstart = (e) => {
-                e.preventDefault(); // Prevent scrolling
+                e.preventDefault();
                 startDraw(e.touches[0]);
             };
             tracingCanvas.ontouchmove = (e) => {
@@ -867,9 +2056,34 @@
             tracingCanvas.ontouchend = stopDraw;
         }
 
+        function drawTracingBackground(textStr) {
+            if (!tracingCtx) return;
+            tracingCtx.clearRect(0, 0, tracingCanvas.width, tracingCanvas.height);
+            
+            tracingCtx.fillStyle = '#F8FAFC';
+            tracingCtx.fillRect(0, 0, tracingCanvas.width, tracingCanvas.height);
+
+            tracingCtx.strokeStyle = '#E2E8F0';
+            tracingCtx.lineWidth = 2;
+            tracingCtx.setLineDash([6, 6]);
+            tracingCtx.beginPath();
+            tracingCtx.moveTo(0, 130); tracingCtx.lineTo(600, 130);
+            tracingCtx.stroke();
+            tracingCtx.setLineDash([]);
+
+            // 過濾並確保傳入畫布背景的僅為韓文字符
+            const cleanKrText = textStr.replace(/[^\uAC00-\uD7AF]/g, '');
+            const textToRender = cleanKrText || textStr;
+
+            tracingCtx.font = 'bold 110px "Comic Sans MS", "Chalkboard SE", "Malgun Gothic", sans-serif';
+            tracingCtx.fillStyle = '#CBD5E1';
+            tracingCtx.textAlign = 'center';
+            tracingCtx.textBaseline = 'middle';
+            tracingCtx.fillText(textToRender, 300, 130);
+        }
+
         function getCanvasPos(evt) {
             const rect = tracingCanvas.getBoundingClientRect();
-            // Need to handle scaling if canvas CSS size != attribute size
             const scaleX = tracingCanvas.width / rect.width;
             const scaleY = tracingCanvas.height / rect.height;
             return {
@@ -881,16 +2095,19 @@
         function startDraw(e) {
             isDrawing = true;
             const pos = getCanvasPos(e);
+            
+            // 繪製單點落筆 (即刻補上圓點，確保觸控/滑鼠單次點擊順暢落筆)
+            tracingCtx.beginPath();
+            tracingCtx.arc(pos.x, pos.y, penWidth / 2, 0, Math.PI * 2);
+            tracingCtx.fillStyle = penColor;
+            tracingCtx.fill();
+
             tracingCtx.beginPath();
             tracingCtx.moveTo(pos.x, pos.y);
-            // Setup drawing style based on current pen settings
             tracingCtx.strokeStyle = penColor;
             tracingCtx.lineWidth = penWidth;
             tracingCtx.lineCap = 'round';
             tracingCtx.lineJoin = 'round';
-            // Need an initial point for tap/click
-            tracingCtx.lineTo(pos.x, pos.y);
-            tracingCtx.stroke();
         }
 
         function draw(e) {
@@ -906,50 +2123,163 @@
 
         function clearTracingCanvas() {
             audio.playPop();
-            // Basic background and guide lines
-            tracingCtx.clearRect(0, 0, tracingCanvas.width, tracingCanvas.height);
-            
-            // White background paper
-            tracingCtx.fillStyle = '#F8FAFC';
-            tracingCtx.fillRect(0, 0, tracingCanvas.width, tracingCanvas.height);
-
-            // Guide line (dashed gray)
-            tracingCtx.strokeStyle = '#E2E8F0';
-            tracingCtx.lineWidth = 2;
-            tracingCtx.setLineDash([6, 6]);
-            tracingCtx.beginPath();
-            tracingCtx.moveTo(0, 130); tracingCtx.lineTo(600, 130);
-            tracingCtx.stroke();
-            tracingCtx.setLineDash([]); // Reset dash
-
-            // Draw student name (gray, large)
-            tracingCtx.font = 'bold 110px "Comic Sans MS", "Chalkboard SE", "Malgun Gothic", sans-serif';
-            tracingCtx.fillStyle = '#CBD5E1'; // Light gray for tracing
-            tracingCtx.textAlign = 'center';
-            tracingCtx.textBaseline = 'middle';
-            tracingCtx.fillText(state.studentKo, 300, 130);
+            drawTracingBackground(getCurrentTracingKoreanText());
         }
 
-        function setPenColor(col) {
+        function setPenColor(col, btnEl) {
             audio.playPop();
             penColor = col;
+            
+            const group = document.getElementById('colorPickerGroup');
+            if (group) {
+                group.querySelectorAll('button').forEach(btn => {
+                    btn.classList.remove('ring-2', 'ring-offset-2', 'ring-slate-800', 'ring-red-500', 'ring-blue-500', 'ring-pink-500', 'scale-110');
+                });
+            }
+            if (btnEl) {
+                btnEl.classList.add('ring-2', 'ring-offset-2', 'scale-110');
+                if (col === '#1E293B') btnEl.classList.add('ring-slate-800');
+                else if (col === '#EF4444') btnEl.classList.add('ring-red-500');
+                else if (col === '#3B82F6') btnEl.classList.add('ring-blue-500');
+                else if (col === '#EC4899') btnEl.classList.add('ring-pink-500');
+            }
         }
 
-        function setPenWidth(w) {
+        function setPenWidth(w, btnEl) {
             audio.playPop();
             penWidth = w;
+            
+            const group = document.getElementById('widthPickerGroup');
+            if (group) {
+                group.querySelectorAll('button').forEach(btn => {
+                    btn.classList.remove('ring-2', 'ring-blue-500', 'font-black', 'text-blue-600');
+                    btn.classList.add('text-slate-700');
+                });
+            }
+            if (btnEl) {
+                btnEl.classList.remove('text-slate-700');
+                btnEl.classList.add('ring-2', 'ring-blue-500', 'font-black', 'text-blue-600');
+            }
         }
 
         function speakTracingName() {
-            audio.speak(state.studentKo);
+            audio.speak(getCurrentTracingKoreanText());
+        }
+
+        /* ================= AUTOMATIC NEATNESS EVALUATION ENGINE ================= */
+        function evaluateHandwritingNeatness() {
+            if (!tracingCanvas) return;
+            audio.playPop();
+
+            const w = tracingCanvas.width;
+            const h = tracingCanvas.height;
+            const textStr = getCurrentTracingKoreanText();
+
+            const refCanvas = document.createElement('canvas');
+            refCanvas.width = w;
+            refCanvas.height = h;
+            const refCtx = refCanvas.getContext('2d');
+
+            refCtx.fillStyle = '#000000';
+            refCtx.fillRect(0, 0, w, h);
+            refCtx.font = 'bold 110px "Comic Sans MS", "Chalkboard SE", "Malgun Gothic", sans-serif';
+            refCtx.fillStyle = '#FFFFFF';
+            refCtx.textAlign = 'center';
+            refCtx.textBaseline = 'middle';
+            refCtx.fillText(textStr, 300, 130);
+
+            const refImgData = refCtx.getImageData(0, 0, w, h).data;
+            const userImgData = tracingCtx.getImageData(0, 0, w, h).data;
+
+            let templatePixelCount = 0;
+            let userPixelCount = 0;
+            let overlapCount = 0;
+
+            for (let y = 0; y < h; y += 3) {
+                for (let x = 0; x < w; x += 3) {
+                    const idx = (y * w + x) * 4;
+
+                    const isTemplate = refImgData[idx] > 200;
+                    
+                    const r = userImgData[idx];
+                    const g = userImgData[idx + 1];
+                    const b = userImgData[idx + 2];
+                    
+                    const isUserStroke = (r < 190 && g < 190) || (r > 200 && g < 100);
+
+                    if (isTemplate) templatePixelCount++;
+                    if (isUserStroke) {
+                        userPixelCount++;
+                        if (isTemplate) overlapCount++;
+                    }
+                }
+            }
+
+            if (userPixelCount < 40) {
+                showCustomAlert("⚠️ 畫布上的筆劃太少囉！請先沿著灰字完整描寫名字再進行感應驗證！");
+                return;
+            }
+
+            const coverageRatio = Math.min(1.0, overlapCount / Math.max(1, templatePixelCount));
+            const precisionRatio = overlapCount / Math.max(1, userPixelCount);
+
+            let finalScore = Math.round((coverageRatio * 0.65 + precisionRatio * 0.35) * 100 * 1.35);
+            finalScore = Math.min(100, Math.max(15, finalScore));
+
+            showNeatnessResultModal(finalScore);
+        }
+
+        function showNeatnessResultModal(score) {
+            const modal = document.getElementById('neatnessModal');
+            const scoreText = document.getElementById('neatnessScoreText');
+            const starsText = document.getElementById('neatnessStars');
+            const feedbackText = document.getElementById('neatnessFeedback');
+            const rewardText = document.getElementById('neatnessTokenEarned');
+            const icon = document.getElementById('neatnessIcon');
+
+            scoreText.innerText = `${score}%`;
+
+            let rewardTokens = 10;
+            if (score >= 90) {
+                icon.innerText = "🏆";
+                starsText.innerText = "⭐⭐⭐⭐⭐";
+                feedbackText.innerText = "🌟 神筆馬良！字形超級工整標準！";
+                rewardTokens = 25;
+            } else if (score >= 75) {
+                icon.innerText = "🌟";
+                starsText.innerText = "⭐⭐⭐⭐";
+                feedbackText.innerText = "👍 非常優秀！筆劃非常貼合樣板！";
+                rewardTokens = 20;
+            } else if (score >= 60) {
+                icon.innerText = "✏️";
+                starsText.innerText = "⭐⭐⭐";
+                feedbackText.innerText = "💪 寫得很好！再接再厲會更工整喔！";
+                rewardTokens = 15;
+            } else {
+                icon.innerText = "🌱";
+                starsText.innerText = "⭐⭐";
+                feedbackText.innerText = "🎯 繼續加油！試著沿著灰字中心描寫更精準！";
+                rewardTokens = 10;
+            }
+
+            rewardText.innerText = `+${rewardTokens} Token`;
+            addScore(rewardTokens);
+
+            confetti({ particleCount: 80, spread: 60, origin: { y: 0.6 } });
+            audio.playCorrect();
+
+            modal.classList.remove('hidden');
+        }
+
+        function closeNeatnessModal() {
+            audio.playPop();
+            document.getElementById('neatnessModal').classList.add('hidden');
         }
 
         /* ================= INITIALIZATION ================= */
         window.onload = function() {
-            // Setup login
             switchClassTab('3A');
             checkL4UnlockStatus();
-            // Optional: Start by showing student selection modal
             promptSelectStudent();
         };
     </script>
