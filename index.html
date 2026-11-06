@@ -110,6 +110,7 @@
 
             <!-- Student Profile Badge & Score -->
             <div class="flex items-center gap-3 bg-amber-50 px-4 py-2 rounded-2xl border-2 border-amber-300 shadow-sm flex-wrap">
+                <!-- Current Student Info -->
                 <div class="flex items-center gap-2">
                     <span class="text-2xl" id="headerAvatarIcon">👤</span>
                     <div>
@@ -120,11 +121,13 @@
 
                 <div class="h-6 w-0.5 bg-amber-200"></div>
 
+                <!-- Grade & Class Tag -->
                 <div class="flex items-center gap-1.5 bg-amber-200/60 px-2.5 py-1 rounded-xl">
                     <span class="text-base">🎒</span>
                     <span id="headerGradeBadge" class="text-xs font-black text-amber-900">3A 班 #02</span>
                 </div>
 
+                <!-- Teacher Grade Switcher (Visible in Teacher Mode) -->
                 <div id="teacherGradeSwitcher" class="hidden flex items-center gap-1 bg-purple-100 p-1 rounded-xl border border-purple-300">
                     <button onclick="setTeacherGrade('P3')" id="btnTeacherP3" class="px-2 py-0.5 rounded-lg text-xs font-black bg-purple-600 text-white shadow-sm">
                         🎒 P3 主頁
@@ -136,6 +139,7 @@
 
                 <div class="h-6 w-0.5 bg-amber-200"></div>
 
+                <!-- Token Score -->
                 <div class="flex items-center gap-2">
                     <span class="text-xl">⭐</span>
                     <div>
@@ -149,6 +153,7 @@
                 </button>
             </div>
 
+            <!-- Nav Buttons -->
             <nav class="flex items-center gap-2">
                 <button onclick="showHome()" class="px-3.5 py-2 rounded-xl text-sm font-bold bg-slate-100 hover:bg-slate-200 text-slate-700 transition">
                     <i class="fa-solid fa-house mr-1"></i>主頁
@@ -169,9 +174,11 @@
     <!-- Main Container -->
     <main class="max-w-4xl mx-auto px-4 py-6 w-full flex-1">
 
-        <!-- ================= HOME TAB / LEVEL SELECTOR ================= -->
+        <!-- ================= HOME TAB / LEVEL SELECTOR (P3 DASHBOARD) ================= -->
         <div id="tab-home" class="tab-content flex flex-col gap-6 animate-pop-in">
+            <!-- P3 Dashboard View -->
             <div id="p3-dashboard" class="flex flex-col gap-6">
+                <!-- Welcome Hero Box -->
                 <div class="glass-panel p-6 md:p-8 rounded-3xl text-center relative overflow-hidden shadow-xl">
                     <span class="inline-block px-4 py-1.5 bg-pink-100 text-pink-600 rounded-full font-black text-sm mb-2">
                         🎯 안녕하세요! 歡迎來到韓語課堂闖關大集結
@@ -184,18 +191,22 @@
                     </p>
                 </div>
 
-                <!-- LEVEL GRID -->
+                <!-- LEVEL GRID (3 Rows x 2 Columns = 6 Levels) -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
                     
-                    <!-- LEVEL 1 -->
+                    <!-- ROW 1: Level 1 -->
                     <div onclick="openModeModal(1)" class="bubble-card bg-gradient-to-br from-teal-300 to-emerald-400 p-6 rounded-3xl border-4 border-white cursor-pointer text-white flex flex-col justify-between">
                         <div>
                             <div class="flex justify-between items-start mb-3">
-                                <div class="w-14 h-14 bg-white/90 text-teal-600 rounded-2xl flex items-center justify-center text-3xl shadow-md">👋</div>
+                                <div class="w-14 h-14 bg-white/90 text-teal-600 rounded-2xl flex items-center justify-center text-3xl shadow-md">
+                                    👋
+                                </div>
                                 <span class="bg-teal-800/30 text-white font-black text-xs px-3 py-1 rounded-full">關卡 1</span>
                             </div>
                             <h3 class="text-2xl font-black mb-1">情境反應王</h3>
-                            <p class="text-teal-950 font-bold text-xs md:text-sm opacity-90">課堂必備 5 大句型聽辨！</p>
+                            <p class="text-teal-950 font-bold text-xs md:text-sm opacity-90">
+                                課堂必備 5 大句型：안녕하세요 / 감사합니다 / 미안해요 / 괜찮아요 / 맛있어요 二選一聽辨！
+                            </p>
                         </div>
                         <div class="mt-4 flex items-center justify-between text-xs font-black text-teal-950">
                             <span>5 大基礎句型 (5 題)</span>
@@ -203,15 +214,19 @@
                         </div>
                     </div>
 
-                    <!-- LEVEL 2 -->
+                    <!-- ROW 1: Level 2 -->
                     <div onclick="openModeModal(2)" class="bubble-card bg-gradient-to-br from-amber-300 to-orange-400 p-6 rounded-3xl border-4 border-white cursor-pointer text-slate-900 flex flex-col justify-between">
                         <div>
                             <div class="flex justify-between items-start mb-3">
-                                <div class="w-14 h-14 bg-white text-orange-500 rounded-2xl flex items-center justify-center text-3xl shadow-md">🍱</div>
+                                <div class="w-14 h-14 bg-white text-orange-500 rounded-2xl flex items-center justify-center text-3xl shadow-md">
+                                    🍱
+                                </div>
                                 <span class="bg-amber-900/20 text-slate-900 font-black text-xs px-3 py-1 rounded-full">關卡 2</span>
                             </div>
                             <h3 class="text-2xl font-black mb-1">美食單字大搜查</h3>
-                            <p class="text-slate-800 font-bold text-xs md:text-sm">指認出對應的 9 款韓國道地美食！</p>
+                            <p class="text-slate-800 font-bold text-xs md:text-sm">
+                                食物辨識：聽/看韓文單字，指認出對應的 9 款韓國道地美食！
+                            </p>
                         </div>
                         <div class="mt-4 flex items-center justify-between text-xs font-black text-slate-900">
                             <span>前置條件 1/2</span>
@@ -219,15 +234,19 @@
                         </div>
                     </div>
 
-                    <!-- LEVEL 3 -->
+                    <!-- ROW 2: Level 3 -->
                     <div onclick="openModeModal(3)" class="bubble-card bg-gradient-to-br from-sky-400 to-blue-500 p-6 rounded-3xl border-4 border-white cursor-pointer text-white flex flex-col justify-between">
                         <div>
                             <div class="flex justify-between items-start mb-3">
-                                <div class="w-14 h-14 bg-white text-blue-600 rounded-2xl flex items-center justify-center text-3xl shadow-md">🔢</div>
+                                <div class="w-14 h-14 bg-white text-blue-600 rounded-2xl flex items-center justify-center text-3xl shadow-md">
+                                    🔢
+                                </div>
                                 <span class="bg-blue-900/30 text-white font-black text-xs px-3 py-1 rounded-full">關卡 3</span>
                             </div>
                             <h3 class="text-2xl font-black mb-1">漢語數字大挑戰</h3>
-                            <p class="text-blue-100 font-bold text-xs md:text-sm">數字 1–10 (일~십) 聽力與字形配對！</p>
+                            <p class="text-blue-100 font-bold text-xs md:text-sm">
+                                數字 1–10 (일~십)：阿拉伯數字轉韓文與語音聽力二選一配對！
+                            </p>
                         </div>
                         <div class="mt-4 flex items-center justify-between text-xs font-black text-blue-100">
                             <span>前置條件 2/2</span>
@@ -235,15 +254,21 @@
                         </div>
                     </div>
 
-                    <!-- LEVEL 4 -->
+                    <!-- ROW 2: Level 4 -->
                     <div id="card-level4" onclick="clickLevel4Card()" class="bubble-card bg-slate-200 border-4 border-dashed border-slate-300 p-6 rounded-3xl cursor-pointer text-slate-400 opacity-85 transition flex flex-col justify-between">
                         <div>
                             <div class="flex justify-between items-start mb-3">
-                                <div id="l4-card-icon" class="w-14 h-14 bg-slate-100 text-slate-400 rounded-2xl flex items-center justify-center text-3xl shadow-inner">🔒</div>
-                                <span id="l4-card-badge" class="bg-slate-300 text-slate-600 font-black text-xs px-3 py-1 rounded-full">🔒 通過關卡 2 & 3 解鎖</span>
+                                <div id="l4-card-icon" class="w-14 h-14 bg-slate-100 text-slate-400 rounded-2xl flex items-center justify-center text-3xl shadow-inner">
+                                    🔒
+                                </div>
+                                <span id="l4-card-badge" class="bg-slate-300 text-slate-600 font-black text-xs px-3 py-1 rounded-full">
+                                    🔒 通過關卡 2 & 3 解鎖
+                                </span>
                             </div>
                             <h3 id="l4-card-title" class="text-2xl font-black mb-1 text-slate-500">小吃攤點餐大師</h3>
-                            <p id="l4-card-desc" class="text-slate-500 font-bold text-xs md:text-sm">聽純韓文點餐句子（-인분）！</p>
+                            <p id="l4-card-desc" class="text-slate-500 font-bold text-xs md:text-sm">
+                                結合美食與數字：聽純韓文點餐句子（-인분），支援雙階難度（初級 3 圖卡 / 中級 6 圖卡）！
+                            </p>
                         </div>
                         <div class="mt-4 flex items-center justify-between text-xs font-black text-slate-400">
                             <span id="l4-card-sub">需先通關關卡 2 與 3</span>
@@ -251,16 +276,18 @@
                         </div>
                     </div>
 
-                    <!-- LEVEL 5 -->
+                    <!-- ROW 3: Level 5 -->
                     <div onclick="openModeModal(5)" class="bubble-card bg-gradient-to-br from-indigo-400 to-purple-500 p-6 rounded-3xl border-4 border-white cursor-pointer text-white flex flex-col justify-between">
                         <div>
                             <div class="flex justify-between items-start mb-3">
-                                <div class="w-14 h-14 bg-white text-indigo-600 rounded-2xl flex items-center justify-center text-3xl shadow-md">👨‍👩‍👧‍👦</div>
+                                <div class="w-14 h-14 bg-white text-indigo-600 rounded-2xl flex items-center justify-center text-3xl shadow-md">
+                                    👨‍👩‍👧‍👦
+                                </div>
                                 <span class="bg-indigo-900/30 text-white font-black text-xs px-3 py-1 rounded-full">關卡 5</span>
                             </div>
                             <h3 class="text-2xl font-black mb-1">家庭成員大作戰</h3>
                             <p class="text-indigo-100 font-bold text-xs md:text-sm">
-                                男女視角稱呼配對：含 爸爸/媽媽/哥哥/姊姊/弟弟/妹妹 全家 6 大稱謂！
+                                男女視角稱呼配對：包含 오빠/형/언니/누나 與爸爸媽媽弟妹 8 大家人！
                             </p>
                         </div>
                         <div class="mt-4 flex items-center justify-between text-xs font-black text-indigo-100">
@@ -269,11 +296,13 @@
                         </div>
                     </div>
 
-                    <!-- LEVEL 6 -->
+                    <!-- ROW 3: Level 6 -->
                     <div onclick="triggerLockedLevelModal()" class="bubble-card bg-white/80 border-4 border-dashed border-slate-300 p-6 rounded-3xl cursor-pointer hover:bg-white transition flex flex-col justify-between">
                         <div>
                             <div class="flex justify-between items-start mb-3">
-                                <div class="w-14 h-14 bg-slate-100 text-slate-400 rounded-2xl flex items-center justify-center text-3xl shadow-inner">🔒</div>
+                                <div class="w-14 h-14 bg-slate-100 text-slate-400 rounded-2xl flex items-center justify-center text-3xl shadow-inner">
+                                    🔒
+                                </div>
                                 <span class="bg-slate-200 text-slate-600 font-black text-xs px-2.5 py-1 rounded-full">關卡 6 • 預告</span>
                             </div>
                             <h3 class="text-2xl font-black text-slate-400 mb-1">色彩與韓服體驗</h3>
@@ -288,7 +317,42 @@
                 </div>
             </div>
 
-            <!-- NAME TRACING MODULE -->
+            <!-- P4 Dashboard View -->
+            <div id="p4-dashboard" class="hidden flex-col gap-6">
+                <div class="glass-panel p-6 md:p-8 rounded-3xl text-center relative overflow-hidden shadow-xl bg-gradient-to-r from-purple-500 to-indigo-600 text-white border-0">
+                    <span class="inline-block px-4 py-1.5 bg-white/20 text-white rounded-full font-black text-sm mb-2 backdrop-blur">
+                        🚀 小四 (P4) 韓語進階課程總覽
+                    </span>
+                    <h2 class="text-3xl md:text-4xl font-black mb-2">
+                        <span id="heroStudentGreetingP4">陳大文</span> 同學，歡迎來到小四學習專區！
+                    </h2>
+                    <p class="text-purple-100 font-bold max-w-xl mx-auto text-sm md:text-base">
+                        小四韓語進階課程（韓國固有詞數字、交通工具與日常對話）即將上線！現可先體驗韓文姓名描紅！
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <div onclick="showCustomAlert('🔒 小四進階關卡 1 正準備中，敬請期待！')" class="bubble-card bg-white border-4 border-dashed border-indigo-200 p-6 rounded-3xl cursor-pointer text-slate-400">
+                        <div class="flex justify-between items-start mb-3">
+                            <span class="text-4xl">🔢</span>
+                            <span class="bg-purple-100 text-purple-700 font-black text-xs px-3 py-1 rounded-full">P4 預告</span>
+                        </div>
+                        <h3 class="text-2xl font-black text-slate-700 mb-1">固有詞數字 1~20</h3>
+                        <p class="text-xs font-bold text-slate-400">하나, 둘, 셋... 固有詞數字專屬關卡</p>
+                    </div>
+
+                    <div onclick="showCustomAlert('🔒 小四進階關卡 2 正準備中，敬請期待！')" class="bubble-card bg-white border-4 border-dashed border-indigo-200 p-6 rounded-3xl cursor-pointer text-slate-400">
+                        <div class="flex justify-between items-start mb-3">
+                            <span class="text-4xl">🚌</span>
+                            <span class="bg-purple-100 text-purple-700 font-black text-xs px-3 py-1 rounded-full">P4 預告</span>
+                        </div>
+                        <h3 class="text-2xl font-black text-slate-700 mb-1">韓國交通工具大搜查</h3>
+                        <p class="text-xs font-bold text-slate-400">버스, 지하철, 택시 生活詞彙辨識</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BOTTOM FULL WIDTH ROW: NAME TRACING MODULE (SHARED) -->
             <div class="bubble-card bg-gradient-to-r from-cyan-500 via-blue-500 to-indigo-500 p-6 md:p-8 rounded-3xl border-4 border-white text-white shadow-xl mt-2 flex flex-col md:flex-row items-center justify-between gap-6">
                 <div class="flex-1">
                     <div class="flex items-center gap-3 mb-2">
@@ -307,231 +371,425 @@
                     <i class="fa-solid fa-arrow-right"></i>
                 </button>
             </div>
+
         </div>
 
-        <!-- ================= LEVEL 5: FAMILY MEMBERS ================= -->
-        <div id="tab-level5" class="tab-content hidden animate-pop-in">
-            <div class="glass-panel p-6 md:p-8 rounded-3xl shadow-2xl">
-                <div class="flex items-center justify-between mb-4 border-b-2 border-indigo-100 pb-3">
-                    <button onclick="showHome()" class="text-sm font-bold text-slate-500 hover:text-slate-800">
-                        <i class="fa-solid fa-chevron-left mr-1"></i> 返回選單
-                    </button>
-                    <span class="text-xs font-black bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full">關卡 5 • 題目 <span id="l5-q-index">1</span> / 5</span>
-                </div>
 
-                <div class="bg-indigo-50/90 p-6 rounded-3xl border-3 border-indigo-200 text-center mb-6">
-                    <span id="l5-speaker-badge" class="inline-block px-4 py-1.5 bg-indigo-600 text-white font-black rounded-full text-sm mb-3 shadow-sm">
-                        👦 我是男生
-                    </span>
-                    <div id="l5-family-avatar" class="text-6xl mb-2">👨‍🦱</div>
-                    <h3 id="l5-target-title" class="text-2xl md:text-3xl font-black text-slate-800 mb-1">
-                        這是我的「哥哥」
-                    </h3>
-                    <p class="text-slate-500 font-bold text-xs md:text-sm">根據人物與我的視角，選出正確的韓語稱呼：</p>
-                </div>
-
-                <div id="l5-options-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-xl mx-auto">
-                    <!-- Dynamic 4 Options -->
-                </div>
-            </div>
-        </div>
-
-        <!-- OTHER LEVEL TABS REMAIN AS FULLY FUNCTIONAL ... -->
-        <!-- (Level 1, Level 2, Level 3, Level 4, Tracing Canvas) -->
+        <!-- ================= LEVEL 1: 情境反應王 ================= -->
         <div id="tab-level1" class="tab-content hidden animate-pop-in">
             <div class="glass-panel p-6 md:p-8 rounded-3xl shadow-2xl">
                 <div class="flex items-center justify-between mb-4 border-b-2 border-amber-100 pb-3">
-                    <button onclick="showHome()" class="text-sm font-bold text-slate-500 hover:text-slate-800"><i class="fa-solid fa-chevron-left mr-1"></i> 返回選單</button>
+                    <button onclick="showHome()" class="text-sm font-bold text-slate-500 hover:text-slate-800">
+                        <i class="fa-solid fa-chevron-left mr-1"></i> 返回選單
+                    </button>
                     <span class="text-xs font-black bg-teal-100 text-teal-800 px-3 py-1 rounded-full">關卡 1 • 題目 <span id="l1-q-index">1</span> / 5</span>
                 </div>
+
                 <div class="bg-teal-50/90 p-6 md:p-8 rounded-3xl border-3 border-teal-200 text-center mb-6">
                     <div id="l1-icon" class="text-7xl mb-3 animate-bounce-short">🏫</div>
-                    <h3 id="l1-scenario-title" class="text-2xl md:text-3xl font-black text-slate-800 mb-2">早上上學遇見老師</h3>
-                    <p class="text-slate-600 font-bold text-sm md:text-base">這時候應該說哪一句韓語禮貌用語呢？</p>
+                    <h3 id="l1-scenario-title" class="text-2xl md:text-3xl font-black text-slate-800 mb-2">
+                        早上上學遇見老師
+                    </h3>
+                    <p class="text-slate-600 font-bold text-sm md:text-base">
+                        這時候應該說哪一句韓語禮貌用語呢？
+                    </p>
                 </div>
-                <div id="l1-options" class="grid grid-cols-1 sm:grid-cols-2 gap-5 max-w-2xl mx-auto"></div>
+
+                <div id="l1-options" class="grid grid-cols-1 sm:grid-cols-2 gap-5 max-w-2xl mx-auto">
+                    <!-- Dynamic 2 choices -->
+                </div>
             </div>
         </div>
 
+
+        <!-- ================= LEVEL 2: 美食單字大搜查 ================= -->
         <div id="tab-level2" class="tab-content hidden animate-pop-in">
             <div class="glass-panel p-6 md:p-8 rounded-3xl shadow-2xl">
                 <div class="flex items-center justify-between mb-4 border-b-2 border-amber-100 pb-3">
-                    <button onclick="showHome()" class="text-sm font-bold text-slate-500 hover:text-slate-800"><i class="fa-solid fa-chevron-left mr-1"></i> 返回選單</button>
+                    <button onclick="showHome()" class="text-sm font-bold text-slate-500 hover:text-slate-800">
+                        <i class="fa-solid fa-chevron-left mr-1"></i> 返回選單
+                    </button>
                     <span class="text-xs font-black bg-amber-100 text-amber-800 px-3 py-1 rounded-full">關卡 2 • 題目 <span id="l2-q-index">1</span> / 5</span>
                 </div>
+
                 <div class="bg-orange-50 p-5 rounded-3xl border-3 border-orange-200 text-center mb-6 flex flex-col items-center justify-center">
                     <div class="flex items-center gap-3">
-                        <h3 id="l2-word-korean" class="text-4xl md:text-5xl font-black text-amber-900 tracking-wider">떡볶이</h3>
-                        <button onclick="playCurrentL2Audio()" class="w-12 h-12 bg-amber-400 hover:bg-amber-500 text-slate-900 rounded-2xl flex items-center justify-center text-xl shadow-md transition">🔊</button>
+                        <h3 id="l2-word-korean" class="text-4xl md:text-5xl font-black text-amber-900 tracking-wider">
+                            떡볶이
+                        </h3>
+                        <button onclick="playCurrentL2Audio()" class="w-12 h-12 bg-amber-400 hover:bg-amber-500 text-slate-900 rounded-2xl flex items-center justify-center text-xl shadow-md transition">
+                            🔊
+                        </button>
                     </div>
                     <p id="l2-word-roman" class="text-amber-700 font-extrabold text-lg mt-1">Tteokbokki</p>
                     <p class="text-slate-500 font-bold text-xs mt-2">請在下方選出正確的美食圖片：</p>
                 </div>
-                <div id="l2-cards-container" class="grid grid-cols-1 sm:grid-cols-3 gap-4"></div>
+
+                <div id="l2-cards-container" class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <!-- Dynamic 3 Food Image Cards -->
+                </div>
             </div>
         </div>
 
+
+        <!-- ================= LEVEL 3: 漢語數字大挑戰 ================= -->
         <div id="tab-level3" class="tab-content hidden animate-pop-in">
             <div class="glass-panel p-6 md:p-8 rounded-3xl shadow-2xl">
                 <div class="flex items-center justify-between mb-4 border-b-2 border-sky-100 pb-3">
-                    <button onclick="showHome()" class="text-sm font-bold text-slate-500 hover:text-slate-800"><i class="fa-solid fa-chevron-left mr-1"></i> 返回選單</button>
-                    <span class="text-xs font-black bg-sky-100 text-sky-800 px-3 py-1 rounded-full">關卡 3 • 題目 <span id="l3-q-index">1</span> / 5</span>
-                </div>
-                <div class="bg-sky-50 p-6 rounded-3xl border-3 border-sky-200 text-center mb-6">
-                    <div class="flex items-center justify-center gap-3 mb-2">
-                        <h3 id="l3-prompt-main" class="text-3xl font-black text-sky-900">阿拉伯數字: 3</h3>
-                        <button onclick="playCurrentL3NumberAudio()" class="w-10 h-10 bg-sky-400 text-white rounded-xl flex items-center justify-center shadow">🔊</button>
-                    </div>
-                    <p class="text-slate-500 font-bold text-xs">請選出對應的韓文漢字數字：</p>
-                </div>
-                <div id="l3-number-options" class="grid grid-cols-2 gap-4 max-w-md mx-auto"></div>
-            </div>
-        </div>
-
-        <div id="tab-level4" class="tab-content hidden animate-pop-in">
-            <div class="glass-panel p-6 md:p-8 rounded-3xl shadow-2xl">
-                <div class="flex items-center justify-between mb-4 border-b-2 border-rose-100 pb-3">
-                    <button onclick="showHome()" class="text-sm font-bold text-slate-500 hover:text-slate-800"><i class="fa-solid fa-chevron-left mr-1"></i> 返回選單</button>
-                    <span id="l4-tier-badge" class="text-xs font-black bg-rose-100 text-rose-800 px-3 py-1 rounded-full">🌱 初級點餐</span>
-                    <span class="text-xs font-black bg-slate-100 text-slate-700 px-3 py-1 rounded-full">題目 <span id="l4-q-index">1</span> / 5</span>
-                </div>
-                <div class="bg-rose-50 p-5 rounded-3xl border-3 border-rose-200 text-center mb-6">
-                    <div class="flex items-center justify-center gap-3">
-                        <h3 id="l4-demand-korean" class="text-2xl md:text-3xl font-black text-rose-900">"떡볶이 삼인분 주세요!"</h3>
-                        <button onclick="playCurrentL4Audio()" class="w-10 h-10 bg-rose-500 text-white rounded-xl flex items-center justify-center shadow">🔊</button>
-                    </div>
-                    <div class="mt-3">
-                        <button id="l4-hint-btn" onclick="revealL4Hint()" class="px-3 py-1 bg-amber-400 hover:bg-amber-500 text-slate-900 font-black text-xs rounded-full shadow transition">💡 花費 10 Token 購買聽力中文翻譯</button>
-                        <p id="l4-hint-text" class="hidden text-amber-800 font-bold text-sm bg-amber-100 px-4 py-2 rounded-2xl inline-block border border-amber-300"></p>
-                    </div>
-                </div>
-                <div id="l4-food-grid" class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6"></div>
-                <div class="flex items-center justify-center gap-4">
-                    <button onclick="resetL4Selection()" class="px-5 py-2.5 bg-slate-200 hover:bg-slate-300 text-slate-700 font-extrabold rounded-2xl transition">🗑️ 重設清單</button>
-                    <button onclick="submitL4Order()" class="px-8 py-2.5 bg-rose-500 hover:bg-rose-600 text-white font-black rounded-2xl shadow-lg transition transform active:scale-95">✅ 送出點餐訂單</button>
-                </div>
-            </div>
-        </div>
-
-        <div id="tab-tracing" class="tab-content hidden animate-pop-in">
-            <div class="glass-panel p-6 md:p-8 rounded-3xl shadow-2xl text-center">
-                <div class="flex items-center justify-between mb-4 border-b-2 border-slate-100 pb-3">
-                    <button onclick="showHome()" class="text-sm font-bold text-slate-500 hover:text-slate-800"><i class="fa-solid fa-chevron-left mr-1"></i> 返回選單</button>
-                    <span class="text-xs font-black bg-blue-100 text-blue-800 px-3 py-1 rounded-full">✍️ 韓文姓名描紅練習</span>
-                </div>
-                <div class="flex items-center justify-center gap-3 mb-4">
-                    <h3 class="text-2xl font-black text-slate-800">請描繪您的韓文姓名：<span id="tracingStudentTitle" class="text-blue-600">정중은</span></h3>
-                    <button onclick="speakTracingName()" class="w-10 h-10 bg-blue-500 text-white rounded-xl flex items-center justify-center shadow hover:bg-blue-600">🔊</button>
-                </div>
-                <div class="relative inline-block border-4 border-slate-300 rounded-3xl shadow-inner bg-slate-50 overflow-hidden mb-4">
-                    <canvas id="tracingCanvas" width="600" height="260" class="cursor-crosshair"></canvas>
-                </div>
-                <div class="flex flex-wrap items-center justify-center gap-4">
-                    <div class="flex items-center gap-1.5 bg-slate-100 p-2 rounded-2xl">
-                        <span class="text-xs font-bold text-slate-500">筆觸顏色:</span>
-                        <button onclick="setPenColor('#1E293B')" class="w-7 h-7 bg-slate-800 rounded-full border-2 border-white shadow"></button>
-                        <button onclick="setPenColor('#EF4444')" class="w-7 h-7 bg-red-500 rounded-full border-2 border-white shadow"></button>
-                        <button onclick="setPenColor('#3B82F6')" class="w-7 h-7 bg-blue-500 rounded-full border-2 border-white shadow"></button>
-                    </div>
-                    <div class="flex items-center gap-1.5 bg-slate-100 p-2 rounded-2xl">
-                        <span class="text-xs font-bold text-slate-500">粗細:</span>
-                        <button onclick="setPenWidth(6)" class="px-2 py-1 bg-white border text-xs font-bold rounded-lg">細</button>
-                        <button onclick="setPenWidth(12)" class="px-2 py-1 bg-white border text-xs font-bold rounded-lg">中</button>
-                        <button onclick="setPenWidth(18)" class="px-2 py-1 bg-white border text-xs font-bold rounded-lg">粗</button>
-                    </div>
-                    <button onclick="clearTracingCanvas()" class="px-4 py-2 bg-slate-200 hover:bg-slate-300 text-slate-700 font-extrabold rounded-2xl transition">🗑️ 重繪</button>
-                </div>
-            </div>
-        </div>
-
-    </main>
-
-    <!-- Footer -->
-    <footer class="no-print bg-white border-t border-amber-200 py-4 px-4 text-center text-xs font-bold text-slate-400">
-        韓語教學互動系統 • Designed for Primary School Korean Language Learning
-    </footer>
-
-    <!-- SCRIPT SECTION -->
-    <script>
-        /* ================= GAME STATE & AUDIO ================= */
-        const state = {
-            grade: 'P3',
-            studentName: '鄭仲恩',
-            studentKo: '정중은',
-            studentClass: '3A',
-            score: 0,
-            l4Unlocked: false,
-            l4Tier: 'beginner',
-            currentTab: 'home',
-            timer: null,
-            timerLeft: 10
-        };
-
-        const audio = {
-            speak: function(text) {
-                if ('speechSynthesis' in window) {
-                    window.speechSynthesis.cancel();
-                    const u = new SpeechSynthesisUtterance(text);
-                    u.lang = 'ko-KR';
-                    u.rate = 0.85;
-                    window.speechSynthesis.speak(u);
-                }
+                    <button onclick="showHome()" class="text-sm font-bold text-slate-500 hover:text-slate-800">
+                        <i class="fa-solid fa-chevron-left mr-1"></i> 返回選單
+"안녕하세요!", options: [
+                    { text: "안녕하세요!", ko: "안녕하세요!", correct: true }, 
+                    { text: "감사합니다!", ko: "감사합니다!", correct: false }
+                ] 
             },
-            playCorrect: function() {
-                this.playTone(587.33, 0.15);
-                setTimeout(() => this.playTone(880, 0.25), 150);
+            { 
+                icon: "🎁", 
+                scenario: "收到同學送給你的生日禮物時", 
+                options: [
+                    { text: "감사합니다!", ko: "감사합니다!", correct: true }, 
+                    { text: "미안해요!", ko: "미안해요!", correct: false }
+                ] 
             },
-            playWrong: function() {
-                this.playTone(220, 0.2);
+            { 
+                icon: "👟", 
+                scenario: "不小心踩到同學的鞋子時道歉", 
+                options: [
+                    { text: "미안해요!", ko: "미안해요!", correct: true }, 
+                    { text: "괜찮아요!", ko: "괜찮아요!", correct: false }
+                ] 
             },
-            playPop: function() {
-                this.playTone(440, 0.05);
+            { 
+                icon: "🤝", 
+                scenario: "同學向你道歉說對不起時回答", 
+                options: [
+                    { text: "괜찮아요!", ko: "괜찮아요!", correct: true }, 
+                    { text: "안녕하세요!", ko: "안녕하세요!", correct: false }
+                ] 
             },
-            playTone: function(freq, duration) {
-                try {
-                    const ctx = new (window.AudioContext || window.webkitAudioContext)();
-                    const osc = ctx.createOscillator();
-                    const g = ctx.createGain();
-                    osc.type = 'sine';
-                    osc.frequency.value = freq;
-                    osc.connect(g);
-                    g.connect(ctx.destination);
-                    osc.start();
-                    g.gain.exponentialRampToValueAtTime(0.00001, ctx.currentTime + duration);
-                    setTimeout(() => ctx.close(), duration * 1000 + 50);
-                } catch(e){}
+            { 
+                icon: "🍙", 
+                scenario: "品嚐到好吃的紫菜包飯(🍙)時誇讚", 
+                options: [
+                    { text: "맛있어요!", ko: "맛있어요!", correct: true }, 
+                    { text: "미안해요!", ko: "미안해요!", correct: false }
+                ] 
             }
-        };
+        ];
 
-        function shuffleArray(arr) {
-            return [...arr].sort(() => Math.random() - 0.5);
+        function initL1() {
+            state.l1Questions = shuffleArray(L1_DATA);
+            state.l1Idx = 0;
+            document.getElementById('tab-level1').classList.remove('hidden');
+            renderL1();
         }
 
-        /* ================= LEVEL 5: FAMILY MEMBERS (EXPANDED TO 12 QUESTIONS INCL.弟弟 & 妹妹) ================= */
+        function renderL1() {
+            const q = state.l1Questions[state.l1Idx];
+            document.getElementById('l1-q-index').innerText = state.l1Idx + 1;
+            document.getElementById('l1-icon').innerText = q.icon;
+            document.getElementById('l1-scenario-title').innerText = q.scenario;
+
+            const optionsContainer = document.getElementById('l1-options');
+            optionsContainer.innerHTML = '';
+
+            const choices = shuffleArray(q.options);
+            choices.forEach(opt => {
+                const btn = document.createElement('button');
+                btn.className = "bubble-card p-5 bg-white border-4 border-teal-200 hover:border-teal-400 rounded-3xl text-center shadow-md transition transform active:scale-95";
+                btn.innerHTML = `
+                    <span class="text-2xl font-black text-teal-900 block mb-1">${opt.text}</span>
+                    <span class="text-xs font-bold text-teal-600">點擊播放語音</span>
+                `;
+                btn.onclick = () => {
+                    audio.speak(opt.ko);
+                    if (opt.correct) {
+                        audio.playCorrect();
+                        addScore(10);
+                        nextQuestion();
+                    } else {
+                        audio.playWrong();
+                        btn.classList.add('animate-shake', 'border-rose-400');
+                        setTimeout(() => btn.classList.remove('animate-shake'), 400);
+                    }
+                };
+                optionsContainer.appendChild(btn);
+            });
+            startTimer();
+        }
+
+        /* ================= LEVEL 2: FOOD WORD SEARCH ================= */
+        function initL2() {
+            state.l2Questions = shuffleArray(FOODS).slice(0, 5);
+            state.l2Idx = 0;
+            document.getElementById('tab-level2').classList.remove('hidden');
+            renderL2();
+        }
+
+        function renderL2() {
+            const target = state.l2Questions[state.l2Idx];
+            document.getElementById('l2-q-index').innerText = state.l2Idx + 1;
+            document.getElementById('l2-word-korean').innerText = target.nameKo;
+            document.getElementById('l2-word-roman').innerText = target.roma;
+
+            audio.speak(target.nameKo);
+
+            const wrongChoices = FOODS.filter(f => f.id !== target.id);
+            const dist = shuffleArray(wrongChoices).slice(0, 2);
+            const choices = shuffleArray([target, ...dist]);
+
+            const container = document.getElementById('l2-cards-container');
+            container.innerHTML = '';
+
+            choices.forEach(item => {
+                const card = document.createElement('div');
+                card.className = "bubble-card bg-white p-4 rounded-3xl border-4 border-orange-200 hover:border-orange-400 text-center cursor-pointer shadow-md transition transform active:scale-95 flex flex-col items-center justify-center";
+                card.innerHTML = `
+                    ${renderFoodDisplay(item, "h-24")}
+                    <span class="text-lg font-black text-slate-800 mt-1">${item.nameZh}</span>
+                `;
+                card.onclick = () => {
+                    if (item.id === target.id) {
+                        audio.playCorrect();
+                        addScore(10);
+                        nextQuestion();
+                    } else {
+                        audio.playWrong();
+                        card.classList.add('animate-shake', 'border-rose-400');
+                        setTimeout(() => card.classList.remove('animate-shake'), 400);
+                    }
+                };
+                container.appendChild(card);
+            });
+            startTimer();
+        }
+
+        function playCurrentL2Audio() {
+            const target = state.l2Questions[state.l2Idx];
+            if (target) audio.speak(target.nameKo);
+        }
+
+        /* ================= LEVEL 3: SINO-KOREAN NUMBERS ================= */
+        const NUMBERS = [
+            { num: 1, ko: "일", roma: "il" },
+            { num: 2, ko: "이", roma: "i" },
+            { num: 3, ko: "삼", roma: "sam" },
+            { num: 4, ko: "사", roma: "sa" },
+            { num: 5, ko: "오", roma: "o" },
+            { num: 6, ko: "육", roma: "yuk" },
+            { num: 7, ko: "칠", roma: "chil" },
+            { num: 8, ko: "팔", roma: "pal" },
+            { num: 9, ko: "구", roma: "gu" },
+            { num: 10, ko: "십", roma: "sip" }
+        ];
+
+        function initL3() {
+            state.l3Questions = shuffleArray(NUMBERS).slice(0, 5);
+            state.l3Idx = 0;
+            document.getElementById('tab-level3').classList.remove('hidden');
+            renderL3();
+        }
+
+        function renderL3() {
+            const target = state.l3Questions[state.l3Idx];
+            document.getElementById('l3-q-index').innerText = state.l3Idx + 1;
+            document.getElementById('l3-prompt-main').innerText = `阿拉伯數字: ${target.num}`;
+            
+            audio.speak(target.ko);
+
+            const wrongChoices = NUMBERS.filter(n => n.num !== target.num);
+            const wrong = shuffleArray(wrongChoices)[0];
+            const choices = shuffleArray([target, wrong]);
+
+            const container = document.getElementById('l3-number-options');
+            container.innerHTML = '';
+
+            choices.forEach(item => {
+                const btn = document.createElement('button');
+                btn.className = "bubble-card p-6 bg-white border-4 border-sky-200 hover:border-sky-400 rounded-3xl text-center shadow-md transition transform active:scale-95";
+                btn.innerHTML = `
+                    <span class="text-4xl font-black text-sky-900 block">${item.ko}</span>
+                    <span class="text-sm font-bold text-sky-600">(${item.roma})</span>
+                `;
+                btn.onclick = () => {
+                    audio.speak(item.ko);
+                    if (item.num === target.num) {
+                        audio.playCorrect();
+                        addScore(10);
+                        nextQuestion();
+                    } else {
+                        audio.playWrong();
+                        btn.classList.add('animate-shake', 'border-rose-400');
+                        setTimeout(() => btn.classList.remove('animate-shake'), 400);
+                    }
+                };
+                container.appendChild(btn);
+            });
+            startTimer();
+        }
+
+        function playCurrentL3NumberAudio() {
+            const target = state.l3Questions[state.l3Idx];
+            if (target) audio.speak(target.ko);
+        }
+
+        /* ================= LEVEL 4: FOOD STALL ORDERING (-인분) ================= */
+        const L4_DATA_TIERS = {
+            beginner: [
+                { foods: [{ id: "tteokbokki", count: 3 }], koSent: "떡볶이 삼인분 주세요!", hint: "請給我 3 份辣炒年糕！", grammarTip: "인분 搭配漢語數字 (삼인분)" },
+                { foods: [{ id: "chicken", count: 2 }], koSent: "치킨 이인분 주세요!", hint: "請給我 2 份韓式炸雞！", grammarTip: "인분 搭配漢語數字 (이인분)" },
+                { foods: [{ id: "gimbap", count: 1 }], koSent: "김밥 일인분 주세요!", hint: "請給我 1 份紫菜包飯(🍙)！", grammarTip: "인분 搭配漢語數字 (일인분)" },
+                { foods: [{ id: "eomuk", count: 4 }], koSent: "어묵 사인분 주세요!", hint: "請給我 4 份魚糕串！", grammarTip: "인분 搭配漢語數字 (사인분)" },
+                { foods: [{ id: "ramyen", count: 2 }], koSent: "라면 이인분 주세요!", hint: "請給我 2 份韓式拉麵！", grammarTip: "인분 搭配漢語數字 (이인分)" }
+            ],
+            intermediate: [
+                { foods: [{ id: "chicken", count: 2 }, { id: "ramyen", count: 1 }], koSent: "치킨 이인분하고 라면 일인분 주세요!", hint: "請給我 2 份炸雞和 1 份拉麵！", grammarTip: "인분 搭配漢語數字 + 하고" },
+                { foods: [{ id: "tteokbokki", count: 1 }, { id: "eomuk", count: 2 }], koSent: "떡볶이 일인분하고 어묵 이인분 주세요!", hint: "請給我 1 份辣炒年糕和 2 份魚糕串！", grammarTip: "인분 搭配漢語數字 + 하고" },
+                { foods: [{ id: "gimbap", count: 2 }, { id: "banana_milk", count: 1 }], koSent: "김밥 이인분하고 바나나 우유 일인분 주세요!", hint: "請給我 2 份紫菜包飯(🍙)和 1 份香蕉牛奶！", grammarTip: "인분 搭配漢語數字 + 하고" },
+                { foods: [{ id: "hatdogeu", count: 2 }, { id: "ramyen", count: 1 }], koSent: "핫도그 이인분하고 라면 일인분 주세요!", hint: "請給我 2 份熱狗和 1 份拉麵！", grammarTip: "인분 搭配漢語數字 + 하고" },
+                { foods: [{ id: "hotteok", count: 3 }, { id: "bingsu", count: 1 }], koSent: "호떡 삼인분하고 빙수 일인분 주세요!", hint: "請給我 3 份黑糖煎餅和 1 份刨冰！", grammarTip: "인분 搭配漢語數字 + 하고" }
+            ]
+        };
+
+        function initL4() {
+            const pool = L4_DATA_TIERS[state.l4Tier] || L4_DATA_TIERS.beginner;
+            state.l4Questions = shuffleArray(pool);
+            state.l4Idx = 0;
+            document.getElementById('tab-level4').classList.remove('hidden');
+
+            const badge = document.getElementById('l4-tier-badge');
+            if (state.l4Tier === 'beginner') badge.innerText = '🌱 初級點餐';
+            else badge.innerText = '⚡ 中級套餐';
+
+            renderL4();
+        }
+
+        function renderL4() {
+            const q = state.l4Questions[state.l4Idx];
+            if (!q) return;
+            state.l4Counts = { tteokbokki: 0, chicken: 0, gimbap: 0, eomuk: 0, ramyen: 0, banana_milk: 0, hatdogeu: 0, hotteok: 0, bingsu: 0 };
+            state.l4HintRevealed = false;
+
+            document.getElementById('l4-q-index').innerText = state.l4Idx + 1;
+            document.getElementById('l4-demand-korean').innerText = `"${q.koSent}"`;
+            document.getElementById('l4-hint-text').classList.add('hidden');
+            document.getElementById('l4-hint-text').innerText = `${q.hint} 💡 (${q.grammarTip})`;
+            document.getElementById('l4-hint-btn').classList.remove('hidden');
+
+            // 固定當前題目的食物卡片組合與順序，避免點擊修改數量時重新亂數換卡
+            const targetIds = q.foods.map(f => f.id);
+            const targetItems = FOODS.filter(f => targetIds.includes(f.id));
+            const countNeeded = state.l4Tier === 'beginner' ? 3 : 6;
+            const distractors = shuffleArray(FOODS.filter(f => !targetIds.includes(f.id))).slice(0, countNeeded - targetItems.length);
+            state.l4VisibleFoods = shuffleArray([...targetItems, ...distractors]);
+
+            audio.speak(q.koSent);
+
+            renderL4FoodGrid();
+            startTimer();
+        }
+
+        function playCurrentL4Audio() {
+            const q = state.l4Questions[state.l4Idx];
+            if (q) audio.speak(q.koSent);
+        }
+
+        function revealL4Hint() {
+            if (state.score < 10) {
+                showCustomAlert(" Token 積分不足，無法購買提示！");
+                return;
+            }
+            state.score -= 10;
+            saveToLocalStorage();
+            updateHeaderUI();
+
+            document.getElementById('l4-hint-btn').classList.add('hidden');
+            document.getElementById('l4-hint-text').classList.remove('hidden');
+        }
+
+        function renderL4FoodGrid() {
+            const q = state.l4Questions[state.l4Idx];
+            if (!q || !q.foods || !state.l4VisibleFoods) return;
+            const grid = document.getElementById('l4-food-grid');
+            grid.innerHTML = '';
+
+            state.l4VisibleFoods.forEach(food => {
+                const currentCnt = state.l4Counts[food.id] || 0;
+                const card = document.createElement('div');
+                card.className = "bubble-card bg-white p-3 rounded-2xl border-3 border-rose-200 hover:border-rose-400 text-center cursor-pointer shadow flex flex-col items-center justify-between";
+                
+                card.innerHTML = `
+                    ${renderFoodDisplay(food, "h-16")}
+                    <span class="font-black text-slate-800 text-xs mt-1">${food.nameZh}</span>
+                    <div class="flex items-center justify-center gap-2 mt-1 w-full bg-rose-50 py-1 rounded-xl">
+                        <button onclick="event.stopPropagation(); changeL4FoodCount('${food.id}', -1)" class="w-7 h-7 bg-white text-rose-700 font-black rounded-lg shadow border border-rose-200 hover:bg-rose-100 flex items-center justify-center text-sm">-</button>
+                        <span class="text-xs font-bold text-rose-800">
+                            <strong>${currentCnt}</strong> 份
+                        </span>
+                        <button onclick="event.stopPropagation(); changeL4FoodCount('${food.id}', 1)" class="w-7 h-7 bg-rose-500 text-white font-black rounded-lg shadow hover:bg-rose-600 flex items-center justify-center text-sm">+</button>
+                    </div>
+                `;
+                card.onclick = () => {
+                    changeL4FoodCount(food.id, 1);
+                };
+                grid.appendChild(card);
+            });
+        }
+
+        function changeL4FoodCount(foodId, delta) {
+            audio.playPop();
+            const current = state.l4Counts[foodId] || 0;
+            const updated = Math.max(0, current + delta);
+            state.l4Counts[foodId] = updated;
+            renderL4FoodGrid();
+        }
+
+        function resetL4Selection() {
+            audio.playPop();
+            state.l4Counts = { tteokbokki: 0, chicken: 0, gimbap: 0, eomuk: 0, ramyen: 0, banana_milk: 0, hatdogeu: 0, hotteok: 0, bingsu: 0 };
+            renderL4FoodGrid();
+        }
+
+        function submitL4Order() {
+            const q = state.l4Questions[state.l4Idx];
+            if (!q || !q.foods) return;
+            let isCorrect = true;
+
+            q.foods.forEach(targetFood => {
+                const userCount = state.l4Counts[targetFood.id] || 0;
+                if (userCount !== targetFood.count) {
+                    isCorrect = false;
+                }
+            });
+
+            const targetIds = q.foods.map(f => f.id);
+            Object.keys(state.l4Counts).forEach(key => {
+                if (!targetIds.includes(key) && state.l4Counts[key] > 0) {
+                    isCorrect = false;
+                }
+            });
+
+            if (isCorrect) {
+                audio.playCorrect();
+                let basePoints = state.l4Tier === 'intermediate' ? 15 : 10;
+                addScore(basePoints);
+                nextQuestion();
+            } else {
+                audio.playWrong();
+                showCustomAlert("❌ 份量或食物品項點錯囉！請仔細聽點餐內容重試一次！");
+            }
+        }
+
+        /* ================= LEVEL 5: FAMILY MEMBERS ================= */
         const L5_DATA = [
-            // 哥哥
             { isGirl: true, speaker: "👧 我是女生", target: "這是我的「哥哥」", avatar: "👨‍🦱", options: [{ text: "오빠 (Oppa)", correct: true }, { text: "형 (Hyung)", correct: false }, { text: "언니 (Unni)", correct: false }, { text: "누나 (Nuna)", correct: false }] },
             { isGirl: false, speaker: "👦 我是男生", target: "這是我的「哥哥」", avatar: "👨‍🦱", options: [{ text: "형 (Hyung)", correct: true }, { text: "오빠 (Oppa)", correct: false }, { text: "누나 (Nuna)", correct: false }, { text: "언니 (Unni)", correct: false }] },
-            
-            // 姊姊
             { isGirl: true, speaker: "👧 我是女生", target: "這是我的「姊姊」", avatar: "👩‍🦱", options: [{ text: "언니 (Unni)", correct: true }, { text: "누나 (Nuna)", correct: false }, { text: "오빠 (Oppa)", correct: false }, { text: "형 (Hyung)", correct: false }] },
             { isGirl: false, speaker: "👦 我是男生", target: "這是我的「姊姊」", avatar: "👩‍🦱", options: [{ text: "누나 (Nuna)", correct: true }, { text: "언니 (Unni)", correct: false }, { text: "형 (Hyung)", correct: false }, { text: "오빠 (Oppa)", correct: false }] },
-            
-            // 弟弟 (男女稱呼皆為 남동생)
-            { isGirl: true, speaker: "👧 我是女生", target: "這是我的「弟弟」", avatar: "👦", options: [{ text: "남동생 (Namdongsaeng)", correct: true }, { text: "여동생 (Yeo-dongsaeng)", correct: false }, { text: "오빠 (Oppa)", correct: false }, { text: "형 (Hyung)", correct: false }] },
-            { isGirl: false, speaker: "👦 我是男生", target: "這是我的「弟弟」", avatar: "👦", options: [{ text: "남동생 (Namdongsaeng)", correct: true }, { text: "여동생 (Yeo-dongsaeng)", correct: false }, { text: "형 (Hyung)", correct: false }, { text: "오빠 (Oppa)", correct: false }] },
-            
-            // 妹妹 (男女稱呼皆為 여동생)
-            { isGirl: true, speaker: "👧 我是女生", target: "這是我的「妹妹」", avatar: "👧", options: [{ text: "여동생 (Yeo-dongsaeng)", correct: true }, { text: "남동생 (Namdongsaeng)", correct: false }, { text: "언니 (Unni)", correct: false }, { text: "누나 (Nuna)", correct: false }] },
-            { isGirl: false, speaker: "👦 我是男生", target: "這是我的「妹妹」", avatar: "👧", options: [{ text: "여동생 (Yeo-dongsaeng)", correct: true }, { text: "남동생 (Namdongsaeng)", correct: false }, { text: "누나 (Nuna)", correct: false }, { text: "언니 (Unni)", correct: false }] },
-            
-            // 媽媽
-            { isGirl: true, speaker: "👧 我是女生", target: "這是我的「媽媽」", avatar: "👩", options: [{ text: "엄마 (Eomma)", correct: true }, { text: "아빠 (Appa)", correct: false }, { text: "여동생 (Yeo-dongsaeng)", correct: false }, { text: "오빠 (Oppa)", correct: false }] },
-            { isGirl: false, speaker: "👦 我是男生", target: "這是我的「媽媽」", avatar: "👩", options: [{ text: "엄마 (Eomma)", correct: true }, { text: "아빠 (Appa)", correct: false }, { text: "남동생 (Namdongsaeng)", correct: false }, { text: "형 (Hyung)", correct: false }] },
-            
-            // 爸爸
-            { isGirl: true, speaker: "👧 我是女生", target: "這是我的「爸爸」", avatar: "👨", options: [{ text: "아빠 (Appa)", correct: true }, { text: "엄마 (Eomma)", correct: false }, { text: "남동생 (Namdongsaeng)", correct: false }, { text: "오빠 (Oppa)", correct: false }] },
-            { isGirl: false, speaker: "👦 我是男生", target: "這是我的「爸爸」", avatar: "👨", options: [{ text: "아빠 (Appa)", correct: true }, { text: "엄마 (Eomma)", correct: false }, { text: "여동생 (Yeo-dongsaeng)", correct: false }, { text: "형 (Hyung)", correct: false }] }
+            { isGirl: true, speaker: "👧 我是女生", target: "這是我的「媽媽」", avatar: "👩", options: [{ text: "엄마 (Eomma)", correct: true }, { text: "아빠 (Appa)", correct: false }, { text: "동생 (Dongsaeng)", correct: false }, { text: "오빠 (Oppa)", correct: false }] },
+            { isGirl: false, speaker: "👦 我是男生", target: "這是我的「媽媽」", avatar: "👩", options: [{ text: "엄마 (Eomma)", correct: true }, { text: "아빠 (Appa)", correct: false }, { text: "동생 (Dongsaeng)", correct: false }, { text: "형 (Hyung)", correct: false }] },
+            { isGirl: true, speaker: "👧 我是女生", target: "這是我的「爸爸」", avatar: "👨", options: [{ text: "아빠 (Appa)", correct: true }, { text: "엄마 (Eomma)", correct: false }, { text: "동생 (Dongsaeng)", correct: false }, { text: "오빠 (Oppa)", correct: false }] },
+            { isGirl: false, speaker: "👦 我是男生", target: "這是我的「爸爸」", avatar: "👨", options: [{ text: "아빠 (Appa)", correct: true }, { text: "엄마 (Eomma)", correct: false }, { text: "동생 (Dongsaeng)", correct: false }, { text: "형 (Hyung)", correct: false }] },
         ];
 
         function initL5() {
@@ -551,8 +809,7 @@
             const grid = document.getElementById('l5-options-grid');
             grid.innerHTML = '';
 
-            const choices = shuffleArray(q.options);
-            choices.forEach(opt => {
+            q.options.forEach(opt => {
                 const btn = document.createElement('button');
                 btn.className = "bubble-card p-4 bg-white border-3 border-indigo-200 hover:border-indigo-400 rounded-2xl text-center shadow-sm font-black text-indigo-950 text-base transition transform active:scale-95";
                 btn.innerText = opt.text;
@@ -573,107 +830,127 @@
             startTimer();
         }
 
-        /* ================= FOOD DATA FOR L2 & L4 ================= */
-        const FOODS = [
-            { id: 'tteokbokki', nameKo: '떡볶이', roma: 'Tteokbokki', nameZh: '辣炒年糕', icon: '🍲', color: '#EF4444' },
-            { id: 'chicken', nameKo: '치킨', roma: 'Chikin', nameZh: '韓式炸雞', icon: '🍗', color: '#F59E0B' },
-            { id: 'gimbap', nameKo: '김밥', roma: 'Gimbap', nameZh: '紫菜包飯', icon: '🍙', color: '#10B981' },
-            { id: 'eomuk', nameKo: '어묵', roma: 'Eomuk', nameZh: '魚糕串', icon: '🍢', color: '#8B5CF6' },
-            { id: 'ramyen', nameKo: '라면', roma: 'Ramyen', nameZh: '韓式拉麵', icon: '🍜', color: '#EC4899' },
-            { id: 'banana_milk', nameKo: '바나나 우유', roma: 'Banana Uyu', nameZh: '香蕉牛奶', icon: '🍌', color: '#FBBF24' },
-            { id: 'hatdogeu', nameKo: '핫도그', roma: 'Hatdogeu', nameZh: '韓式熱狗', icon: '🌭', color: '#F97316' },
-            { id: 'hotteok', nameKo: '호떡', roma: 'Hotteok', nameZh: '黑糖煎餅', icon: '🥞', color: '#D97706' },
-            { id: 'bingsu', nameKo: '빙수', roma: 'Bingsu', nameZh: '紅豆刨冰', icon: '🍧', color: '#06B6D4' }
-        ];
+        /* ================= MODULE: NAME TRACING MODULE ================= */
+        let tracingCanvas, tracingCtx, isDrawing = false;
+        let penColor = '#1E293B', penWidth = 12;
 
-        function renderFoodDisplay(food, sizeClass = "h-20") {
-            return `<div class="${sizeClass} w-full rounded-2xl flex items-center justify-center text-4xl shadow-inner mb-2" style="background-color: ${food.color}20">${food.icon}</div>`;
-        }
-
-        /* NAVIGATION & SCORE HELPER */
-        function hideAllTabs() {
-            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
-            stopTimer();
-        }
-
-        function showHome() {
+        function startTracing() {
             audio.playPop();
             hideAllTabs();
-            document.getElementById('tab-home').classList.remove('hidden');
+            document.getElementById('tab-tracing').classList.remove('hidden');
+            initTracingCanvas();
         }
 
-        function addScore(pts) {
-            state.score += pts;
-            document.getElementById('globalScore').innerText = state.score;
-            if (typeof confetti === 'function') confetti({ particleCount: 40, spread: 60, origin: { y: 0.8 } });
+        function initTracingCanvas() {
+            tracingCanvas = document.getElementById('tracingCanvas');
+            if (!tracingCanvas) return;
+            tracingCtx = tracingCanvas.getContext('2d');
+            
+            // Clear canvas and draw name as trace guide
+            clearTracingCanvas();
+
+            // Setup mouse/touch events
+            tracingCanvas.onmousedown = startDraw;
+            tracingCanvas.onmousemove = draw;
+            tracingCanvas.onmouseup = stopDraw;
+            tracingCanvas.onmouseleave = stopDraw;
+
+            // Touch support
+            tracingCanvas.ontouchstart = (e) => {
+                e.preventDefault(); // Prevent scrolling
+                startDraw(e.touches[0]);
+            };
+            tracingCanvas.ontouchmove = (e) => {
+                e.preventDefault();
+                draw(e.touches[0]);
+            };
+            tracingCanvas.ontouchend = stopDraw;
         }
 
-        function startTimer() {
-            stopTimer();
-            state.timerLeft = 10;
-            const bar = document.getElementById('timer-bar-container');
-            const txt = document.getElementById('timer-countdown-text');
-            bar.classList.remove('hidden');
-            txt.innerText = `${state.timerLeft}s`;
-
-            state.timer = setInterval(() => {
-                state.timerLeft--;
-                txt.innerText = `${state.timerLeft}s`;
-                if (state.timerLeft <= 0) {
-                    stopTimer();
-                    audio.playWrong();
-                    nextQuestion();
-                }
-            }, 1000);
+        function getCanvasPos(evt) {
+            const rect = tracingCanvas.getBoundingClientRect();
+            // Need to handle scaling if canvas CSS size != attribute size
+            const scaleX = tracingCanvas.width / rect.width;
+            const scaleY = tracingCanvas.height / rect.height;
+            return {
+                x: (evt.clientX - rect.left) * scaleX,
+                y: (evt.clientY - rect.top) * scaleY
+            };
         }
 
-        function stopTimer() {
-            if (state.timer) clearInterval(state.timer);
-            document.getElementById('timer-bar-container').classList.add('hidden');
+        function startDraw(e) {
+            isDrawing = true;
+            const pos = getCanvasPos(e);
+            tracingCtx.beginPath();
+            tracingCtx.moveTo(pos.x, pos.y);
+            // Setup drawing style based on current pen settings
+            tracingCtx.strokeStyle = penColor;
+            tracingCtx.lineWidth = penWidth;
+            tracingCtx.lineCap = 'round';
+            tracingCtx.lineJoin = 'round';
+            // Need an initial point for tap/click
+            tracingCtx.lineTo(pos.x, pos.y);
+            tracingCtx.stroke();
         }
 
-        function nextQuestion() {
-            stopTimer();
-            setTimeout(() => {
-                if (state.currentTab === 'level1') {
-                    state.l1Idx++;
-                    if (state.l1Idx < state.l1Questions.length) renderL1(); else showHome();
-                } else if (state.currentTab === 'level2') {
-                    state.l2Idx++;
-                    if (state.l2Idx < state.l2Questions.length) renderL2(); else showHome();
-                } else if (state.currentTab === 'level3') {
-                    state.l3Idx++;
-                    if (state.l3Idx < state.l3Questions.length) renderL3(); else showHome();
-                } else if (state.currentTab === 'level4') {
-                    state.l4Idx++;
-                    if (state.l4Idx < state.l4Questions.length) renderL4(); else showHome();
-                } else if (state.currentTab === 'level5') {
-                    state.l5Idx++;
-                    if (state.l5Idx < Math.min(5, state.l5Questions.length)) renderL5(); else showHome();
-                }
-            }, 500);
+        function draw(e) {
+            if (!isDrawing) return;
+            const pos = getCanvasPos(e);
+            tracingCtx.lineTo(pos.x, pos.y);
+            tracingCtx.stroke();
         }
 
-        function openModeModal(lvl) {
+        function stopDraw() {
+            isDrawing = false;
+        }
+
+        function clearTracingCanvas() {
             audio.playPop();
-            state.currentTab = `level${lvl}`;
-            hideAllTabs();
-            if (lvl === 1) initL1();
-            else if (lvl === 2) initL2();
-            else if (lvl === 3) initL3();
-            else if (lvl === 5) initL5();
+            // Basic background and guide lines
+            tracingCtx.clearRect(0, 0, tracingCanvas.width, tracingCanvas.height);
+            
+            // White background paper
+            tracingCtx.fillStyle = '#F8FAFC';
+            tracingCtx.fillRect(0, 0, tracingCanvas.width, tracingCanvas.height);
+
+            // Guide line (dashed gray)
+            tracingCtx.strokeStyle = '#E2E8F0';
+            tracingCtx.lineWidth = 2;
+            tracingCtx.setLineDash([6, 6]);
+            tracingCtx.beginPath();
+            tracingCtx.moveTo(0, 130); tracingCtx.lineTo(600, 130);
+            tracingCtx.stroke();
+            tracingCtx.setLineDash([]); // Reset dash
+
+            // Draw student name (gray, large)
+            tracingCtx.font = 'bold 110px "Comic Sans MS", "Chalkboard SE", "Malgun Gothic", sans-serif';
+            tracingCtx.fillStyle = '#CBD5E1'; // Light gray for tracing
+            tracingCtx.textAlign = 'center';
+            tracingCtx.textBaseline = 'middle';
+            tracingCtx.fillText(state.studentKo, 300, 130);
         }
 
-        function clickLevel4Card() {
+        function setPenColor(col) {
             audio.playPop();
-            state.currentTab = 'level4';
-            hideAllTabs();
-            initL4();
+            penColor = col;
         }
 
-        /* INITIALIZATION */
+        function setPenWidth(w) {
+            audio.playPop();
+            penWidth = w;
+        }
+
+        function speakTracingName() {
+            audio.speak(state.studentKo);
+        }
+
+        /* ================= INITIALIZATION ================= */
         window.onload = function() {
-            showHome();
+            // Setup login
+            switchClassTab('3A');
+            checkL4UnlockStatus();
+            // Optional: Start by showing student selection modal
+            promptSelectStudent();
         };
     </script>
 </body>
