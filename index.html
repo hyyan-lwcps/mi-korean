@@ -1,174 +1,116 @@
 <!DOCTYPE html>
-<html lang="zh-HK">
+<html lang="zh-HANT">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>韓語小達人：全期綜合大闖關 (Session 1-4)</title>
+    <title>韓語小達人：全期綜合大闖關</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Font Awesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Canvas Confetti -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        brand: {
-                            pink: '#FF769F',
-                            yellow: '#FFD966',
-                            blue: '#4A90E2',
-                            mint: '#48DBFB',
-                            purple: '#A55EEA',
-                            bg: '#FFF9F2'
-                        }
-                    },
-                    fontFamily: {
-                        sans: ['"Comic Sans MS"', '"Chalkboard SE"', '"MicroSoft JhengHei"', 'Inter', 'sans-serif']
-                    },
-                    animation: {
-                        'pop-in': 'popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards',
-                        'bounce-short': 'bounceShort 0.4s ease-in-out 1',
-                        'shake': 'shake 0.4s cubic-bezier(.36,.07,.19,.97) both'
-                    },
-                    keyframes: {
-                        popIn: {
-                            '0%': { transform: 'scale(0.85)', opacity: '0' },
-                            '100%': { transform: 'scale(1)', opacity: '1' }
-                        },
-                        bounceShort: {
-                            '0%, 100%': { transform: 'translateY(0)' },
-                            '50%': { transform: 'translateY(-10px)' }
-                        },
-                        shake: {
-                            '10%, 90%': { transform: 'translate3d(-2px, 0, 0)' },
-                            '20%, 80%': { transform: 'translate3d(4px, 0, 0)' },
-                            '30%, 50%, 70%': { transform: 'translate3d(-6px, 0, 0)' },
-                            '40%, 60%': { transform: 'translate3d(6px, 0, 0)' }
-                        }
-                    }
-                }
-            }
-        }
-    </script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Noto+Sans+TC:wght@400;700;900&display=swap');
+
         body {
-            background-color: #FFF9F2;
-            background-image: radial-gradient(#FFEAA7 1.5px, transparent 1.5px), radial-gradient(#FFEAA7 1.5px, #FFF9F2 1.5px);
-            background-size: 50px 50px;
-            background-position: 0 0, 25px 25px;
-            user-select: none;
+            font-family: 'Fredoka', 'Noto Sans TC', sans-serif;
+            background-color: #FDFBF7;
             touch-action: manipulation;
         }
 
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(12px);
+            border: 3 border-white;
+        }
+
         .bubble-card {
-            transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
-            box-shadow: 0 8px 0 rgba(0, 0, 0, 0.08), 0 15px 20px rgba(0, 0, 0, 0.05);
+            transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
         .bubble-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 0 rgba(0, 0, 0, 0.08), 0 20px 25px rgba(0, 0, 0, 0.08);
+            transform: translateY(-4px) scale(1.02);
         }
         .bubble-card:active {
-            transform: translateY(4px);
-            box-shadow: 0 2px 0 rgba(0, 0, 0, 0.08), 0 5px 10px rgba(0, 0, 0, 0.04);
+            transform: translateY(2px) scale(0.98);
         }
 
-        .glass-panel {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(12px);
-            border: 4px solid #FFEAA7;
+        @keyframes bounceShort {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+        .animate-bounce-short {
+            animation: bounceShort 1.5s infinite;
         }
 
-        canvas { touch-action: none; }
+        @keyframes popIn {
+            0% { transform: scale(0.9); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        .animate-pop-in {
+            animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
 
-        @media print {
-            body * { visibility: hidden; }
-            #printableCertModal, #printableCertModal * { visibility: visible; }
-            #printableCertModal { position: absolute; left: 0; top: 0; width: 100%; background: white; }
-            .no-print { display: none !important; }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-8px); }
+            40%, 80% { transform: translateX(8px); }
+        }
+        .animate-shake {
+            animation: shake 0.4s ease-in-out;
         }
     </style>
 </head>
-<body class="min-h-screen text-slate-800 flex flex-col justify-between font-sans antialiased">
+<body class="min-h-screen flex flex-col text-slate-800 antialiased selection:bg-amber-200">
 
-    <!-- Header / Navbar -->
-    <header class="no-print bg-white/95 backdrop-blur border-b-4 border-amber-300 sticky top-0 z-30 px-4 py-3 shadow-md">
-        <div class="max-w-5xl mx-auto flex flex-wrap items-center justify-between gap-3">
-            <div class="flex items-center gap-3 cursor-pointer" onclick="showHome()">
-                <div class="w-12 h-12 bg-gradient-to-tr from-amber-400 to-orange-400 rounded-2xl flex items-center justify-center text-white text-2xl shadow-md hover:rotate-6 transition">
+    <!-- Top Navigation Header -->
+    <header class="no-print bg-white/90 backdrop-blur-md sticky top-0 z-30 border-b-4 border-amber-300 shadow-sm">
+        <div class="max-w-4xl mx-auto px-4 py-2.5 flex items-center justify-between gap-3">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-gradient-to-tr from-amber-400 to-orange-400 text-white rounded-2xl flex items-center justify-center text-xl shadow font-black shrink-0">
                     🇰🇷
                 </div>
                 <div>
-                    <h1 class="text-xl md:text-2xl font-black text-slate-800 tracking-wide flex items-center gap-2">
-                        韓語小達人 <span class="text-xs bg-amber-500 text-white font-bold px-2 py-0.5 rounded-full">P3 綜合闖關</span>
-                    </h1>
-                    <p class="text-xs md:text-sm text-slate-500 font-bold">Session 1 ~ 4 課堂遊戲庫</p>
-                </div>
-            </div>
-
-            <!-- Student Profile Badge & Score -->
-            <div class="flex items-center gap-3 bg-amber-50 px-4 py-2 rounded-2xl border-2 border-amber-300 shadow-sm flex-wrap">
-                <!-- Current Student Info -->
-                <div class="flex items-center gap-2">
-                    <span class="text-2xl" id="headerAvatarIcon">👤</span>
-                    <div>
-                        <span class="text-[10px] font-extrabold text-amber-700 uppercase block -mb-0.5">當前身份</span>
+                    <div class="flex items-center gap-2">
                         <span id="headerStudentName" class="font-black text-slate-800 text-sm md:text-base">鄭仲恩 (정중은)</span>
+                        <span id="headerStudentBadge" class="text-[10px] font-black bg-amber-100 text-amber-800 px-2 py-0.5 rounded-full border border-amber-300">3A 班 #02</span>
+                    </div>
+                    <div class="flex items-center gap-1.5 mt-0.5">
+                        <button id="btnGradeP3" onclick="switchGradeTab('P3')" class="px-2.5 py-0.5 bg-pink-500 text-white font-black text-[11px] rounded-full shadow-sm transition">🚀 P3 主頁</button>
+                        <button id="btnGradeP4" onclick="switchGradeTab('P4')" class="px-2.5 py-0.5 bg-white/80 hover:bg-purple-100 text-purple-700 font-black text-[11px] rounded-full border border-purple-300 transition">🚀 P4 主頁</button>
                     </div>
                 </div>
-
-                <div class="h-6 w-0.5 bg-amber-200"></div>
-
-                <!-- Grade & Class Tag -->
-                <div class="flex items-center gap-1.5 bg-amber-200/60 px-2.5 py-1 rounded-xl">
-                    <span class="text-base">🎒</span>
-                    <span id="headerGradeBadge" class="text-xs font-black text-amber-900">3A 班 #02</span>
-                </div>
-
-                <!-- Teacher Grade Switcher (Visible in Teacher Mode) -->
-                <div id="teacherGradeSwitcher" class="hidden flex items-center gap-1 bg-purple-100 p-1 rounded-xl border border-purple-300">
-                    <button onclick="setTeacherGrade('P3')" id="btnTeacherP3" class="px-2 py-0.5 rounded-lg text-xs font-black bg-purple-600 text-white shadow-sm">
-                        🎒 P3 主頁
-                    </button>
-                    <button onclick="setTeacherGrade('P4')" id="btnTeacherP4" class="px-2 py-0.5 rounded-lg text-xs font-black text-purple-800 hover:bg-purple-200">
-                        🚀 P4 主頁
-                    </button>
-                </div>
-
-                <div class="h-6 w-0.5 bg-amber-200"></div>
-
-                <!-- Token Score -->
-                <div class="flex items-center gap-2">
-                    <span class="text-xl">⭐</span>
-                    <div>
-                        <span class="text-[10px] font-extrabold text-slate-400 block -mb-0.5">總積分 Token</span>
-                        <span id="globalScore" class="font-black text-amber-700 text-lg">0</span>
-                    </div>
-                </div>
-
-                <button onclick="promptSelectStudent()" class="px-2.5 py-1 bg-amber-200 hover:bg-amber-300 text-amber-900 font-extrabold text-xs rounded-xl shadow-sm transition">
-                    🔄 切換身份
-                </button>
             </div>
 
-            <!-- Nav Buttons -->
-            <nav class="flex items-center gap-2">
-                <button onclick="showHome()" class="px-3.5 py-2 rounded-xl text-sm font-bold bg-slate-100 hover:bg-slate-200 text-slate-700 transition">
-                    <i class="fa-solid fa-house mr-1"></i>主頁
+            <div class="flex items-center gap-3">
+                <div class="flex items-center gap-1.5 bg-amber-50 border-2 border-amber-300 px-3 py-1 rounded-2xl shadow-inner">
+                    <span class="text-base">⭐</span>
+                    <span class="text-xs font-black text-amber-900">Token:</span>
+                    <span id="headerScoreValue" class="font-black text-amber-600 text-base">0</span>
+                </div>
+                <button onclick="promptSelectStudent()" class="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-black text-xs rounded-xl border border-slate-300 transition flex items-center gap-1">
+                    <span>🔄</span>
+                    <span class="hidden sm:inline">切換身份</span>
                 </button>
-                <button onclick="openCertModal()" class="px-3.5 py-2 rounded-xl text-sm font-bold bg-amber-400 hover:bg-amber-500 text-slate-900 transition shadow">
-                    <i class="fa-solid fa-award mr-1"></i>證書
+                <button onclick="showCertificate()" class="px-3 py-1.5 bg-gradient-to-r from-amber-400 to-orange-400 hover:brightness-110 text-slate-900 font-black text-xs rounded-xl shadow transition flex items-center gap-1">
+                    <span>🏆</span>
+                    <span class="hidden sm:inline">證書</span>
                 </button>
-            </nav>
+            </div>
         </div>
     </header>
 
     <!-- Timer Countdown Bar -->
-    <div id="timer-bar-container" class="no-print hidden sticky top-[72px] z-20 bg-amber-500 text-white px-4 py-1.5 text-center font-black shadow-md border-b-2 border-amber-600 flex items-center justify-center gap-2">
-        <span>⚡ 限時挑戰倒數:</span>
-        <span id="timer-countdown-text" class="text-xl bg-white text-amber-600 px-3 py-0.5 rounded-full shadow-inner">10s</span>
+    <div id="timer-bar-container" class="no-print hidden sticky top-[60px] z-20 bg-amber-500 text-white px-4 py-1.5 text-center font-black shadow-md border-b-2 border-amber-600 flex items-center justify-between gap-2 max-w-4xl mx-auto rounded-b-2xl">
+        <div class="flex items-center gap-1.5 bg-amber-600/60 px-3 py-0.5 rounded-full">
+            <span class="text-xs">生命值:</span>
+            <span id="hearts-display" class="text-base tracking-widest">❤️❤️❤️</span>
+        </div>
+        <div class="flex items-center gap-2">
+            <span>⚡ 限時挑戰倒數:</span>
+            <span id="timer-countdown-text" class="text-xl bg-white text-amber-600 px-3 py-0.5 rounded-full shadow-inner">10s</span>
+        </div>
     </div>
 
     <!-- Main Container -->
@@ -352,7 +294,7 @@
                 </div>
             </div>
 
-            <!-- BOTTOM FULL WIDTH ROW: NAME TRACING MODULE (SHARED) -->
+            <!-- BOTTOM FULL WIDTH ROW: NAME TRACING MODULE -->
             <div class="bubble-card bg-gradient-to-r from-cyan-500 via-blue-500 to-indigo-500 p-6 md:p-8 rounded-3xl border-4 border-white text-white shadow-xl mt-2 flex flex-col md:flex-row items-center justify-between gap-6">
                 <div class="flex-1">
                     <div class="flex items-center gap-3 mb-2">
@@ -509,7 +451,7 @@
                     👇 點擊對應食物圖片來增加份量（點擊增加 / 扣減）：
                 </p>
                 <div id="l4-food-grid" class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
-                    <!-- Dynamic foods (3 or 6 depending on tier) -->
+                    <!-- Dynamic foods -->
                 </div>
 
                 <div class="flex justify-center gap-4">
@@ -577,7 +519,7 @@
                                 <!-- Teacher Tracing Dropdown -->
                                 <select id="teacherTracingSelect" onchange="changeTeacherTracingStudent(this.value)" class="hidden bg-white border-2 border-blue-400 font-bold text-xs px-3 py-1.5 rounded-xl text-blue-900 focus:outline-none shadow-sm">
                                     <option value="teacher">🍎 示範：선생님 (老師)</option>
-                                    <!-- Dynamic populated options -->
+                                    <!-- Dynamic options -->
                                 </select>
                             </div>
                         </div>
@@ -634,6 +576,31 @@
         </div>
     </div>
 
+    <!-- Modal 7: Game Over / Hearts Depleted Modal -->
+    <div id="gameOverModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white p-6 md:p-8 rounded-3xl border-4 border-rose-400 max-w-sm w-full text-center shadow-2xl animate-pop-in">
+            <div class="w-20 h-20 bg-rose-100 text-rose-600 rounded-full flex items-center justify-center text-4xl mx-auto mb-3 shadow-inner">
+                💔
+            </div>
+            <h3 class="text-2xl font-black text-slate-800 mb-1">挑戰失敗</h3>
+            <p class="text-slate-500 font-bold text-xs mb-4">心心已經扣光囉！再接再厲！</p>
+
+            <div class="bg-rose-50 p-4 rounded-2xl border border-rose-200 mb-5 text-left">
+                <span class="text-xs font-black text-rose-800 block mb-1">💡 教師提示：</span>
+                <p class="text-xs font-bold text-rose-700 leading-relaxed">仔細閱讀題目與聽清語音，花費 15 Token 可以復活 1 個心心繼續挑戰喔！</p>
+            </div>
+
+            <div class="flex flex-col gap-3">
+                <button onclick="reviveWithToken()" class="w-full py-3 bg-gradient-to-r from-amber-400 to-orange-400 hover:brightness-110 text-slate-900 font-black rounded-2xl text-sm shadow transition flex items-center justify-center gap-2">
+                    <span>🚑 買回 1 個心心繼續 (-15 Token)</span>
+                </button>
+                <button onclick="showHome()" class="w-full py-2.5 bg-slate-200 hover:bg-slate-300 text-slate-700 font-black rounded-2xl text-xs transition">
+                    🏠 返回主選單重新開始
+                </button>
+            </div>
+        </div>
+    </div>
+
     <!-- Footer -->
     <footer class="no-print border-t border-amber-200 bg-white/70 py-3 text-center text-xs text-slate-500 font-bold">
         <p>P3 韓語教學團隊專用教具 • 全期綜合闖關 (Session 1 ~ 4)</p>
@@ -667,9 +634,8 @@
     </div>
 
     <!-- Modal 1: Student Selection Entrance -->
-    <div id="studentSelectModal" class="fixed inset-0 bg-slate-900/70 backdrop-blur-md z-50 flex items-center justify-center p-3 sm:p-4">
+    <div id="studentSelectModal" class="fixed inset-0 bg-slate-900/70 backdrop-blur-md z-50 flex items-center justify-center p-3 sm:p-4 hidden">
         <div class="bg-white p-5 md:p-7 rounded-3xl border-4 border-amber-300 max-w-xl w-full text-center shadow-2xl animate-pop-in max-h-[85vh] flex flex-col overflow-hidden">
-            <!-- Modal Header Content (Fixed Header) -->
             <div class="shrink-0 mb-2">
                 <div class="w-14 h-14 bg-gradient-to-tr from-amber-400 to-orange-400 text-white rounded-2xl flex items-center justify-center text-2xl mx-auto mb-2 shadow-md">
                     🇰🇷
@@ -677,13 +643,11 @@
                 <h3 class="text-2xl md:text-3xl font-black text-slate-800 mb-1">안녕하세요!</h3>
                 <p class="text-slate-500 font-bold text-xs md:text-sm mb-3">請點擊你的姓名登入：</p>
 
-                <!-- Teacher Demo Mode Quick Action Button -->
                 <button onclick="openPinModalForTeacher()" class="w-full py-2.5 px-4 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white font-black rounded-2xl text-xs md:text-sm shadow-md transition transform active:scale-95 flex items-center justify-center gap-2 border-2 border-purple-300">
                     <span class="text-lg">🍎</span>
                     <span>教師專區 / 課堂示範模式</span>
                 </button>
 
-                <!-- Class Tabs (3A-3D, 4A-4D 8-Class Grid) -->
                 <div class="mt-3 mb-1 bg-amber-50/80 p-2.5 rounded-2xl border border-amber-200">
                     <div class="text-[11px] font-black text-amber-800 text-left mb-1.5 flex items-center justify-between">
                         <span>🎒 小三 (P3) 班別快選：</span>
@@ -707,7 +671,6 @@
                 </div>
             </div>
 
-            <!-- Student Cards Container -->
             <div id="studentCardsGrid" class="grid grid-cols-2 sm:grid-cols-3 gap-2.5 overflow-y-auto p-1.5 flex-1 min-h-0 border-t border-slate-100 pt-3">
                 <!-- Dynamic Student Cards -->
             </div>
@@ -726,7 +689,6 @@
             </p>
             <p id="pinModalSub" class="text-[11px] font-bold text-slate-400 mb-3"></p>
 
-            <!-- PIN Display Box -->
             <div id="pinDisplay" class="flex justify-center gap-2 mb-3">
                 <div class="w-10 h-12 bg-slate-100 border-2 border-slate-300 rounded-xl flex items-center justify-center text-xl font-black text-slate-800" id="pinBox0"></div>
                 <div class="w-10 h-12 bg-slate-100 border-2 border-slate-300 rounded-xl flex items-center justify-center text-xl font-black text-slate-800" id="pinBox1"></div>
@@ -736,7 +698,6 @@
 
             <p id="pinErrMsg" class="text-xs font-bold text-rose-500 h-4 mb-2"></p>
 
-            <!-- On-Screen Touch Keypad: Dedicated Class Letters A, B, C, D -->
             <div class="grid grid-cols-4 gap-2 mb-3">
                 <button onclick="pressPinKey('A')" class="py-2.5 bg-emerald-100 hover:bg-emerald-200 text-emerald-900 border-2 border-emerald-300 font-black rounded-xl text-base shadow-sm transition transform active:scale-95">A</button>
                 <button onclick="pressPinKey('B')" class="py-2.5 bg-emerald-100 hover:bg-emerald-200 text-emerald-900 border-2 border-emerald-300 font-black rounded-xl text-base shadow-sm transition transform active:scale-95">B</button>
@@ -744,7 +705,6 @@
                 <button onclick="pressPinKey('D')" class="py-2.5 bg-emerald-100 hover:bg-emerald-200 text-emerald-900 border-2 border-emerald-300 font-black rounded-xl text-base shadow-sm transition transform active:scale-95">D</button>
             </div>
 
-            <!-- Standard Numeric Keypad (3-Column Grid: 1-9, 0, Backspace) -->
             <div class="grid grid-cols-3 gap-2 mb-4">
                 <button onclick="pressPinKey('1')" class="py-3 bg-slate-100 hover:bg-slate-200 font-black rounded-xl text-lg shadow-sm transition transform active:scale-95">1</button>
                 <button onclick="pressPinKey('2')" class="py-3 bg-slate-100 hover:bg-slate-200 font-black rounded-xl text-lg shadow-sm transition transform active:scale-95">2</button>
@@ -768,7 +728,7 @@
         </div>
     </div>
 
-    <!-- Modal 3: Standard Mode Selection (For Level 1, 2, 3, 5) -->
+    <!-- Modal 3: Standard Mode Selection -->
     <div id="modeModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
         <div class="bg-white p-6 md:p-8 rounded-3xl border-4 border-amber-300 max-w-md w-full text-center shadow-2xl animate-pop-in">
             <div class="w-16 h-16 bg-amber-100 text-amber-600 rounded-full flex items-center justify-center text-3xl mx-auto mb-3">
@@ -811,7 +771,6 @@
             <p class="text-slate-500 font-bold text-xs mb-5">請選擇點餐難度階梯：</p>
 
             <div class="flex flex-col gap-4 text-left">
-                <!-- Tier 1: Beginner -->
                 <button onclick="startLevel4WithTier('beginner', false)" class="bubble-card bg-teal-50 border-3 border-teal-300 p-4 rounded-2xl flex items-center justify-between hover:bg-teal-100 transition cursor-pointer">
                     <div>
                         <span class="font-black text-teal-900 text-base block mb-0.5">🌱 初級點餐 (3張圖片)</span>
@@ -822,7 +781,6 @@
                     </span>
                 </button>
 
-                <!-- Tier 2: Intermediate -->
                 <button onclick="startLevel4WithTier('intermediate', false)" class="bubble-card bg-amber-50 border-3 border-amber-400 p-4 rounded-2xl flex items-center justify-between hover:bg-amber-100 transition cursor-pointer">
                     <div>
                         <span class="font-black text-amber-900 text-base block mb-0.5">⚡ 中級套餐 (6張圖片)</span>
@@ -945,13 +903,51 @@
                         gain.gain.exponentialRampToValueAtTime(0.01, now + idx * 0.15 + 0.15);
                         osc.connect(gain);
                         gain.connect(this.ctx.destination);
-                        osc.start(now + idx * 0.15);
-                        osc.stop(now + idx * 0.15 + 0.15);
-                    });
-                } catch(e){}
-            }
-            speak(text) {
-                if (!('speechSynthesis' in window)) return;
+                    osc.start(now + idx * 0.15);
+                    osc.stop(now + idx * 0.15 + 0.15);
+                });
+            } catch(e){}
+        }
+        playHeartDeduct() {
+            try {
+                this.initCtx();
+                if (!this.ctx) return;
+                const now = this.ctx.currentTime;
+                const osc = this.ctx.createOscillator();
+                const gain = this.ctx.createGain();
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(320, now);
+                osc.frequency.exponentialRampToValueAtTime(110, now + 0.35);
+                gain.gain.setValueAtTime(0.35, now);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
+                osc.connect(gain);
+                gain.connect(this.ctx.destination);
+                osc.start(now);
+                osc.stop(now + 0.35);
+            } catch(e){}
+        }
+        playGameOver() {
+            try {
+                this.initCtx();
+                if (!this.ctx) return;
+                const now = this.ctx.currentTime;
+                [330, 294, 262, 220].forEach((freq, idx) => {
+                    const osc = this.ctx.createOscillator();
+                    const gain = this.ctx.createGain();
+                    osc.type = 'sawtooth';
+                    osc.frequency.value = freq;
+                    gain.gain.setValueAtTime(0, now + idx * 0.15);
+                    gain.gain.linearRampToValueAtTime(0.25, now + idx * 0.15 + 0.02);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.15 + 0.25);
+                    osc.connect(gain);
+                    gain.connect(this.ctx.destination);
+                    osc.start(now + idx * 0.15);
+                    osc.stop(now + idx * 0.15 + 0.25);
+                });
+            } catch(e){}
+        }
+        speak(text) {
+            if (!('speechSynthesis' in window)) return;
                 window.speechSynthesis.cancel();
                 const cleanText = text.replace(/[!?,."']/g, '');
                 const utter = new SpeechSynthesisUtterance(cleanText);
@@ -1014,6 +1010,211 @@
             { id: "tteokbokki", nameKo: "떡볶이", nameZh: "辣炒年糕", roma: "tteok-bok-ki", emoji: "🍡" }
         ];
 
+        /* ================= LEVEL DATASETS ================= */
+        const L1_DATA = [
+            {
+                icon: "🏫",
+                scenario: "早上上學遇見老師與同學",
+                options: [
+                    { text: "안녕하세요 (你好)", ko: "안녕하세요", correct: true },
+                    { text: "감사합니다 (謝謝)", ko: "감사합니다", correct: false }
+                ]
+            },
+            {
+                icon: "🎁",
+                scenario: "收到朋友送的生日禮物時",
+                options: [
+                    { text: "감사합니다 (謝謝)", ko: "감사합니다", correct: true },
+                    { text: "미안해요 (對不起)", ko: "미안해요", correct: false }
+                ]
+            },
+            {
+                icon: "👟",
+                scenario: "不小心踩到別人的腳時",
+                options: [
+                    { text: "미안해요 (對不起)", ko: "미안해요", correct: true },
+                    { text: "괜찮아요 (沒關係)", ko: "괜찮아요", correct: false }
+                ]
+            },
+            {
+                icon: "🤝",
+                scenario: "朋友跟你說對不起時",
+                options: [
+                    { text: "괜찮아요 (沒關係)", ko: "괜찮아요", correct: true },
+                    { text: "맛있어요 (很好吃)", ko: "맛있어요", correct: false }
+                ]
+            },
+            {
+                icon: "🍕",
+                scenario: "吃到美味的韓國炒年糕時",
+                options: [
+                    { text: "맛있어요 (很好吃)", ko: "맛있어요", correct: true },
+                    { text: "안녕하세요 (你好)", ko: "안녕하세요", correct: false }
+                ]
+            }
+        ];
+
+        const NUMBERS = [
+            { num: 1, ko: "일", roma: "il", zh: "一" },
+            { num: 2, ko: "이", roma: "i", zh: "二" },
+            { num: 3, ko: "삼", roma: "sam", zh: "三" },
+            { num: 4, ko: "사", roma: "sa", zh: "四" },
+            { num: 5, ko: "오", roma: "o", zh: "五" },
+            { num: 6, ko: "육", roma: "yuk", zh: "六" },
+            { num: 7, ko: "칠", roma: "chil", zh: "七" },
+            { num: 8, ko: "팔", roma: "pal", zh: "八" },
+            { num: 9, ko: "구", roma: "gu", zh: "九" },
+            { num: 10, ko: "십", roma: "sip", zh: "十" }
+        ];
+
+        const L4_DATA_TIERS = {
+            beginner: [
+                {
+                    demand: "떡볶이 삼인분 주세요!",
+                    foods: [{ id: "tteokbokki", count: 3 }],
+                    hint: "提示：請點 3 份辣炒年糕 (떡볶이)"
+                },
+                {
+                    demand: "치킨 이인분 주세요!",
+                    foods: [{ id: "chicken", count: 2 }],
+                    hint: "提示：請點 2 份韓式炸雞 (치킨)"
+                },
+                {
+                    demand: "김밥 일인분 주세요!",
+                    foods: [{ id: "gimbap", count: 1 }],
+                    hint: "提示：請點 1 份紫菜包飯 (김밥)"
+                },
+                {
+                    demand: "바나나 우유 사인분 주세요!",
+                    foods: [{ id: "banana_milk", count: 4 }],
+                    hint: "提示：請點 4 份香蕉牛奶 (바나나 우유)"
+                },
+                {
+                    demand: "라면 오인분 주세요!",
+                    foods: [{ id: "ramyen", count: 5 }],
+                    hint: "提示：請點 5 份韓式拉麵 (라면)"
+                }
+            ],
+            intermediate: [
+                {
+                    demand: "떡볶이 이인분하고 치킨 일인분 주세요!",
+                    foods: [{ id: "tteokbokki", count: 2 }, { id: "chicken", count: 1 }],
+                    hint: "提示：請點 2 份辣炒年糕 和 1 份炸雞"
+                },
+                {
+                    demand: "김밥 삼인분하고 라면 이인분 주세요!",
+                    foods: [{ id: "gimbap", count: 3 }, { id: "ramyen", count: 2 }],
+                    hint: "提示：請點 3 份紫菜包飯 和 2 份拉麵"
+                },
+                {
+                    demand: "어묵 사인분하고 호떡 이인분 주세요!",
+                    foods: [{ id: "eomuk", count: 4 }, { id: "hotteok", count: 2 }],
+                    hint: "提示：請點 4 份魚糕串 和 2 份黑糖煎餅"
+                },
+                {
+                    demand: "빙수 일인분하고 바나나 우유 이인분 주세요!",
+                    foods: [{ id: "bingsu", count: 1 }, { id: "banana_milk", count: 2 }],
+                    hint: "提示：請點 1 份刨冰 和 2 份香蕉牛奶"
+                },
+                {
+                    demand: "핫도그 이인분하고 떡볶이 삼인분 주세요!",
+                    foods: [{ id: "hatdogeu", count: 2 }, { id: "tteokbokki", count: 3 }],
+                    hint: "提示：請點 2 份熱狗 和 3 份辣炒年糕"
+                }
+            ]
+        };
+
+        const L5_DATA = [
+            {
+                speaker: "👦 男生視角",
+                avatar: "👨",
+                target: "我的「哥哥」",
+                options: [
+                    { text: "형 (Hyeong)", correct: true },
+                    { text: "오빠 (Oppa)", correct: false },
+                    { text: "누나 (Nuna)", correct: false },
+                    { text: "언니 (Eonni)", correct: false }
+                ]
+            },
+            {
+                speaker: "👦 男生視角",
+                avatar: "👩",
+                target: "我的「姐姐」",
+                options: [
+                    { text: "누나 (Nuna)", correct: true },
+                    { text: "언니 (Eonni)", correct: false },
+                    { text: "형 (Hyeong)", correct: false },
+                    { text: "오빠 (Oppa)", correct: false }
+                ]
+            },
+            {
+                speaker: "👦 男生視角",
+                avatar: "👦",
+                target: "我的「弟弟」",
+                options: [
+                    { text: "남동생 (Namdongsaeng)", correct: true },
+                    { text: "여동생 (Yeodongsaeng)", correct: false },
+                    { text: "형 (Hyeong)", correct: false },
+                    { text: "오빠 (Oppa)", correct: false }
+                ]
+            },
+            {
+                speaker: "👦 男生視角",
+                avatar: "👧",
+                target: "我的「妹妹」",
+                options: [
+                    { text: "여동생 (Yeodongsaeng)", correct: true },
+                    { text: "남동생 (Namdongsaeng)", correct: false },
+                    { text: "누나 (Nuna)", correct: false },
+                    { text: "언니 (Eonni)", correct: false }
+                ]
+            },
+            {
+                speaker: "👧 女生視角",
+                avatar: "👨",
+                target: "我的「哥哥」",
+                options: [
+                    { text: "오빠 (Oppa)", correct: true },
+                    { text: "형 (Hyeong)", correct: false },
+                    { text: "언니 (Eonni)", correct: false },
+                    { text: "누나 (Nuna)", correct: false }
+                ]
+            },
+            {
+                speaker: "👧 女生視角",
+                avatar: "👩",
+                target: "我的「姐姐」",
+                options: [
+                    { text: "언니 (Eonni)", correct: true },
+                    { text: "누나 (Nuna)", correct: false },
+                    { text: "오빠 (Oppa)", correct: false },
+                    { text: "형 (Hyeong)", correct: false }
+                ]
+            },
+            {
+                speaker: "👧 女生視角",
+                avatar: "👦",
+                target: "我的「弟弟」",
+                options: [
+                    { text: "남동생 (Namdongsaeng)", correct: true },
+                    { text: "여동생 (Yeodongsaeng)", correct: false },
+                    { text: "오빠 (Oppa)", correct: false },
+                    { text: "형 (Hyeong)", correct: false }
+                ]
+            },
+            {
+                speaker: "👧 女生視角",
+                avatar: "👧",
+                target: "我的「妹妹」",
+                options: [
+                    { text: "여동생 (Yeodongsaeng)", correct: true },
+                    { text: "남동생 (Namdongsaeng)", correct: false },
+                    { text: "언니 (Eonni)", correct: false },
+                    { text: "누나 (Nuna)", correct: false }
+                ]
+            }
+        ];
+
         function renderFoodDisplay(food, heightClass = "h-20") {
             const filenameMap = {
                 'banana_milk': 'ba-na-na u-yu',
@@ -1059,9 +1260,13 @@
             class: '3A',
             seat: '02',
             score: 0,
-            combo: 0,
             l2Passed: false,
             l3Passed: false,
+            
+            hearts: 3,
+            isOptionLocked: false,
+            isQuestionAnswered: false,
+            tracingRewardsEarned: 0,
             
             activeClassTab: '3A',
             targetStudentForPin: null,
@@ -1080,18 +1285,7 @@
             l5Questions: [], l5Idx: 0
         };
 
-        function saveToLocalStorage() {
-            if (state.isTeacherMode) return;
-            const key = `p3_korean_${state.studentKo}`;
-            const data = {
-                score: state.score,
-                l2Passed: state.l2Passed,
-                l3Passed: state.l3Passed,
-                studentId: state.studentId
-            };
-            localStorage.setItem(key, JSON.stringify(data));
-        }
-
+        /* ================= LOCAL STORAGE & HEADER UI ================= */
         function loadFromLocalStorage() {
             if (state.isTeacherMode) return;
             const key = `p3_korean_${state.studentKo}`;
@@ -1108,189 +1302,371 @@
                 state.l2Passed = false;
                 state.l3Passed = false;
             }
+            state.tracingRewardsEarned = 0;
             updateHeaderUI();
             checkL4UnlockStatus();
             routeByGrade();
         }
 
-        function enterTeacherMode() {
-            state.isTeacherMode = true;
-            state.studentId = 0;
-            state.studentZh = '教師示範';
-            state.studentKo = '선생님';
-            state.grade = 'P3';
-            state.gradeLabel = '教師模式';
-            state.class = '全解鎖';
-            state.seat = '00';
-            state.score = 999;
-            state.l2Passed = true;
-            state.l3Passed = true;
-
-            populateTeacherTracingSelect();
-            updateHeaderUI();
-            checkL4UnlockStatus();
-            routeByGrade();
-
-            document.getElementById('studentSelectModal').classList.add('hidden');
-            document.getElementById('pinModal').classList.add('hidden');
-            audio.speak('선생님');
-            audio.playCorrect();
-        }
-
-        function openPinModalForTeacher() {
-            audio.playPop();
-            state.targetStudentForPin = {
-                id: 0,
-                name: "教師專區",
-                kr: "선생님",
-                pin: "9999",
-                isTeacher: true
+        function saveToLocalStorage() {
+            if (state.isTeacherMode) return;
+            const key = `p3_korean_${state.studentKo}`;
+            const data = {
+                score: state.score,
+                l2Passed: state.l2Passed,
+                l3Passed: state.l3Passed
             };
-            state.inputPinStr = '';
-
-            document.getElementById('pinStudentName').innerText = `教師專區 (선생님)`;
-            document.getElementById('pinModalSub').innerText = `請輸入教師驗證 PIN 碼：`;
-            document.getElementById('pinErrMsg').innerText = '';
-            
-            updatePinDisplayBoxes();
-            document.getElementById('pinModal').classList.remove('hidden');
-        }
-
-        function setTeacherGrade(grade) {
-            if (!state.isTeacherMode) return;
-            state.grade = grade;
-            const btnP3 = document.getElementById('btnTeacherP3');
-            const btnP4 = document.getElementById('btnTeacherP4');
-
-            if (grade === 'P3') {
-                btnP3.className = "px-2 py-0.5 rounded-lg text-xs font-black bg-purple-600 text-white shadow-sm";
-                btnP4.className = "px-2 py-0.5 rounded-lg text-xs font-black text-purple-800 hover:bg-purple-200";
-            } else {
-                btnP4.className = "px-2 py-0.5 rounded-lg text-xs font-black bg-purple-600 text-white shadow-sm";
-                btnP3.className = "px-2 py-0.5 rounded-lg text-xs font-black text-purple-800 hover:bg-purple-200";
-            }
-            routeByGrade();
+            localStorage.setItem(key, JSON.stringify(data));
         }
 
         function updateHeaderUI() {
-            document.getElementById('headerAvatarIcon').innerText = state.isTeacherMode ? '👩‍🏫' : '👤';
-            document.getElementById('headerStudentName').innerText = `${state.studentZh} (${state.studentKo})`;
-            document.getElementById('headerGradeBadge').innerText = `${state.class} 班 #${state.seat}`;
+            const greetingEl = document.getElementById('heroStudentGreeting');
+            if (greetingEl) greetingEl.innerText = state.isTeacherMode ? '教師示範 (선생님)' : state.studentZh;
             
-            const teacherSwitcher = document.getElementById('teacherGradeSwitcher');
-            if (state.isTeacherMode) {
-                teacherSwitcher.classList.remove('hidden');
-            } else {
-                teacherSwitcher.classList.add('hidden');
+            const greetingP4El = document.getElementById('heroStudentGreetingP4');
+            if (greetingP4El) greetingP4El.innerText = state.isTeacherMode ? '教師示範 (선생님)' : state.studentZh;
+            
+            const nameDisplay = document.getElementById('headerStudentName');
+            if (nameDisplay) {
+                nameDisplay.innerText = state.isTeacherMode 
+                    ? '教師示範 (선생님)' 
+                    : `${state.studentZh} (${state.studentKo})`;
+            }
+            
+            const badgeGrade = document.getElementById('headerStudentBadge');
+            if (badgeGrade) {
+                badgeGrade.innerText = state.isTeacherMode 
+                    ? '全解鎖 班 #00' 
+                    : `${state.class} 班 #${state.seat}`;
+            }
+            
+            const scoreVal = document.getElementById('headerScoreValue');
+            if (scoreVal) scoreVal.innerText = state.score;
+            
+            const tracingBannerName = document.getElementById('tracingBannerStudentName');
+            if (tracingBannerName) {
+                tracingBannerName.innerText = state.isTeacherMode ? '教師示範 (선생님)' : `${state.studentZh} (${state.studentKo})`;
+            }
+            
+            const tracingTitle = document.getElementById('tracingStudentTitle');
+            if (tracingTitle) {
+                tracingTitle.innerText = state.isTeacherMode ? '教師示範 (선생님)' : `${state.studentZh} (${state.studentKo})`;
             }
 
-            if (document.getElementById('heroStudentGreeting')) {
-                document.getElementById('heroStudentGreeting').innerText = state.studentZh;
-            }
-            if (document.getElementById('heroStudentGreetingP4')) {
-                document.getElementById('heroStudentGreetingP4').innerText = state.studentZh;
-            }
-            
-            document.getElementById('tracingBannerStudentName').innerText = state.studentZh;
-            if (document.getElementById('tracingStudentTitle')) {
-                if (state.isTeacherMode) {
-                    const sel = document.getElementById('teacherTracingSelect');
-                    if (sel && sel.value !== 'teacher') {
-                        const s = STUDENTS.find(item => item.id == sel.value);
-                        if (s) {
-                            document.getElementById('tracingStudentTitle').innerText = `${s.name} (${s.kr})`;
-                        } else {
-                            document.getElementById('tracingStudentTitle').innerText = '教師示範 (선생님)';
-                        }
-                    } else {
-                        document.getElementById('tracingStudentTitle').innerText = '教師示範 (선생님)';
-                    }
-                } else {
-                    document.getElementById('tracingStudentTitle').innerText = `${state.studentZh} (${state.studentKo})`;
+            const certName = document.getElementById('certStudentName');
+            if (certName) certName.value = state.isTeacherMode ? '教師示範 (선생님)' : `${state.studentZh} (${state.studentKo})`;
+        }
+
+        /* ================= HEARTS & PENALTY ENGINE ================= */
+        function resetHearts() {
+            state.hearts = 3;
+            renderHeartsDisplay();
+        }
+
+        function renderHeartsDisplay() {
+            const currentTab = document.querySelector('.tab-content:not(.hidden)');
+            if (!currentTab) return;
+
+            let heartsContainer = currentTab.querySelector('.hearts-display-box');
+            if (!heartsContainer) {
+                const headerBox = currentTab.querySelector('.flex.items-center.justify-between');
+                if (headerBox) {
+                    heartsContainer = document.createElement('div');
+                    heartsContainer.className = "hearts-display-box flex items-center gap-1 bg-rose-50 border border-rose-200 px-3 py-1 rounded-full text-base shadow-sm";
+                    headerBox.appendChild(heartsContainer);
                 }
             }
-            document.getElementById('certStudentName').value = `${state.studentZh} (${state.studentKo})`;
-            document.getElementById('globalScore').innerText = state.score;
+
+            if (heartsContainer) {
+                let heartsHtml = '';
+                for (let i = 0; i < 3; i++) {
+                    if (i < state.hearts) {
+                        heartsHtml += '<span class="text-rose-500 animate-bounce-short">❤️</span>';
+                    } else {
+                        heartsHtml += '<span class="text-slate-300">🖤</span>';
+                    }
+                }
+                heartsContainer.innerHTML = `<span class="text-xs font-black text-rose-700 mr-1">體力:</span>${heartsHtml}`;
+            }
+        }
+
+        function deductHeart() {
+            audio.playHeartDeduct();
+            state.hearts--;
+            renderHeartsDisplay();
+
+            const heartsBox = document.querySelector('.hearts-display-box');
+            if (heartsBox) {
+                heartsBox.classList.add('animate-shake');
+                setTimeout(() => heartsBox.classList.remove('animate-shake'), 400);
+            }
+
+            if (state.hearts <= 0) {
+                stopTimer();
+                audio.playGameOver();
+                setTimeout(() => {
+                    document.getElementById('gameOverModal').classList.remove('hidden');
+                }, 400);
+            }
+        }
+
+        function reviveWithToken() {
+            if (state.score < 15) {
+                showCustomAlert("⚠️ Token 積分不足 15 分，無法復活！將返回主頁重新開始！");
+                document.getElementById('gameOverModal').classList.add('hidden');
+                showHome();
+                return;
+            }
+            state.score -= 15;
+            state.hearts = 1;
+            saveToLocalStorage();
+            updateHeaderUI();
+            renderHeartsDisplay();
+            document.getElementById('gameOverModal').classList.add('hidden');
+            audio.playCorrect();
+            showCustomAlert("🚑 成功使用 15 Token 復活！獲得 1 個心心 ❤️ 繼續挑戰！");
+            startTimer();
+        }
+
+        /* ================= TIMER MECHANISM ================= */
+        function startTimer() {
+            stopTimer();
+            const timerBarContainer = document.getElementById('timer-bar-container');
+            const timerText = document.getElementById('timer-countdown-text');
+            
+            if (state.isTimedMode) {
+                state.timeLeft = 10;
+                if (timerBarContainer) timerBarContainer.classList.remove('hidden');
+                if (timerText) timerText.innerText = `${state.timeLeft}s`;
+                
+                state.timerInterval = setInterval(() => {
+                    state.timeLeft--;
+                    if (timerText) timerText.innerText = `${state.timeLeft}s`;
+                    if (state.timeLeft <= 0) {
+                        stopTimer();
+                        handleTimeUp();
+                    }
+                }, 1000);
+            } else {
+                if (timerBarContainer) timerBarContainer.classList.add('hidden');
+            }
+        }
+
+        function stopTimer() {
+            if (state.timerInterval) {
+                clearInterval(state.timerInterval);
+                state.timerInterval = null;
+            }
+        }
+
+        function handleTimeUp() {
+            audio.playWrong();
+            showCustomAlert("⏰ 時間到！抱歉，本題超時囉！");
+            deductHeart();
+        }
+
+        /* ================= NAVIGATION & ROUTING ================= */
+        function showHome() {
+            stopTimer();
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.getElementById('tab-home').classList.remove('hidden');
+            document.getElementById('timer-bar-container').classList.add('hidden');
+            const gameOverModal = document.getElementById('gameOverModal');
+            if (gameOverModal) gameOverModal.classList.add('hidden');
+            updateHeaderUI();
+            checkL4UnlockStatus();
+        }
+
+        function addScore(pts) {
+            if (state.isTimedMode) pts *= 2;
+            state.score += pts;
+            saveToLocalStorage();
+            updateHeaderUI();
         }
 
         function routeByGrade() {
-            const p3Dashboard = document.getElementById('p3-dashboard');
-            const p4Dashboard = document.getElementById('p4-dashboard');
-
-            if (state.grade === 'P3') {
-                p3Dashboard.classList.remove('hidden');
-                p3Dashboard.classList.add('flex');
-                p4Dashboard.classList.add('hidden');
-            } else if (state.grade === 'P4') {
-                p3Dashboard.classList.add('hidden');
-                p4Dashboard.classList.remove('hidden');
-                p4Dashboard.classList.add('flex');
+            const p3Dash = document.getElementById('p3-dashboard');
+            const p4Dash = document.getElementById('p4-dashboard');
+            const btnP3 = document.getElementById('btnGradeP3');
+            const btnP4 = document.getElementById('btnGradeP4');
+            
+            if (state.grade === 'P4') {
+                if (p3Dash) p3Dash.classList.add('hidden');
+                if (p4Dash) p4Dash.classList.remove('hidden');
+                if (btnP3) btnP3.className = "px-3 py-1 bg-white/20 hover:bg-white/30 text-white font-black text-xs rounded-full transition";
+                if (btnP4) btnP4.className = "px-3 py-1 bg-purple-500 text-white font-black text-xs rounded-full transition shadow-md";
+            } else {
+                if (p3Dash) p3Dash.classList.remove('hidden');
+                if (p4Dash) p4Dash.classList.add('hidden');
+                if (btnP3) btnP3.className = "px-3 py-1 bg-pink-500 text-white font-black text-xs rounded-full transition shadow-md";
+                if (btnP4) btnP4.className = "px-3 py-1 bg-white/20 hover:bg-white/30 text-white font-black text-xs rounded-full transition";
             }
         }
 
-        /* ================= CARD GRID LOGIN & CLASS TABS ================= */
+        function switchGradeTab(grade) {
+            state.grade = grade;
+            routeByGrade();
+        }
+
         function switchClassTab(cls) {
-            audio.playPop();
             state.activeClassTab = cls;
-            
-            const classes = ['3A', '3B', '3C', '3D', '4A', '4B', '4C', '4D'];
-            classes.forEach(c => {
+            ['3A', '3B', '3C', '3D', '4A', '4B', '4C', '4D'].forEach(c => {
                 const btn = document.getElementById(`tabBtn${c}`);
                 if (!btn) return;
-                const isP3 = c.startsWith('3');
                 if (c === cls) {
-                    btn.className = isP3 
+                    btn.className = c.startsWith('3') 
                         ? "py-1.5 px-1 rounded-xl font-black text-xs transition bg-amber-400 text-slate-900 shadow ring-2 ring-amber-500"
-                        : "py-1.5 px-1 rounded-xl font-black text-xs transition bg-purple-600 text-white shadow ring-2 ring-purple-400";
+                        : "py-1.5 px-1 rounded-xl font-black text-xs transition bg-purple-500 text-white shadow ring-2 ring-purple-600";
                 } else {
-                    btn.className = isP3 
+                    btn.className = c.startsWith('3')
                         ? "py-1.5 px-1 rounded-xl font-black text-xs transition bg-white text-slate-600 hover:bg-amber-100 border border-amber-200"
                         : "py-1.5 px-1 rounded-xl font-black text-xs transition bg-white text-slate-600 hover:bg-purple-100 border border-purple-200";
                 }
             });
-            renderStudentCardsGrid();
+            renderStudentCards();
         }
 
-        function renderStudentCardsGrid() {
+        function renderStudentCards() {
             const grid = document.getElementById('studentCardsGrid');
+            if (!grid) return;
             grid.innerHTML = '';
-
-            const filteredStudents = STUDENTS.filter(s => s.class === state.activeClassTab);
-
-            if (filteredStudents.length === 0) {
+            
+            const filtered = STUDENTS.filter(s => s.class === state.activeClassTab);
+            if (filtered.length === 0) {
                 grid.innerHTML = `
-                    <div class="col-span-2 sm:col-span-3 py-8 text-center text-slate-400 font-bold text-xs bg-slate-50 rounded-2xl border-2 border-dashed border-slate-200">
-                        <span class="text-2xl block mb-1">📂</span>
-                        <span>${state.activeClassTab} 班暫無學生資料</span>
+                    <div class="col-span-full py-8 text-center text-slate-400 font-bold text-xs">
+                        ${state.activeClassTab} 班名單即將上線
                     </div>
                 `;
                 return;
             }
-
-            filteredStudents.forEach(student => {
-                const card = document.createElement('button');
-                card.className = "bubble-card bg-amber-50/90 border-2 border-amber-300 hover:border-amber-400 p-4 rounded-2xl flex flex-col items-center justify-center text-center transition group min-h-[75px] shadow-sm";
-                card.onclick = () => openPinModalForStudent(student);
-
+            
+            filtered.forEach(st => {
+                const card = document.createElement('div');
+                card.className = "bubble-card bg-amber-50 hover:bg-amber-100 border-2 border-amber-200 p-3 rounded-2xl cursor-pointer text-center transition flex flex-col items-center justify-center";
                 card.innerHTML = `
-                    <span class="text-base md:text-lg font-black text-slate-800 group-hover:text-amber-900 leading-tight">${student.name}</span>
-                    <span class="text-xs font-bold text-amber-700 mt-1">${student.kr}</span>
+                    <span class="text-xs font-black text-amber-800 bg-amber-200 px-2 py-0.5 rounded-full mb-1">#${st.seat}</span>
+                    <span class="text-base font-black text-slate-800 block">${st.name}</span>
+                    <span class="text-[11px] font-bold text-slate-500 block">${st.kr}</span>
                 `;
+                card.onclick = () => selectStudentCard(st.id);
                 grid.appendChild(card);
             });
         }
 
-        function openPinModalForStudent(student) {
-            audio.playPop();
+        function selectStudentCard(id) {
+            const student = STUDENTS.find(s => s.id === id);
+            if (!student) return;
             state.targetStudentForPin = student;
             state.inputPinStr = '';
-
-            document.getElementById('pinStudentName').innerText = `${student.name} (${student.kr})`;
-            document.getElementById('pinModalSub').innerText = `請輸入 4 位 PIN 碼：`;
-            document.getElementById('pinErrMsg').innerText = '';
+            updatePinDisplay();
             
-            updatePinDisplayBoxes();
+            document.getElementById('pinStudentName').innerText = student.name;
+            document.getElementById('pinModalSub').innerText = `PIN 碼格式：${student.class} + 座號 (例：${student.pin})`;
+            document.getElementById('pinErrMsg').innerText = '';
             document.getElementById('pinModal').classList.remove('hidden');
+        }
+
+        function openPinModalForTeacher() {
+            state.targetStudentForPin = { id: 999, name: "教師示範", kr: "선생님", pin: "9999", class: "#00", seat: "00", grade: "P3" };
+            state.inputPinStr = '';
+            updatePinDisplay();
+            
+            document.getElementById('pinStudentName').innerText = "教師示範";
+            document.getElementById('pinModalSub').innerText = "請輸入教師管理員 PIN 碼：9999";
+            document.getElementById('pinErrMsg').innerText = '';
+            document.getElementById('pinModal').classList.remove('hidden');
+        }
+
+        function pressPinKey(key) {
+            if (state.inputPinStr.length < 4) {
+                state.inputPinStr += key;
+                audio.playPop();
+                updatePinDisplay();
+                if (state.inputPinStr.length === 4) {
+                    verifyPin();
+                }
+            }
+        }
+
+        function pressPinBackspace() {
+            if (state.inputPinStr.length > 0) {
+                state.inputPinStr = state.inputPinStr.slice(0, -1);
+                audio.playPop();
+                updatePinDisplay();
+            }
+        }
+
+        function updatePinDisplay() {
+            for (let i = 0; i < 4; i++) {
+                const box = document.getElementById(`pinBox${i}`);
+                if (box) {
+                    box.innerText = state.inputPinStr[i] ? '●' : '';
+                    if (state.inputPinStr[i]) {
+                        box.classList.add('border-amber-500', 'bg-amber-50');
+                    } else {
+                        box.classList.remove('border-amber-500', 'bg-amber-50');
+                    }
+                }
+            }
+        }
+
+        function verifyPin() {
+            const target = state.targetStudentForPin;
+            if (!target) return;
+            
+            if (state.inputPinStr === target.pin) {
+                audio.playCorrect();
+                if (target.id === 999) {
+                    state.isTeacherMode = true;
+                    state.studentZh = "教師示範";
+                    state.studentKo = "선생님";
+                    state.grade = "P3";
+                    state.gradeLabel = "小三";
+                    state.class = "#00";
+                    state.seat = "00";
+                    state.score = 9999;
+                    state.l2Passed = true;
+                    state.l3Passed = true;
+                    
+                    const select = document.getElementById('teacherTracingSelect');
+                    if (select) {
+                        select.classList.remove('hidden');
+                        populateTeacherTracingSelect();
+                    }
+                } else {
+                    state.isTeacherMode = false;
+                    state.studentId = target.id;
+                    state.studentZh = target.name;
+                    state.studentKo = target.kr;
+                    state.grade = target.grade;
+                    state.gradeLabel = target.gradeLabel;
+                    state.class = target.class;
+                    state.seat = target.seat;
+                    
+                    const select = document.getElementById('teacherTracingSelect');
+                    if (select) select.classList.add('hidden');
+                    
+                    loadFromLocalStorage();
+                }
+                
+                closePinModal();
+                document.getElementById('studentSelectModal').classList.add('hidden');
+                updateHeaderUI();
+                checkL4UnlockStatus();
+                routeByGrade();
+                showHome();
+            } else {
+                audio.playWrong();
+                document.getElementById('pinErrMsg').innerText = '❌ PIN 碼錯誤，請重試！';
+                const modalBox = document.getElementById('pinModalBox');
+                if (modalBox) {
+                    modalBox.classList.add('animate-shake');
+                    setTimeout(() => modalBox.classList.remove('animate-shake'), 400);
+                }
+                state.inputPinStr = '';
+                updatePinDisplay();
+            }
         }
 
         function closePinModal() {
@@ -1298,149 +1674,40 @@
             document.getElementById('pinModal').classList.add('hidden');
         }
 
-        function pressPinKey(char) {
-            if (state.inputPinStr.length < 4) {
-                audio.playPop();
-                state.inputPinStr += char;
-                updatePinDisplayBoxes();
-
-                if (state.inputPinStr.length === 4) {
-                    verifyPinCode();
-                }
-            }
-        }
-
-        function pressPinBackspace() {
-            if (state.inputPinStr.length > 0) {
-                audio.playPop();
-                state.inputPinStr = state.inputPinStr.slice(0, -1);
-                updatePinDisplayBoxes();
-                document.getElementById('pinErrMsg').innerText = '';
-            }
-        }
-
-        function updatePinDisplayBoxes() {
-            for (let i = 0; i < 4; i++) {
-                const box = document.getElementById(`pinBox${i}`);
-                if (i < state.inputPinStr.length) {
-                    box.innerText = "●";
-                    box.className = "w-10 h-12 bg-amber-100 border-2 border-amber-400 rounded-xl flex items-center justify-center font-black text-2xl text-amber-900 shadow-inner";
-                } else {
-                    box.innerText = "";
-                    box.className = "w-10 h-12 bg-slate-100 border-2 border-slate-300 rounded-xl flex items-center justify-center font-black text-xl text-slate-800 shadow-inner";
-                }
-            }
-        }
-
-        function verifyPinCode() {
-            const student = state.targetStudentForPin;
-            if (!student) return;
-
-            if (state.inputPinStr.toUpperCase() === student.pin.toUpperCase()) {
-                if (student.isTeacher) {
-                    enterTeacherMode();
-                    return;
-                }
-
-                state.isTeacherMode = false;
-                state.studentId = student.id;
-                state.studentZh = student.name;
-                state.studentKo = student.kr;
-                state.grade = student.grade;
-                state.gradeLabel = student.gradeLabel;
-                state.class = student.class;
-                state.seat = student.seat;
-
-                document.getElementById('teacherTracingSelect').classList.add('hidden');
-                loadFromLocalStorage();
-
-                document.getElementById('pinModal').classList.add('hidden');
-                document.getElementById('studentSelectModal').classList.add('hidden');
-                
-                audio.playCorrect();
-                audio.speak(state.studentKo);
-            } else {
-                audio.playWrong();
-                document.getElementById('pinErrMsg').innerText = student.isTeacher ? '❌ 教師 PIN 碼錯誤！' : '❌ PIN 碼錯誤！請重新輸入';
-                const boxModal = document.getElementById('pinModalBox');
-                boxModal.classList.add('animate-shake');
-                
-                setTimeout(() => {
-                    boxModal.classList.remove('animate-shake');
-                    state.inputPinStr = '';
-                    updatePinDisplayBoxes();
-                }, 600);
-            }
-        }
-
-        // Support Physical Keyboard Typing for PIN
-        document.addEventListener('keydown', function(e) {
-            const pinModal = document.getElementById('pinModal');
-            if (pinModal && !pinModal.classList.contains('hidden')) {
-                const key = e.key.toUpperCase();
-                if (/^[0-9A-D]$/.test(key)) {
-                    pressPinKey(key);
-                } else if (e.key === 'Backspace') {
-                    pressPinBackspace();
-                } else if (e.key === 'Enter') {
-                    if (state.inputPinStr.length === 4) {
-                        verifyPinCode();
-                    }
-                }
-            }
-        });
-
-        function populateTeacherTracingSelect() {
-            const sel = document.getElementById('teacherTracingSelect');
-            if (!sel) return;
-            sel.innerHTML = '<option value="teacher">🍎 示範：선생님 (老師)</option>';
-            STUDENTS.forEach(s => {
-                if (s.id !== 0 && s.id !== 101) {
-                    const opt = document.createElement('option');
-                    opt.value = s.id;
-                    opt.innerText = `${s.class}班 ${s.name} (${s.kr})`;
-                    sel.appendChild(opt);
-                }
-            });
-            sel.classList.remove('hidden');
-        }
-
-        function changeTeacherTracingStudent(val) {
-            audio.playPop();
-            if (val === 'teacher') {
-                document.getElementById('tracingStudentTitle').innerText = '선생님 (老師)';
-                audio.speak('선생님');
-                drawTracingBackground('선생님');
-            } else {
-                const s = STUDENTS.find(item => item.id == val);
-                if (s) {
-                    document.getElementById('tracingStudentTitle').innerText = `${s.name} (${s.kr})`;
-                    audio.speak(s.kr);
-                    drawTracingBackground(s.kr);
-                }
-            }
-        }
-
-        /* ================= NAVIGATION & MODALS ================= */
-        function hideAllTabs() {
-            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.add('hidden'));
-            stopTimer();
-        }
-
-        function showHome() {
-            audio.playPop();
-            hideAllTabs();
-            document.getElementById('tab-home').classList.remove('hidden');
-            checkL4UnlockStatus();
-        }
-
         function promptSelectStudent() {
-            audio.playPop();
-            switchClassTab(state.activeClassTab || '3A');
             document.getElementById('studentSelectModal').classList.remove('hidden');
         }
 
+        function populateTeacherTracingSelect() {
+            const select = document.getElementById('teacherTracingSelect');
+            if (!select) return;
+            select.innerHTML = '<option value="teacher">🍎 示範：선생님 (老師)</option>';
+            STUDENTS.forEach(st => {
+                const opt = document.createElement('option');
+                opt.value = st.id;
+                opt.innerText = `${st.class} #${st.seat} ${st.name} (${st.kr})`;
+                select.appendChild(opt);
+            });
+        }
+
+        function changeTeacherTracingStudent(val) {
+            if (val === 'teacher') {
+                state.studentZh = "教師示範";
+                state.studentKo = "선생님";
+            } else {
+                const st = STUDENTS.find(s => s.id == val);
+                if (st) {
+                    state.studentZh = st.name;
+                    state.studentKo = st.kr;
+                }
+            }
+            updateHeaderUI();
+            clearTracingCanvas();
+        }
+
+        /* ================= LEVEL UNLOCK CONTROLLER ================= */
         function checkL4UnlockStatus() {
+            const isUnlocked = state.isTeacherMode || (state.l2Passed && state.l3Passed);
             const card = document.getElementById('card-level4');
             const icon = document.getElementById('l4-card-icon');
             const badge = document.getElementById('l4-card-badge');
@@ -1449,64 +1716,61 @@
             const sub = document.getElementById('l4-card-sub');
             const btn = document.getElementById('l4-card-btn');
 
-            const isUnlocked = (state.l2Passed && state.l3Passed) || state.isTeacherMode;
+            if (!card) return;
 
             if (isUnlocked) {
                 card.className = "bubble-card bg-gradient-to-br from-rose-400 to-pink-500 p-6 rounded-3xl border-4 border-white cursor-pointer text-white flex flex-col justify-between shadow-lg";
-                icon.className = "w-14 h-14 bg-white text-rose-600 rounded-2xl flex items-center justify-center text-3xl shadow-md";
-                icon.innerText = "🍱";
-                badge.className = "bg-rose-900/30 text-white font-black text-xs px-3 py-1 rounded-full";
-                badge.innerText = state.isTeacherMode ? "🍎 教師模式 (已解鎖)" : "🎉 已通關解鎖";
-                title.className = "text-2xl font-black mb-1 text-white";
-                desc.className = "text-rose-100 font-bold text-xs md:text-sm";
-                sub.className = "text-rose-100 font-black";
-                sub.innerText = "韓文點餐大師 (雙階難度選單)";
-                btn.className = "w-8 h-8 bg-white text-rose-600 rounded-full flex items-center justify-center text-sm shadow";
-                btn.innerHTML = '<i class="fa-solid fa-play"></i>';
+                if (icon) {
+                    icon.className = "w-14 h-14 bg-white text-rose-600 rounded-2xl flex items-center justify-center text-3xl shadow-md";
+                    icon.innerText = "🍱";
+                }
+                if (badge) {
+                    badge.className = "bg-rose-900/30 text-white font-black text-xs px-3 py-1 rounded-full";
+                    badge.innerText = "關卡 4 • 已解鎖";
+                }
+                if (title) title.className = "text-2xl font-black mb-1 text-white";
+                if (desc) desc.className = "text-pink-100 font-bold text-xs md:text-sm";
+                if (sub) {
+                    sub.className = "text-pink-100";
+                    sub.innerText = "雙階難度點餐挑戰";
+                }
+                if (btn) {
+                    btn.className = "w-8 h-8 bg-white text-rose-600 rounded-full flex items-center justify-center text-sm shadow";
+                    btn.innerHTML = '<i class="fa-solid fa-play"></i>';
+                }
             } else {
                 card.className = "bubble-card bg-slate-200 border-4 border-dashed border-slate-300 p-6 rounded-3xl cursor-pointer text-slate-400 opacity-85 transition flex flex-col justify-between";
-                icon.className = "w-14 h-14 bg-slate-100 text-slate-400 rounded-2xl flex items-center justify-center text-3xl shadow-inner";
-                icon.innerText = "🔒";
-                badge.className = "bg-slate-300 text-slate-600 font-black text-xs px-3 py-1 rounded-full";
-                badge.innerText = "🔒 完成關卡 2 & 3 解鎖";
-                title.className = "text-2xl font-black mb-1 text-slate-500";
-                desc.className = "text-slate-500 font-bold text-xs md:text-sm";
-                sub.className = "text-slate-400 font-black";
-                sub.innerText = "前置條件未達成";
-                btn.className = "w-8 h-8 bg-slate-300 text-slate-500 rounded-full flex items-center justify-center text-sm shadow";
-                btn.innerHTML = '<i class="fa-solid fa-lock"></i>';
+                if (icon) {
+                    icon.className = "w-14 h-14 bg-slate-100 text-slate-400 rounded-2xl flex items-center justify-center text-3xl shadow-inner";
+                    icon.innerText = "🔒";
+                }
+                if (badge) {
+                    badge.className = "bg-slate-300 text-slate-600 font-black text-xs px-3 py-1 rounded-full";
+                    badge.innerText = "🔒 通過關卡 2 & 3 解鎖";
+                }
+                if (title) title.className = "text-2xl font-black mb-1 text-slate-500";
+                if (desc) desc.className = "text-slate-500 font-bold text-xs md:text-sm";
+                if (sub) sub.innerText = "需先通關關卡 2 與 3";
+                if (btn) {
+                    btn.className = "w-8 h-8 bg-slate-300 text-slate-500 rounded-full flex items-center justify-center text-sm shadow";
+                    btn.innerHTML = '<i class="fa-solid fa-lock"></i>';
+                }
             }
         }
 
         function clickLevel4Card() {
-            audio.playPop();
-            const isUnlocked = (state.l2Passed && state.l3Passed) || state.isTeacherMode;
-            if (isUnlocked) {
-                openLevel4ModeModal();
-            } else {
-                showCustomAlert("🔒 請先通關 關卡 2 (美食) 與 關卡 3 (數字) 才能解鎖點餐大師！");
+            const isUnlocked = state.isTeacherMode || (state.l2Passed && state.l3Passed);
+            if (!isUnlocked) {
+                audio.playWrong();
+                showCustomAlert("🔒 關卡 4 尚未解鎖！請先完成關卡 2 (美食大搜查) 與關卡 3 (數字大挑戰) 喔！");
+                return;
             }
-        }
-
-        function openLevel4ModeModal() {
-            document.getElementById('level4ModeModal').classList.remove('hidden');
-        }
-
-        function closeLevel4ModeModal() {
-            document.getElementById('level4ModeModal').classList.add('hidden');
-        }
-
-        function startLevel4WithTier(tier, isTimed) {
-            state.l4Tier = tier;
-            state.isTimedMode = false;
-            closeLevel4ModeModal();
-            hideAllTabs();
-            initL4();
+            openLevel4ModeModal();
         }
 
         function openModeModal(levelNum) {
-            audio.playPop();
             state.pendingLevel = levelNum;
+            audio.playPop();
             document.getElementById('modeModal').classList.remove('hidden');
         }
 
@@ -1518,14 +1782,33 @@
         function confirmStartLevel(isTimed) {
             state.isTimedMode = isTimed;
             closeModeModal();
-            hideAllTabs();
+            startPendingLevel();
+        }
 
-            switch (state.pendingLevel) {
-                case 1: initL1(); break;
-                case 2: initL2(); break;
-                case 3: initL3(); break;
-                case 5: initL5(); break;
-            }
+        function startPendingLevel() {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            if (state.pendingLevel === 1) initL1();
+            else if (state.pendingLevel === 2) initL2();
+            else if (state.pendingLevel === 3) initL3();
+            else if (state.pendingLevel === 5) initL5();
+        }
+
+        function openLevel4ModeModal() {
+            audio.playPop();
+            document.getElementById('level4ModeModal').classList.remove('hidden');
+        }
+
+        function closeLevel4ModeModal() {
+            audio.playPop();
+            document.getElementById('level4ModeModal').classList.add('hidden');
+        }
+
+        function startLevel4WithTier(tier, isTimed) {
+            state.l4Tier = tier;
+            state.isTimedMode = isTimed;
+            closeLevel4ModeModal();
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            initL4();
         }
 
         function triggerLockedLevelModal() {
@@ -1538,141 +1821,67 @@
             document.getElementById('lockedModal').classList.add('hidden');
         }
 
-        function openCertModal() {
-            audio.playPop();
-            document.getElementById('certModal').classList.remove('hidden');
-        }
-
-        function closeCertModal() {
-            audio.playPop();
-            document.getElementById('certModal').classList.add('hidden');
-        }
-
-        function addScore(points) {
-            const multiplier = state.isTimedMode ? 2 : 1;
-            const finalPts = points * multiplier;
-            state.score += finalPts;
-            saveToLocalStorage();
-            updateHeaderUI();
-        }
-
-        /* ================= TIMER ENGINE ================= */
-        function startTimer() {
-            stopTimer();
-            if (!state.isTimedMode) {
-                document.getElementById('timer-bar-container').classList.add('hidden');
-                return;
-            }
-            state.timeLeft = 10;
-            const bar = document.getElementById('timer-bar-container');
-            const txt = document.getElementById('timer-countdown-text');
-            bar.classList.remove('hidden');
-            txt.innerText = `${state.timeLeft}s`;
-
-            state.timerInterval = setInterval(() => {
-                state.timeLeft--;
-                txt.innerText = `${state.timeLeft}s`;
-                if (state.timeLeft <= 0) {
-                    stopTimer();
-                    audio.playWrong();
-                    showCustomAlert("⏰ 時間到！挑戰失敗，即將進入下一題！");
-                    nextQuestion();
-                }
-            }, 1000);
-        }
-
-        function stopTimer() {
-            if (state.timerInterval) clearInterval(state.timerInterval);
-            state.timerInterval = null;
-            const bar = document.getElementById('timer-bar-container');
-            if (bar) bar.classList.add('hidden');
-        }
-
+        /* ================= NEXT QUESTION & FINISH LEVEL ================= */
         function nextQuestion() {
             stopTimer();
-            const currentTab = document.querySelector('.tab-content:not(.hidden)').id;
-
-            if (currentTab === 'tab-level1') {
-                state.l1Idx++;
-                if (state.l1Idx >= state.l1Questions.length) finishLevel(1);
-                else renderL1();
-            } else if (currentTab === 'tab-level2') {
-                state.l2Idx++;
-                if (state.l2Idx >= state.l2Questions.length) finishLevel(2);
-                else renderL2();
-            } else if (currentTab === 'tab-level3') {
-                state.l3Idx++;
-                if (state.l3Idx >= state.l3Questions.length) finishLevel(3);
-                else renderL3();
-            } else if (currentTab === 'tab-level4') {
-                state.l4Idx++;
-                if (state.l4Idx >= state.l4Questions.length) finishLevel(4);
-                else renderL4();
-            } else if (currentTab === 'tab-level5') {
-                state.l5Idx++;
-                if (state.l5Idx >= state.l5Questions.length) finishLevel(5);
-                else renderL5();
-            }
+            setTimeout(() => {
+                const currentTab = document.querySelector('.tab-content:not(.hidden)');
+                if (!currentTab) return;
+                
+                const tabId = currentTab.id;
+                if (tabId === 'tab-level1') {
+                    state.l1Idx++;
+                    if (state.l1Idx < state.l1Questions.length) {
+                        renderL1();
+                    } else {
+                        finishLevel("🎉 恭喜通關關卡 1 (情境反應王)！獲得良好表現！");
+                    }
+                } else if (tabId === 'tab-level2') {
+                    state.l2Idx++;
+                    if (state.l2Idx < state.l2Questions.length) {
+                        renderL2();
+                    } else {
+                        state.l2Passed = true;
+                        saveToLocalStorage();
+                        finishLevel("🍱 恭喜通關關卡 2 (美食單字大搜查)！成功完成美食指認！");
+                    }
+                } else if (tabId === 'tab-level3') {
+                    state.l3Idx++;
+                    if (state.l3Idx < state.l3Questions.length) {
+                        renderL3();
+                    } else {
+                        state.l3Passed = true;
+                        saveToLocalStorage();
+                        finishLevel("🔢 恭喜通關關卡 3 (漢語數字大挑戰)！已掌握數字 1-10！");
+                    }
+                } else if (tabId === 'tab-level4') {
+                    state.l4Idx++;
+                    if (state.l4Idx < state.l4Questions.length) {
+                        renderL4();
+                    } else {
+                        finishLevel("🎉 恭喜通關關卡 4 (小吃攤點餐大師)！成就頂級大廚！");
+                    }
+                } else if (tabId === 'tab-level5') {
+                    state.l5Idx++;
+                    if (state.l5Idx < state.l5Questions.length) {
+                        renderL5();
+                    } else {
+                        finishLevel("👨‍👩‍👧‍👦 恭喜通關關卡 5 (家庭成員大作戰)！");
+                    }
+                }
+            }, 500);
         }
 
-        function finishLevel(levelNum) {
-            stopTimer();
+        function finishLevel(msg) {
             confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
             audio.playCorrect();
-
-            if (levelNum === 2) state.l2Passed = true;
-            if (levelNum === 3) state.l3Passed = true;
-            saveToLocalStorage();
-
-            showCustomAlert(`🎉 恭喜完成關卡 ${levelNum}！已獲得 Token 獎勵！`);
+            showCustomAlert(msg);
             showHome();
         }
 
-        /* ================= LEVEL 1: SCENARIO RESPONSES (STRICT 5 PHRASES) ================= */
-        const L1_DATA = [
-            { 
-                icon: "🏫", 
-                scenario: "早上在校門口遇見老師或同學時", 
-                options: [
-                    { text: "안녕하세요!", ko: "안녕하세요!", correct: true }, 
-                    { text: "감사합니다!", ko: "감사합니다!", correct: false }
-                ] 
-            },
-            { 
-                icon: "🎁", 
-                scenario: "收到同學送給你的生日禮物時", 
-                options: [
-                    { text: "감사합니다!", ko: "감사합니다!", correct: true }, 
-                    { text: "미안해요!", ko: "미안해요!", correct: false }
-                ] 
-            },
-            { 
-                icon: "👟", 
-                scenario: "不小心踩到同學的鞋子時道歉", 
-                options: [
-                    { text: "미안해요!", ko: "미안해요!", correct: true }, 
-                    { text: "괜찮아요!", ko: "괜찮아요!", correct: false }
-                ] 
-            },
-            { 
-                icon: "🤝", 
-                scenario: "同學向你道歉說對不起時回答", 
-                options: [
-                    { text: "괜찮아요!", ko: "괜찮아요!", correct: true }, 
-                    { text: "안녕하세요!", ko: "안녕하세요!", correct: false }
-                ] 
-            },
-            { 
-                icon: "🍗", 
-                scenario: "品嚐到好吃的韓式炸雞時誇讚", 
-                options: [
-                    { text: "맛있어요!", ko: "맛있어요!", correct: true }, 
-                    { text: "미안해요!", ko: "미안해요!", correct: false }
-                ] 
-            }
-        ];
-
+        /* ================= LEVEL 1 IMPLEMENTATION ================= */
         function initL1() {
+            resetHearts();
             state.l1Questions = shuffleArray(L1_DATA);
             state.l1Idx = 0;
             document.getElementById('tab-level1').classList.remove('hidden');
@@ -1680,12 +1889,15 @@
         }
 
         function renderL1() {
+            state.isQuestionAnswered = false;
             const q = state.l1Questions[state.l1Idx];
             document.getElementById('l1-q-index').innerText = state.l1Idx + 1;
             document.getElementById('l1-icon').innerText = q.icon;
             document.getElementById('l1-scenario-title').innerText = q.scenario;
+            renderHeartsDisplay();
 
             const optionsContainer = document.getElementById('l1-options');
+            optionsContainer.style.pointerEvents = 'auto';
             optionsContainer.innerHTML = '';
 
             const choices = shuffleArray(q.options);
@@ -1697,15 +1909,24 @@
                     <span class="text-xs font-bold text-teal-600">點擊播放語音</span>
                 `;
                 btn.onclick = () => {
+                    if (state.isQuestionAnswered) return;
+                    state.isQuestionAnswered = true;
+                    optionsContainer.style.pointerEvents = 'none';
+
                     audio.speak(opt.ko);
                     if (opt.correct) {
+                        btn.classList.add('border-emerald-500', 'bg-emerald-50');
                         audio.playCorrect();
                         addScore(10);
                         nextQuestion();
                     } else {
-                        audio.playWrong();
-                        btn.classList.add('animate-shake', 'border-rose-400');
+                        btn.classList.add('animate-shake', 'border-rose-400', 'bg-rose-50');
                         setTimeout(() => btn.classList.remove('animate-shake'), 400);
+                        deductHeart();
+                        setTimeout(() => {
+                            state.isQuestionAnswered = false;
+                            optionsContainer.style.pointerEvents = 'auto';
+                        }, 800);
                     }
                 };
                 optionsContainer.appendChild(btn);
@@ -1713,8 +1934,9 @@
             startTimer();
         }
 
-        /* ================= LEVEL 2: FOOD WORD SEARCH ================= */
+        /* ================= LEVEL 2 IMPLEMENTATION ================= */
         function initL2() {
+            resetHearts();
             state.l2Questions = shuffleArray(FOODS).slice(0, 5);
             state.l2Idx = 0;
             document.getElementById('tab-level2').classList.remove('hidden');
@@ -1722,10 +1944,12 @@
         }
 
         function renderL2() {
+            state.isQuestionAnswered = false;
             const target = state.l2Questions[state.l2Idx];
             document.getElementById('l2-q-index').innerText = state.l2Idx + 1;
             document.getElementById('l2-word-korean').innerText = target.nameKo;
             document.getElementById('l2-word-roman').innerText = target.roma;
+            renderHeartsDisplay();
 
             audio.speak(target.nameKo);
 
@@ -1734,6 +1958,7 @@
             const choices = shuffleArray([target, ...dist]);
 
             const container = document.getElementById('l2-cards-container');
+            container.style.pointerEvents = 'auto';
             container.innerHTML = '';
 
             choices.forEach(item => {
@@ -1744,14 +1969,23 @@
                     <span class="text-lg font-black text-slate-800 mt-1">${item.nameZh}</span>
                 `;
                 card.onclick = () => {
+                    if (state.isQuestionAnswered) return;
+                    state.isQuestionAnswered = true;
+                    container.style.pointerEvents = 'none';
+
                     if (item.id === target.id) {
+                        card.classList.add('border-emerald-500', 'bg-emerald-50');
                         audio.playCorrect();
                         addScore(10);
                         nextQuestion();
                     } else {
-                        audio.playWrong();
-                        card.classList.add('animate-shake', 'border-rose-400');
+                        card.classList.add('animate-shake', 'border-rose-400', 'bg-rose-50');
                         setTimeout(() => card.classList.remove('animate-shake'), 400);
+                        deductHeart();
+                        setTimeout(() => {
+                            state.isQuestionAnswered = false;
+                            container.style.pointerEvents = 'auto';
+                        }, 800);
                     }
                 };
                 container.appendChild(card);
@@ -1764,21 +1998,9 @@
             if (target) audio.speak(target.nameKo);
         }
 
-        /* ================= LEVEL 3: SINO-KOREAN NUMBERS ================= */
-        const NUMBERS = [
-            { num: 1, ko: "일", roma: "il" },
-            { num: 2, ko: "이", roma: "i" },
-            { num: 3, ko: "삼", roma: "sam" },
-            { num: 4, ko: "사", roma: "sa" },
-            { num: 5, ko: "오", roma: "o" },
-            { num: 6, ko: "육", roma: "yuk" },
-            { num: 7, ko: "칠", roma: "chil" },
-            { num: 8, ko: "팔", roma: "pal" },
-            { num: 9, ko: "구", roma: "gu" },
-            { num: 10, ko: "십", roma: "sip" }
-        ];
-
+        /* ================= LEVEL 3 IMPLEMENTATION ================= */
         function initL3() {
+            resetHearts();
             state.l3Questions = shuffleArray(NUMBERS).slice(0, 5);
             state.l3Idx = 0;
             document.getElementById('tab-level3').classList.remove('hidden');
@@ -1786,10 +2008,12 @@
         }
 
         function renderL3() {
+            state.isQuestionAnswered = false;
             const target = state.l3Questions[state.l3Idx];
             document.getElementById('l3-q-index').innerText = state.l3Idx + 1;
             document.getElementById('l3-prompt-main').innerText = `阿拉伯數字: ${target.num}`;
-            
+            renderHeartsDisplay();
+
             audio.speak(target.ko);
 
             const wrongChoices = NUMBERS.filter(n => n.num !== target.num);
@@ -1797,6 +2021,7 @@
             const choices = shuffleArray([target, wrong]);
 
             const container = document.getElementById('l3-number-options');
+            container.style.pointerEvents = 'auto';
             container.innerHTML = '';
 
             choices.forEach(item => {
@@ -1807,15 +2032,24 @@
                     <span class="text-sm font-bold text-sky-600">(${item.roma})</span>
                 `;
                 btn.onclick = () => {
+                    if (state.isQuestionAnswered) return;
+                    state.isQuestionAnswered = true;
+                    container.style.pointerEvents = 'none';
+
                     audio.speak(item.ko);
                     if (item.num === target.num) {
+                        btn.classList.add('border-emerald-500', 'bg-emerald-50');
                         audio.playCorrect();
                         addScore(10);
                         nextQuestion();
                     } else {
-                        audio.playWrong();
-                        btn.classList.add('animate-shake', 'border-rose-400');
+                        btn.classList.add('animate-shake', 'border-rose-400', 'bg-rose-50');
                         setTimeout(() => btn.classList.remove('animate-shake'), 400);
+                        deductHeart();
+                        setTimeout(() => {
+                            state.isQuestionAnswered = false;
+                            container.style.pointerEvents = 'auto';
+                        }, 800);
                     }
                 };
                 container.appendChild(btn);
@@ -1828,25 +2062,9 @@
             if (target) audio.speak(target.ko);
         }
 
-        /* ================= LEVEL 4: FOOD STALL ORDERING (-인분) ================= */
-        const L4_DATA_TIERS = {
-            beginner: [
-                { foods: [{ id: "tteokbokki", count: 3 }], koSent: "떡볶이 삼인분 주세요!", hint: "請給我 3 份辣炒年糕！", grammarTip: "인분 搭配漢語數字 (삼인분)" },
-                { foods: [{ id: "chicken", count: 2 }], koSent: "치킨 이인분 주세요!", hint: "請給我 2 份韓式炸雞！", grammarTip: "인분 搭配漢語數字 (이인분)" },
-                { foods: [{ id: "gimbap", count: 1 }], koSent: "김밥 일인분 주세요!", hint: "請給我 1 份紫菜包飯！", grammarTip: "인분 搭配漢語數字 (일인분)" },
-                { foods: [{ id: "eomuk", count: 4 }], koSent: "어묵 사인분 주세요!", hint: "請給我 4 份魚糕串！", grammarTip: "인분 搭配漢語數字 (사인분)" },
-                { foods: [{ id: "ramyen", count: 2 }], koSent: "라면 이인분 주세요!", hint: "請給我 2 份韓式拉麵！", grammarTip: "인분 搭配漢語數字 (이인분)" }
-            ],
-            intermediate: [
-                { foods: [{ id: "chicken", count: 2 }, { id: "ramyen", count: 1 }], koSent: "치킨 이인분하고 라면 일인분 주세요!", hint: "請給我 2 份炸雞和 1 份拉麵！", grammarTip: "인분 搭配漢語數字 + 하고" },
-                { foods: [{ id: "tteokbokki", count: 1 }, { id: "eomuk", count: 2 }], koSent: "떡볶이 일인분하고 어묵 이인분 주세요!", hint: "請給我 1 份辣炒年糕和 2 份魚糕串！", grammarTip: "인분 搭配漢語數字 + 하고" },
-                { foods: [{ id: "gimbap", count: 2 }, { id: "banana_milk", count: 1 }], koSent: "김밥 이인분하고 바나나 우유 일인분 주세요!", hint: "請給我 2 份紫菜包飯和 1 份香蕉牛奶！", grammarTip: "인분 搭配漢語數字 + 하고" },
-                { foods: [{ id: "hatdogeu", count: 2 }, { id: "ramyen", count: 1 }], koSent: "핫도그 이인분하고 라면 일인분 주세요!", hint: "請給我 2 份熱狗和 1 份拉麵！", grammarTip: "인분 搭配漢語數字 + 하고" },
-                { foods: [{ id: "hotteok", count: 3 }, { id: "bingsu", count: 1 }], koSent: "호떡 삼인분하고 빙수 일인분 주세요!", hint: "請給我 3 份黑糖煎餅和 1 份刨冰！", grammarTip: "인분 搭配漢語數字 + 하고" }
-            ]
-        };
-
+        /* ================= LEVEL 4 IMPLEMENTATION ================= */
         function initL4() {
+            resetHearts();
             const pool = L4_DATA_TIERS[state.l4Tier] || L4_DATA_TIERS.beginner;
             state.l4Questions = shuffleArray(pool);
             state.l4Idx = 0;
@@ -1861,87 +2079,88 @@
 
         function renderL4() {
             const q = state.l4Questions[state.l4Idx];
-            if (!q) return;
-            state.l4Counts = { tteokbokki: 0, chicken: 0, gimbap: 0, eomuk: 0, ramyen: 0, banana_milk: 0, hatdogeu: 0, hotteok: 0, bingsu: 0 };
-            state.l4HintRevealed = false;
-
             document.getElementById('l4-q-index').innerText = state.l4Idx + 1;
-            document.getElementById('l4-demand-korean').innerText = `"${q.koSent}"`;
+            document.getElementById('l4-demand-korean').innerText = `"${q.demand}"`;
+            
+            state.l4HintRevealed = false;
             document.getElementById('l4-hint-text').classList.add('hidden');
-            document.getElementById('l4-hint-text').innerText = `${q.hint} 💡 (${q.grammarTip})`;
+            document.getElementById('l4-hint-text').innerText = q.hint;
             document.getElementById('l4-hint-btn').classList.remove('hidden');
 
-            const targetIds = q.foods.map(f => f.id);
-            const targetItems = FOODS.filter(f => targetIds.includes(f.id));
-            const countNeeded = state.l4Tier === 'beginner' ? 3 : 6;
-            const distractors = shuffleArray(FOODS.filter(f => !targetIds.includes(f.id))).slice(0, countNeeded - targetItems.length);
-            state.l4VisibleFoods = shuffleArray([...targetItems, ...distractors]);
+            state.l4Counts = {};
+            renderHeartsDisplay();
 
-            audio.speak(q.koSent);
+            let pool = [...FOODS];
+            const targetIds = q.foods.map(f => f.id);
+            const numCards = state.l4Tier === 'intermediate' ? 6 : 3;
+
+            let targetFoods = pool.filter(f => targetIds.includes(f.id));
+            let otherFoods = pool.filter(f => !targetIds.includes(f.id));
+
+            state.l4VisibleFoods = shuffleArray([
+                ...targetFoods,
+                ...shuffleArray(otherFoods).slice(0, numCards - targetFoods.length)
+            ]);
 
             renderL4FoodGrid();
+            audio.speak(q.demand);
             startTimer();
         }
 
-        function playCurrentL4Audio() {
-            const q = state.l4Questions[state.l4Idx];
-            if (q) audio.speak(q.koSent);
-        }
-
-        function revealL4Hint() {
-            if (state.score < 10) {
-                showCustomAlert(" Token 積分不足，無法購買提示！");
-                return;
-            }
-            state.score -= 10;
-            saveToLocalStorage();
-            updateHeaderUI();
-
-            document.getElementById('l4-hint-btn').classList.add('hidden');
-            document.getElementById('l4-hint-text').classList.remove('hidden');
-        }
-
         function renderL4FoodGrid() {
-            const q = state.l4Questions[state.l4Idx];
-            if (!q || !q.foods || !state.l4VisibleFoods) return;
-            const grid = document.getElementById('l4-food-grid');
-            grid.innerHTML = '';
+            const container = document.getElementById('l4-food-grid');
+            if (!container) return;
+            container.innerHTML = '';
 
             state.l4VisibleFoods.forEach(food => {
-                const currentCnt = state.l4Counts[food.id] || 0;
+                const count = state.l4Counts[food.id] || 0;
                 const card = document.createElement('div');
-                card.className = "bubble-card bg-white p-3 rounded-2xl border-3 border-rose-200 hover:border-rose-400 text-center cursor-pointer shadow flex flex-col items-center justify-between";
-                
+                card.className = "bubble-card bg-white p-4 rounded-3xl border-3 border-rose-200 text-center flex flex-col items-center justify-between shadow-sm relative";
                 card.innerHTML = `
-                    ${renderFoodDisplay(food, "h-16")}
-                    <span class="font-black text-slate-800 text-xs mt-1">${food.nameZh}</span>
-                    <div class="flex items-center justify-center gap-2 mt-1 w-full bg-rose-50 py-1 rounded-xl">
-                        <button onclick="event.stopPropagation(); changeL4FoodCount('${food.id}', -1)" class="w-7 h-7 bg-white text-rose-700 font-black rounded-lg shadow border border-rose-200 hover:bg-rose-100 flex items-center justify-center text-sm">-</button>
-                        <span class="text-xs font-bold text-rose-800">
-                            <strong>${currentCnt}</strong> 份
-                        </span>
-                        <button onclick="event.stopPropagation(); changeL4FoodCount('${food.id}', 1)" class="w-7 h-7 bg-rose-500 text-white font-black rounded-lg shadow hover:bg-rose-600 flex items-center justify-center text-sm">+</button>
+                    ${renderFoodDisplay(food, "h-20")}
+                    <span class="text-base font-black text-slate-800 mt-1">${food.nameZh}</span>
+                    <span class="text-xs font-extrabold text-rose-700 font-mono">${food.nameKo}</span>
+
+                    <div class="flex items-center gap-2 mt-3 bg-rose-50 p-1.5 rounded-2xl border border-rose-200">
+                        <button onclick="changeL4FoodCount('${food.id}', -1)" class="w-8 h-8 bg-white hover:bg-rose-100 text-rose-700 font-black rounded-xl text-base shadow-sm border border-rose-200 flex items-center justify-center transition active:scale-95">-</button>
+                        <span class="text-lg font-black text-slate-800 w-8 text-center font-mono">${count} 份</span>
+                        <button onclick="changeL4FoodCount('${food.id}', 1)" class="w-8 h-8 bg-rose-500 hover:bg-rose-600 text-white font-black rounded-xl text-base shadow-sm flex items-center justify-center transition active:scale-95">+</button>
                     </div>
                 `;
-                card.onclick = () => {
-                    changeL4FoodCount(food.id, 1);
-                };
-                grid.appendChild(card);
+                container.appendChild(card);
             });
         }
 
         function changeL4FoodCount(foodId, delta) {
             audio.playPop();
             const current = state.l4Counts[foodId] || 0;
-            const updated = Math.max(0, current + delta);
-            state.l4Counts[foodId] = updated;
+            const nextVal = Math.max(0, Math.min(10, current + delta));
+            state.l4Counts[foodId] = nextVal;
             renderL4FoodGrid();
         }
 
         function resetL4Selection() {
             audio.playPop();
-            state.l4Counts = { tteokbokki: 0, chicken: 0, gimbap: 0, eomuk: 0, ramyen: 0, banana_milk: 0, hatdogeu: 0, hotteok: 0, bingsu: 0 };
+            state.l4Counts = {};
             renderL4FoodGrid();
+        }
+
+        function revealL4Hint() {
+            if (state.score < 10) {
+                showCustomAlert("⚠️ Token 積分不足 10 分，無法扣除顯示提示喔！");
+                return;
+            }
+            state.score -= 10;
+            saveToLocalStorage();
+            updateHeaderUI();
+            document.getElementById('l4-hint-btn').classList.add('hidden');
+            document.getElementById('l4-hint-text').classList.remove('hidden');
+            audio.playPop();
+        }
+
+        function playCurrentL4Audio() {
+            const q = state.l4Questions[state.l4Idx];
+            if (q) audio.speak(q.demand);
         }
 
         function submitL4Order() {
@@ -1969,25 +2188,13 @@
                 addScore(basePoints);
                 nextQuestion();
             } else {
-                audio.playWrong();
-                showCustomAlert("❌ 份量或食物品項點錯囉！請仔細聽點餐內容重試一次！");
+                deductHeart();
             }
         }
 
-        /* ================= LEVEL 5: FAMILY MEMBERS (RANDOM 5 QUESTIONS, UNIFIED NUNA) ================= */
-        const L5_DATA = [
-            { isGirl: true, speaker: "👧 我是女生", target: "這是我的「哥哥」", avatar: "👨", options: [{ text: "오빠 (Oppa)", correct: true }, { text: "형 (Hyung)", correct: false }, { text: "언니 (Unni)", correct: false }, { text: "누나 (Nuna)", correct: false }] },
-            { isGirl: false, speaker: "👦 我是男生", target: "這是我的「哥哥」", avatar: "👨", options: [{ text: "형 (Hyung)", correct: true }, { text: "오빠 (Oppa)", correct: false }, { text: "누나 (Nuna)", correct: false }, { text: "언니 (Unni)", correct: false }] },
-            { isGirl: true, speaker: "👧 我是女生", target: "這是我的「姊姊」", avatar: "👩", options: [{ text: "언니 (Unni)", correct: true }, { text: "누나 (Nuna)", correct: false }, { text: "오빠 (Oppa)", correct: false }, { text: "형 (Hyung)", correct: false }] },
-            { isGirl: false, speaker: "👦 我是男生", target: "這是我的「姊姊」", avatar: "👩", options: [{ text: "누나 (Nuna)", correct: true }, { text: "언니 (Unni)", correct: false }, { text: "형 (Hyung)", correct: false }, { text: "오빠 (Oppa)", correct: false }] },
-            { isGirl: true, speaker: "👧 我是女生", target: "這是我的「爸爸」", avatar: "👨", options: [{ text: "아빠 (Appa)", correct: true }, { text: "엄마 (Eomma)", correct: false }, { text: "남동생 (Namdongsaeng)", correct: false }, { text: "오빠 (Oppa)", correct: false }] },
-            { isGirl: false, speaker: "👦 我是男生", target: "這是我的「媽媽」", avatar: "👩", options: [{ text: "엄마 (Eomma)", correct: true }, { text: "아빠 (Appa)", correct: false }, { text: "누나 (Nuna)", correct: false }, { text: "형 (Hyung)", correct: false }] },
-            { isGirl: false, speaker: "👦 我是男生", target: "這是我的「弟弟」", avatar: "👦", options: [{ text: "남동생 (Namdongsaeng)", correct: true }, { text: "여동생 (Yeodongsaeng)", correct: false }, { text: "형 (Hyung)", correct: false }, { text: "누나 (Nuna)", correct: false }] },
-            { isGirl: true, speaker: "👧 我是女生", target: "這是我的「妹妹」", avatar: "👧", options: [{ text: "여동생 (Yeodongsaeng)", correct: true }, { text: "남동생 (Namdongsaeng)", correct: false }, { text: "언니 (Unni)", correct: false }, { text: "오빠 (Oppa)", correct: false }] }
-        ];
-
+        /* ================= LEVEL 5 IMPLEMENTATION ================= */
         function initL5() {
-            // 每次隨機擷取 5 條題目
+            resetHearts();
             state.l5Questions = shuffleArray(L5_DATA).slice(0, 5);
             state.l5Idx = 0;
             document.getElementById('tab-level5').classList.remove('hidden');
@@ -1995,31 +2202,42 @@
         }
 
         function renderL5() {
+            state.isQuestionAnswered = false;
             const q = state.l5Questions[state.l5Idx];
             document.getElementById('l5-q-index').innerText = state.l5Idx + 1;
             document.getElementById('l5-speaker-badge').innerText = q.speaker;
             document.getElementById('l5-family-avatar').innerText = q.avatar;
             document.getElementById('l5-target-title').innerText = q.target;
+            renderHeartsDisplay();
 
             const grid = document.getElementById('l5-options-grid');
+            grid.style.pointerEvents = 'auto';
             grid.innerHTML = '';
 
-            // 使用 shuffleArray 隨機打亂 4 個選項按鈕位置
             const shuffledOptions = shuffleArray(q.options);
             shuffledOptions.forEach(opt => {
                 const btn = document.createElement('button');
                 btn.className = "bubble-card p-4 bg-white border-3 border-indigo-200 hover:border-indigo-400 rounded-2xl text-center shadow-sm font-black text-indigo-950 text-base transition transform active:scale-95";
                 btn.innerText = opt.text;
                 btn.onclick = () => {
+                    if (state.isQuestionAnswered) return;
+                    state.isQuestionAnswered = true;
+                    grid.style.pointerEvents = 'none';
+
                     audio.speak(opt.text.split(' ')[0]);
                     if (opt.correct) {
+                        btn.classList.add('border-emerald-500', 'bg-emerald-50');
                         audio.playCorrect();
                         addScore(10);
                         nextQuestion();
                     } else {
-                        audio.playWrong();
-                        btn.classList.add('animate-shake', 'border-rose-400');
+                        btn.classList.add('animate-shake', 'border-rose-400', 'bg-rose-50');
                         setTimeout(() => btn.classList.remove('animate-shake'), 400);
+                        deductHeart();
+                        setTimeout(() => {
+                            state.isQuestionAnswered = false;
+                            grid.style.pointerEvents = 'auto';
+                        }, 800);
                     }
                 };
                 grid.appendChild(btn);
@@ -2027,53 +2245,30 @@
             startTimer();
         }
 
-        /* ================= MODULE: NAME TRACING MODULE ================= */
-        let tracingCanvas, tracingCtx, isDrawing = false;
-        let penColor = '#1E293B', penWidth = 12;
-
-        function getCurrentTracingKoreanText() {
-            if (state.isTeacherMode) {
-                const sel = document.getElementById('teacherTracingSelect');
-                if (sel && sel.value !== 'teacher') {
-                    const s = STUDENTS.find(item => item.id == sel.value);
-                    if (s) return s.kr;
-                }
-                return '선생님';
-            }
-            return state.studentKo;
-        }
+        /* ================= TRACING ENGINE & CANVAS LOGIC ================= */
+        let isDrawing = false;
+        let tracingCanvas, tracingCtx;
+        let penColor = '#1E293B';
+        let penWidth = 12;
 
         function startTracing() {
-            audio.playPop();
-            hideAllTabs();
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
             document.getElementById('tab-tracing').classList.remove('hidden');
-            if (document.getElementById('tracingStudentTitle')) {
-                if (state.isTeacherMode) {
-                    const sel = document.getElementById('teacherTracingSelect');
-                    if (sel && sel.value !== 'teacher') {
-                        const s = STUDENTS.find(item => item.id == sel.value);
-                        if (s) {
-                            document.getElementById('tracingStudentTitle').innerText = `${s.name} (${s.kr})`;
-                        } else {
-                            document.getElementById('tracingStudentTitle').innerText = '教師示範 (선생님)';
-                        }
-                    } else {
-                        document.getElementById('tracingStudentTitle').innerText = '教師示範 (선생님)';
-                    }
-                } else {
-                    document.getElementById('tracingStudentTitle').innerText = `${state.studentZh} (${state.studentKo})`;
-                }
-            }
-            initTracingCanvas();
+            document.getElementById('timer-bar-container').classList.add('hidden');
+            updateHeaderUI();
+            setTimeout(() => {
+                initTracingCanvas();
+            }, 100);
         }
 
         function initTracingCanvas() {
             tracingCanvas = document.getElementById('tracingCanvas');
             if (!tracingCanvas) return;
             tracingCtx = tracingCanvas.getContext('2d');
-
-            drawTracingBackground(getCurrentTracingKoreanText());
-
+            
+            tracingCanvas.width = 600;
+            tracingCanvas.height = 260;
+            
             tracingCanvas.onmousedown = startDraw;
             tracingCanvas.onmousemove = draw;
             tracingCanvas.onmouseup = stopDraw;
@@ -2081,126 +2276,139 @@
 
             tracingCanvas.ontouchstart = (e) => {
                 e.preventDefault();
-                startDraw(e.touches[0]);
+                const touch = e.touches[0];
+                const mouseEvent = new MouseEvent("mousedown", {
+                    clientX: touch.clientX,
+                    clientY: touch.clientY
+                });
+                tracingCanvas.dispatchEvent(mouseEvent);
             };
             tracingCanvas.ontouchmove = (e) => {
                 e.preventDefault();
-                draw(e.touches[0]);
+                const touch = e.touches[0];
+                const mouseEvent = new MouseEvent("mousemove", {
+                    clientX: touch.clientX,
+                    clientY: touch.clientY
+                });
+                tracingCanvas.dispatchEvent(mouseEvent);
             };
-            tracingCanvas.ontouchend = stopDraw;
+            tracingCanvas.ontouchend = (e) => {
+                e.preventDefault();
+                const mouseEvent = new MouseEvent("mouseup", {});
+                tracingCanvas.dispatchEvent(mouseEvent);
+            };
+
+            drawTracingBackground();
         }
 
-        function drawTracingBackground(textStr) {
-            if (!tracingCtx) return;
-            tracingCtx.clearRect(0, 0, tracingCanvas.width, tracingCanvas.height);
-            
-            tracingCtx.fillStyle = '#F8FAFC';
-            tracingCtx.fillRect(0, 0, tracingCanvas.width, tracingCanvas.height);
-
-            tracingCtx.strokeStyle = '#E2E8F0';
-            tracingCtx.lineWidth = 2;
-            tracingCtx.setLineDash([6, 6]);
-            tracingCtx.beginPath();
-            tracingCtx.moveTo(0, 130); tracingCtx.lineTo(600, 130);
-            tracingCtx.stroke();
-            tracingCtx.setLineDash([]);
-
-            // 過濾並確保傳入畫布背景的僅為韓文字符
-            const cleanKrText = textStr.replace(/[^\uAC00-\uD7AF]/g, '');
-            const textToRender = cleanKrText || textStr;
-
-            tracingCtx.font = 'bold 110px "Comic Sans MS", "Chalkboard SE", "Malgun Gothic", sans-serif';
-            tracingCtx.fillStyle = '#CBD5E1';
-            tracingCtx.textAlign = 'center';
-            tracingCtx.textBaseline = 'middle';
-            tracingCtx.fillText(textToRender, 300, 130);
-        }
-
-        function getCanvasPos(evt) {
+        function getCanvasCoords(e) {
             const rect = tracingCanvas.getBoundingClientRect();
             const scaleX = tracingCanvas.width / rect.width;
             const scaleY = tracingCanvas.height / rect.height;
             return {
-                x: (evt.clientX - rect.left) * scaleX,
-                y: (evt.clientY - rect.top) * scaleY
+                x: (e.clientX - rect.left) * scaleX,
+                y: (e.clientY - rect.top) * scaleY
             };
         }
 
         function startDraw(e) {
             isDrawing = true;
-            const pos = getCanvasPos(e);
-            
-            // 繪製單點落筆 (即刻補上圓點，確保觸控/滑鼠單次點擊順暢落筆)
+            const coords = getCanvasCoords(e);
             tracingCtx.beginPath();
-            tracingCtx.arc(pos.x, pos.y, penWidth / 2, 0, Math.PI * 2);
-            tracingCtx.fillStyle = penColor;
-            tracingCtx.fill();
-
-            tracingCtx.beginPath();
-            tracingCtx.moveTo(pos.x, pos.y);
+            tracingCtx.moveTo(coords.x, coords.y);
             tracingCtx.strokeStyle = penColor;
             tracingCtx.lineWidth = penWidth;
             tracingCtx.lineCap = 'round';
             tracingCtx.lineJoin = 'round';
+            
+            tracingCtx.arc(coords.x, coords.y, penWidth / 2, 0, Math.PI * 2);
+            tracingCtx.fillStyle = penColor;
+            tracingCtx.fill();
+            tracingCtx.beginPath();
+            tracingCtx.moveTo(coords.x, coords.y);
         }
 
         function draw(e) {
             if (!isDrawing) return;
-            const pos = getCanvasPos(e);
-            tracingCtx.lineTo(pos.x, pos.y);
+            const coords = getCanvasCoords(e);
+            tracingCtx.lineTo(coords.x, coords.y);
             tracingCtx.stroke();
         }
 
         function stopDraw() {
-            isDrawing = false;
+            if (isDrawing) {
+                tracingCtx.closePath();
+                isDrawing = false;
+            }
+        }
+
+        function getCurrentTracingKoreanText() {
+            if (state.isTeacherMode) {
+                const select = document.getElementById('teacherTracingSelect');
+                if (select && select.value !== 'teacher') {
+                    const st = STUDENTS.find(s => s.id == select.value);
+                    if (st) return st.kr;
+                }
+                return "선생님";
+            }
+            return state.studentKo || "정중은";
+        }
+
+        function drawTracingBackground() {
+            if (!tracingCanvas || !tracingCtx) return;
+            tracingCtx.clearRect(0, 0, tracingCanvas.width, tracingCanvas.height);
+            
+            const textStr = getCurrentTracingKoreanText();
+            
+            tracingCtx.strokeStyle = '#E2E8F0';
+            tracingCtx.lineWidth = 1;
+            tracingCtx.setLineDash([5, 5]);
+            tracingCtx.beginPath();
+            tracingCtx.moveTo(0, tracingCanvas.height / 2);
+            tracingCtx.lineTo(tracingCanvas.width, tracingCanvas.height / 2);
+            tracingCtx.stroke();
+            tracingCtx.setLineDash([]);
+            
+            tracingCtx.font = 'bold 110px "Comic Sans MS", "Chalkboard SE", "Malgun Gothic", sans-serif';
+            tracingCtx.fillStyle = '#CBD5E1';
+            tracingCtx.textAlign = 'center';
+            tracingCtx.textBaseline = 'middle';
+            tracingCtx.fillText(textStr, tracingCanvas.width / 2, tracingCanvas.height / 2);
+        }
+
+        function setPenColor(color, btn) {
+            penColor = color;
+            audio.playPop();
+            document.querySelectorAll('#colorPickerGroup button').forEach(b => {
+                b.classList.remove('ring-2', 'ring-offset-2', 'scale-110');
+            });
+            if (btn) btn.classList.add('ring-2', 'ring-offset-2', 'scale-110');
+        }
+
+        function setPenWidth(w, btn) {
+            penWidth = w;
+            audio.playPop();
+            document.querySelectorAll('#widthPickerGroup button').forEach(b => {
+                b.classList.remove('ring-2', 'ring-blue-500', 'text-blue-600', 'font-black');
+                b.classList.add('text-slate-700');
+            });
+            if (btn) {
+                btn.classList.remove('text-slate-700');
+                btn.classList.add('ring-2', 'ring-blue-500', 'text-blue-600', 'font-black');
+            }
         }
 
         function clearTracingCanvas() {
+            if (!tracingCanvas || !tracingCtx) return;
             audio.playPop();
-            drawTracingBackground(getCurrentTracingKoreanText());
-        }
-
-        function setPenColor(col, btnEl) {
-            audio.playPop();
-            penColor = col;
-            
-            const group = document.getElementById('colorPickerGroup');
-            if (group) {
-                group.querySelectorAll('button').forEach(btn => {
-                    btn.classList.remove('ring-2', 'ring-offset-2', 'ring-slate-800', 'ring-red-500', 'ring-blue-500', 'ring-pink-500', 'scale-110');
-                });
-            }
-            if (btnEl) {
-                btnEl.classList.add('ring-2', 'ring-offset-2', 'scale-110');
-                if (col === '#1E293B') btnEl.classList.add('ring-slate-800');
-                else if (col === '#EF4444') btnEl.classList.add('ring-red-500');
-                else if (col === '#3B82F6') btnEl.classList.add('ring-blue-500');
-                else if (col === '#EC4899') btnEl.classList.add('ring-pink-500');
-            }
-        }
-
-        function setPenWidth(w, btnEl) {
-            audio.playPop();
-            penWidth = w;
-            
-            const group = document.getElementById('widthPickerGroup');
-            if (group) {
-                group.querySelectorAll('button').forEach(btn => {
-                    btn.classList.remove('ring-2', 'ring-blue-500', 'font-black', 'text-blue-600');
-                    btn.classList.add('text-slate-700');
-                });
-            }
-            if (btnEl) {
-                btnEl.classList.remove('text-slate-700');
-                btnEl.classList.add('ring-2', 'ring-blue-500', 'font-black', 'text-blue-600');
-            }
+            drawTracingBackground();
         }
 
         function speakTracingName() {
-            audio.speak(getCurrentTracingKoreanText());
+            const textStr = getCurrentTracingKoreanText();
+            audio.speak(textStr);
         }
 
-        /* ================= AUTOMATIC NEATNESS EVALUATION ENGINE ================= */
         function evaluateHandwritingNeatness() {
             if (!tracingCanvas) return;
             audio.playPop();
@@ -2232,14 +2440,18 @@
             for (let y = 0; y < h; y += 3) {
                 for (let x = 0; x < w; x += 3) {
                     const idx = (y * w + x) * 4;
-
                     const isTemplate = refImgData[idx] > 200;
                     
                     const r = userImgData[idx];
                     const g = userImgData[idx + 1];
                     const b = userImgData[idx + 2];
-                    
-                    const isUserStroke = (r < 190 && g < 190) || (r > 200 && g < 100);
+                    const a = userImgData[idx + 3];
+
+                    // Filter out background template text (#CBD5E1) and blank canvas (#F8FAFC/transparent)
+                    const isGreyTemplateText = (r >= 180 && r <= 230 && g >= 190 && g <= 240 && b >= 200 && b <= 250);
+                    const isEmptyCanvas = (a < 50) || (r > 240 && g > 240 && b > 240);
+
+                    const isUserStroke = !isEmptyCanvas && !isGreyTemplateText;
 
                     if (isTemplate) templatePixelCount++;
                     if (isUserStroke) {
@@ -2249,74 +2461,135 @@
                 }
             }
 
-            if (userPixelCount < 40) {
+            if (userPixelCount < 25) {
                 showCustomAlert("⚠️ 畫布上的筆劃太少囉！請先沿著灰字完整描寫名字再進行感應驗證！");
+                return;
+            }
+
+            const totalSamplePoints = (w / 3) * (h / 3);
+            const strokeRatio = userPixelCount / totalSamplePoints;
+            const maxAllowedRatio = penWidth >= 16 ? 0.38 : (penWidth >= 10 ? 0.30 : 0.22);
+            if (strokeRatio > maxAllowedRatio) {
+                audio.playHeartDeduct();
+                showCustomAlert("⚠️ 檢測到塗鴉面積過大！請沿著灰字線條練習描劃，不要把整個畫布塗滿喔！");
+                clearTracingCanvas();
                 return;
             }
 
             const coverageRatio = Math.min(1.0, overlapCount / Math.max(1, templatePixelCount));
             const precisionRatio = overlapCount / Math.max(1, userPixelCount);
 
-            let finalScore = Math.round((coverageRatio * 0.65 + precisionRatio * 0.35) * 100 * 1.35);
-            finalScore = Math.min(100, Math.max(15, finalScore));
+            // 1. 嚴格防塗鴉機制：筆劃越界 (Spill-over) 與低精確度 (Wild Scribble/Streak) 攔截
+            // 若 precisionRatio < 0.45（代表超過 55% 的墨水都畫在字體外面的空白區），判定為橫劃/亂塗
+            if (precisionRatio < 0.45) {
+                audio.playHeartDeduct();
+                showCustomAlert("⚠️ 檢測到大量筆跡描在字體外（越界塗抹）！請沿著灰字筆劃順序專注描寫，不要畫出字體外面喔！");
+                clearTracingCanvas();
+                return;
+            }
+
+            // 2. 檢測學生是否把實心韓文字體內部「著色塗滿」（Block Coloring）
+            if (coverageRatio > 0.80 && precisionRatio > 0.68) {
+                audio.playHeartDeduct();
+                showCustomAlert("⚠️ 檢測到把字型內部著色塗滿囉！請用一筆一畫（順著筆劃線條）描寫，不需要把文字內部全部塗滿喔！");
+                clearTracingCanvas();
+                return;
+            }
+
+            // 3. 調整評分比重：精確度 (Precision) 佔 70%，覆蓋率 (Coverage) 佔 30%
+            let weightedRatio = (coverageRatio * 0.30 + precisionRatio * 0.70);
+            let finalScore = Math.round(weightedRatio * 100);
+            finalScore = Math.min(100, Math.max(0, finalScore));
+
+            if (finalScore < 50) {
+                audio.playHeartDeduct();
+                showCustomAlert("⚠️ 筆劃精確度不足（越界過多），得分未達 50% 門檻，請沿著灰字重新練習！");
+                clearTracingCanvas();
+                return;
+            }
 
             showNeatnessResultModal(finalScore);
         }
 
         function showNeatnessResultModal(score) {
-            const modal = document.getElementById('neatnessModal');
             const scoreText = document.getElementById('neatnessScoreText');
             const starsText = document.getElementById('neatnessStars');
             const feedbackText = document.getElementById('neatnessFeedback');
-            const rewardText = document.getElementById('neatnessTokenEarned');
-            const icon = document.getElementById('neatnessIcon');
+            const tokenBadge = document.getElementById('neatnessRewardBadge');
+            const tokenText = document.getElementById('neatnessTokenEarned');
 
-            scoreText.innerText = `${score}%`;
+            if (scoreText) scoreText.innerText = `${score}%`;
 
-            let rewardTokens = 10;
+            let stars = "⭐⭐⭐⭐⭐";
+            let feedback = "字形超級標準工整！真是寫字小達人！";
+            let bonusTokens = 20;
+
             if (score >= 90) {
-                icon.innerText = "🏆";
-                starsText.innerText = "⭐⭐⭐⭐⭐";
-                feedbackText.innerText = "🌟 神筆馬良！字形超級工整標準！";
-                rewardTokens = 25;
+                stars = "⭐⭐⭐⭐⭐";
+                feedback = "字形超級標準工整！真是寫字小達人！";
+                bonusTokens = 20;
             } else if (score >= 75) {
-                icon.innerText = "🌟";
-                starsText.innerText = "⭐⭐⭐⭐";
-                feedbackText.innerText = "👍 非常優秀！筆劃非常貼合樣板！";
-                rewardTokens = 20;
+                stars = "⭐⭐⭐⭐";
+                feedback = "寫得非常棒！字形很工整喔！";
+                bonusTokens = 15;
             } else if (score >= 60) {
-                icon.innerText = "✏️";
-                starsText.innerText = "⭐⭐⭐";
-                feedbackText.innerText = "💪 寫得很好！再接再厲會更工整喔！";
-                rewardTokens = 15;
+                stars = "⭐⭐⭐";
+                feedback = "寫得很好！再接再厲會更工整喔！";
+                bonusTokens = 10;
             } else {
-                icon.innerText = "🌱";
-                starsText.innerText = "⭐⭐";
-                feedbackText.innerText = "🎯 繼續加油！試著沿著灰字中心描寫更精準！";
-                rewardTokens = 10;
+                stars = "⭐⭐";
+                feedback = "繼續努力！多練習會更進步！";
+                bonusTokens = 5;
             }
 
-            rewardText.innerText = `+${rewardTokens} Token`;
-            addScore(rewardTokens);
+            if (starsText) starsText.innerText = stars;
+            if (feedbackText) feedbackText.innerText = feedback;
 
-            confetti({ particleCount: 80, spread: 60, origin: { y: 0.6 } });
+            if (state.tracingRewardsEarned < 3) {
+                state.tracingRewardsEarned++;
+                addScore(bonusTokens);
+                if (tokenText) tokenText.innerText = `+${bonusTokens} Token`;
+                if (tokenBadge) tokenBadge.className = "bg-emerald-100 text-emerald-800 px-3 py-1.5 rounded-xl font-black text-xs mb-5 flex items-center justify-center gap-1";
+            } else {
+                if (tokenText) tokenText.innerText = `+0 Token (今日 3 次獎勵已領滿，感謝練習！)`;
+                if (tokenBadge) tokenBadge.className = "bg-slate-100 text-slate-600 px-3 py-1.5 rounded-xl font-black text-xs mb-5 flex items-center justify-center gap-1";
+            }
+
+            const modal = document.getElementById('neatnessModal');
+            if (modal) modal.classList.remove('hidden');
             audio.playCorrect();
-
-            modal.classList.remove('hidden');
         }
 
         function closeNeatnessModal() {
             audio.playPop();
-            document.getElementById('neatnessModal').classList.add('hidden');
-            // 評分完成關閉彈窗時自動清除畫布，防止同學重複刷取 Token
+            const modal = document.getElementById('neatnessModal');
+            if (modal) modal.classList.add('hidden');
             clearTracingCanvas();
         }
+
+        /* ================= PHYSICAL KEYBOARD LISTENER FOR PIN ================= */
+        window.addEventListener('keydown', (e) => {
+            const pinModal = document.getElementById('pinModal');
+            if (pinModal && !pinModal.classList.contains('hidden')) {
+                const key = e.key.toUpperCase();
+                if ((key >= '0' && key <= '9') || ['A', 'B', 'C', 'D'].includes(key)) {
+                    pressPinKey(key);
+                } else if (e.key === 'Backspace') {
+                    pressPinBackspace();
+                } else if (e.key === 'Enter') {
+                    if (state.inputPinStr.length === 4) verifyPin();
+                } else if (e.key === 'Escape') {
+                    closePinModal();
+                }
+            }
+        });
 
         /* ================= INITIALIZATION ================= */
         window.onload = function() {
             switchClassTab('3A');
+            loadFromLocalStorage();
+            updateHeaderUI();
             checkL4UnlockStatus();
-            promptSelectStudent();
         };
     </script>
 </body>
