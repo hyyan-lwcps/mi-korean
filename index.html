@@ -479,7 +479,7 @@
 
                 <div class="bg-rose-50 p-5 rounded-3xl border-3 border-rose-200 mb-6">
                     <div class="flex items-start gap-4">
-                        <div class="text-5xl shrink-0 bg-white p-2 rounded-2xl shadow-sm">🧑‍🦱</div>
+                        <div class="text-5xl shrink-0 bg-white p-2 rounded-2xl shadow-sm">🧑</div>
                         <div class="flex-1">
                             <div class="flex items-center justify-between flex-wrap gap-2">
                                 <span class="text-xs font-black text-rose-600 bg-rose-100 px-2.5 py-0.5 rounded-full">純韓文聽與讀 (-인분)</span>
@@ -541,7 +541,7 @@
                         </span>
                     </div>
                     <div id="l5-family-avatar" class="text-7xl my-2 animate-bounce-short">
-                        👨‍🦱
+                        👨
                     </div>
                     <h3 id="l5-target-title" class="text-2xl md:text-3xl font-black text-slate-800">
                         這是我的「哥哥」
@@ -1126,10 +1126,10 @@
             state.l2Passed = true;
             state.l3Passed = true;
 
+            populateTeacherTracingSelect();
             updateHeaderUI();
             checkL4UnlockStatus();
             routeByGrade();
-            populateTeacherTracingSelect();
 
             document.getElementById('studentSelectModal').classList.add('hidden');
             document.getElementById('pinModal').classList.add('hidden');
@@ -1192,8 +1192,22 @@
             }
             
             document.getElementById('tracingBannerStudentName').innerText = state.studentZh;
-            if (!state.isTeacherMode && document.getElementById('tracingStudentTitle')) {
-                document.getElementById('tracingStudentTitle').innerText = `${state.studentZh} (${state.studentKo})`;
+            if (document.getElementById('tracingStudentTitle')) {
+                if (state.isTeacherMode) {
+                    const sel = document.getElementById('teacherTracingSelect');
+                    if (sel && sel.value !== 'teacher') {
+                        const s = STUDENTS.find(item => item.id == sel.value);
+                        if (s) {
+                            document.getElementById('tracingStudentTitle').innerText = `${s.name} (${s.kr})`;
+                        } else {
+                            document.getElementById('tracingStudentTitle').innerText = '教師示範 (선생님)';
+                        }
+                    } else {
+                        document.getElementById('tracingStudentTitle').innerText = '教師示範 (선생님)';
+                    }
+                } else {
+                    document.getElementById('tracingStudentTitle').innerText = `${state.studentZh} (${state.studentKo})`;
+                }
             }
             document.getElementById('certStudentName').value = `${state.studentZh} (${state.studentKo})`;
             document.getElementById('globalScore').innerText = state.score;
@@ -1962,10 +1976,10 @@
 
         /* ================= LEVEL 5: FAMILY MEMBERS (RANDOM 5 QUESTIONS, UNIFIED NUNA) ================= */
         const L5_DATA = [
-            { isGirl: true, speaker: "👧 我是女生", target: "這是我的「哥哥」", avatar: "👨‍🦱", options: [{ text: "오빠 (Oppa)", correct: true }, { text: "형 (Hyung)", correct: false }, { text: "언니 (Unni)", correct: false }, { text: "누나 (Nuna)", correct: false }] },
-            { isGirl: false, speaker: "👦 我是男生", target: "這是我的「哥哥」", avatar: "👨‍🦱", options: [{ text: "형 (Hyung)", correct: true }, { text: "오빠 (Oppa)", correct: false }, { text: "누나 (Nuna)", correct: false }, { text: "언니 (Unni)", correct: false }] },
-            { isGirl: true, speaker: "👧 我是女生", target: "這是我的「姊姊」", avatar: "👩‍🦱", options: [{ text: "언니 (Unni)", correct: true }, { text: "누나 (Nuna)", correct: false }, { text: "오빠 (Oppa)", correct: false }, { text: "형 (Hyung)", correct: false }] },
-            { isGirl: false, speaker: "👦 我是男生", target: "這是我的「姊姊」", avatar: "👩‍🦱", options: [{ text: "누나 (Nuna)", correct: true }, { text: "언니 (Unni)", correct: false }, { text: "형 (Hyung)", correct: false }, { text: "오빠 (Oppa)", correct: false }] },
+            { isGirl: true, speaker: "👧 我是女生", target: "這是我的「哥哥」", avatar: "👨", options: [{ text: "오빠 (Oppa)", correct: true }, { text: "형 (Hyung)", correct: false }, { text: "언니 (Unni)", correct: false }, { text: "누나 (Nuna)", correct: false }] },
+            { isGirl: false, speaker: "👦 我是男生", target: "這是我的「哥哥」", avatar: "👨", options: [{ text: "형 (Hyung)", correct: true }, { text: "오빠 (Oppa)", correct: false }, { text: "누나 (Nuna)", correct: false }, { text: "언니 (Unni)", correct: false }] },
+            { isGirl: true, speaker: "👧 我是女生", target: "這是我的「姊姊」", avatar: "👩", options: [{ text: "언니 (Unni)", correct: true }, { text: "누나 (Nuna)", correct: false }, { text: "오빠 (Oppa)", correct: false }, { text: "형 (Hyung)", correct: false }] },
+            { isGirl: false, speaker: "👦 我是男生", target: "這是我的「姊姊」", avatar: "👩", options: [{ text: "누나 (Nuna)", correct: true }, { text: "언니 (Unni)", correct: false }, { text: "형 (Hyung)", correct: false }, { text: "오빠 (Oppa)", correct: false }] },
             { isGirl: true, speaker: "👧 我是女生", target: "這是我的「爸爸」", avatar: "👨", options: [{ text: "아빠 (Appa)", correct: true }, { text: "엄마 (Eomma)", correct: false }, { text: "남동생 (Namdongsaeng)", correct: false }, { text: "오빠 (Oppa)", correct: false }] },
             { isGirl: false, speaker: "👦 我是男生", target: "這是我的「媽媽」", avatar: "👩", options: [{ text: "엄마 (Eomma)", correct: true }, { text: "아빠 (Appa)", correct: false }, { text: "누나 (Nuna)", correct: false }, { text: "형 (Hyung)", correct: false }] },
             { isGirl: false, speaker: "👦 我是男生", target: "這是我的「弟弟」", avatar: "👦", options: [{ text: "남동생 (Namdongsaeng)", correct: true }, { text: "여동생 (Yeodongsaeng)", correct: false }, { text: "형 (Hyung)", correct: false }, { text: "누나 (Nuna)", correct: false }] },
@@ -2033,8 +2047,22 @@
             audio.playPop();
             hideAllTabs();
             document.getElementById('tab-tracing').classList.remove('hidden');
-            if (!state.isTeacherMode && document.getElementById('tracingStudentTitle')) {
-                document.getElementById('tracingStudentTitle').innerText = `${state.studentZh} (${state.studentKo})`;
+            if (document.getElementById('tracingStudentTitle')) {
+                if (state.isTeacherMode) {
+                    const sel = document.getElementById('teacherTracingSelect');
+                    if (sel && sel.value !== 'teacher') {
+                        const s = STUDENTS.find(item => item.id == sel.value);
+                        if (s) {
+                            document.getElementById('tracingStudentTitle').innerText = `${s.name} (${s.kr})`;
+                        } else {
+                            document.getElementById('tracingStudentTitle').innerText = '教師示範 (선생님)';
+                        }
+                    } else {
+                        document.getElementById('tracingStudentTitle').innerText = '教師示範 (선생님)';
+                    }
+                } else {
+                    document.getElementById('tracingStudentTitle').innerText = `${state.studentZh} (${state.studentKo})`;
+                }
             }
             initTracingCanvas();
         }
