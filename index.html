@@ -1192,6 +1192,9 @@
             }
             
             document.getElementById('tracingBannerStudentName').innerText = state.studentZh;
+            if (!state.isTeacherMode && document.getElementById('tracingStudentTitle')) {
+                document.getElementById('tracingStudentTitle').innerText = `${state.studentZh} (${state.studentKo})`;
+            }
             document.getElementById('certStudentName').value = `${state.studentZh} (${state.studentKo})`;
             document.getElementById('globalScore').innerText = state.score;
         }
@@ -2030,6 +2033,9 @@
             audio.playPop();
             hideAllTabs();
             document.getElementById('tab-tracing').classList.remove('hidden');
+            if (!state.isTeacherMode && document.getElementById('tracingStudentTitle')) {
+                document.getElementById('tracingStudentTitle').innerText = `${state.studentZh} (${state.studentKo})`;
+            }
             initTracingCanvas();
         }
 
@@ -2274,6 +2280,8 @@
         function closeNeatnessModal() {
             audio.playPop();
             document.getElementById('neatnessModal').classList.add('hidden');
+            // 評分完成關閉彈窗時自動清除畫布，防止同學重複刷取 Token
+            clearTracingCanvas();
         }
 
         /* ================= INITIALIZATION ================= */
