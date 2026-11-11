@@ -147,7 +147,7 @@
                             </div>
                             <h3 class="text-2xl font-black mb-1">情境反應王</h3>
                             <p class="text-teal-950 font-bold text-xs md:text-sm opacity-90">
-                                課堂必備 5 大句型：안녕하세요 / 감사합니다 / 미안해요 / 괜찮아요 / 맛있어요 二選一聽辨！
+                                課堂必備 5 大句型：안녕하세요 / 감사합니다 / 미안해요 / 괜찮아요 / 맛있어요 聽讀辨析！
                             </p>
                         </div>
                         <div class="mt-4 flex items-center justify-between text-xs font-black text-teal-950">
@@ -167,7 +167,7 @@
                             </div>
                             <h3 class="text-2xl font-black mb-1">美食單字大搜查</h3>
                             <p class="text-slate-800 font-bold text-xs md:text-sm">
-                                食物辨識：聽/看韓文單字，指認出對應的 9 款韓國道地美食！
+                                食物辨識：聽/看韓文單字，指認出對應的 9 款韓國道地美食圖片！
                             </p>
                         </div>
                         <div class="mt-4 flex items-center justify-between text-xs font-black text-slate-900">
@@ -368,7 +368,7 @@
                 </div>
 
                 <div id="l2-cards-container" class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                    <!-- Dynamic 3 Food Image Cards -->
+                    <!-- Dynamic 3 Food Image Cards (No Chinese Translation) -->
                 </div>
             </div>
         </div>
@@ -448,10 +448,10 @@
                 </div>
 
                 <p class="text-center font-bold text-xs text-slate-500 mb-3">
-                    👇 點擊對應食物圖片來增加份量（點擊增加 / 扣減）：
+                    👇 點擊對應食物圖片來增加份量（點擊加號 / 減號）：
                 </p>
                 <div id="l4-food-grid" class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
-                    <!-- Dynamic foods -->
+                    <!-- Dynamic foods (No Chinese Translation on cards) -->
                 </div>
 
                 <div class="flex justify-center gap-4">
@@ -742,7 +742,7 @@
                     <span class="text-4xl">🌱</span>
                     <div>
                         <h4 class="font-black text-teal-900 text-lg">輕鬆練習 (Normal)</h4>
-                        <p class="text-teal-700 text-xs font-bold">不設時間限制，適合精準複習！ (+10 Token)</p>
+                        <p class="text-teal-700 text-xs font-bold">不設時間限制，適合精準複習！ (完美通關 +5 Token)</p>
                     </div>
                 </button>
 
@@ -750,7 +750,7 @@
                     <span class="text-4xl">⚡</span>
                     <div>
                         <h4 class="font-black text-amber-900 text-lg">限時挑戰 (Timed Challenge)</h4>
-                        <p class="text-amber-700 text-xs font-bold">每題 10 秒倒數！答對雙倍 Token (+20 Token)！</p>
+                        <p class="text-amber-700 text-xs font-bold">每題 10 秒倒數！答對與完美通關加倍 Token！</p>
                     </div>
                 </button>
             </div>
@@ -774,7 +774,7 @@
                 <button onclick="startLevel4WithTier('beginner', false)" class="bubble-card bg-teal-50 border-3 border-teal-300 p-4 rounded-2xl flex items-center justify-between hover:bg-teal-100 transition cursor-pointer">
                     <div>
                         <span class="font-black text-teal-900 text-base block mb-0.5">🌱 初級點餐 (3張圖片)</span>
-                        <span class="text-xs text-teal-700 font-bold block">1種美食品項 • 純漢語數字 (-인분)</span>
+                        <span class="text-xs text-teal-700 font-bold block">1種美食品項 • 純韓語數字 (-인분)</span>
                     </div>
                     <span class="px-3.5 py-2 bg-teal-600 hover:bg-teal-700 text-white font-black rounded-xl text-xs shadow-sm shrink-0">
                         開始點餐
@@ -784,7 +784,7 @@
                 <button onclick="startLevel4WithTier('intermediate', false)" class="bubble-card bg-amber-50 border-3 border-amber-400 p-4 rounded-2xl flex items-center justify-between hover:bg-amber-100 transition cursor-pointer">
                     <div>
                         <span class="font-black text-amber-900 text-base block mb-0.5">⚡ 中級套餐 (6張圖片)</span>
-                        <span class="text-xs text-amber-700 font-bold block">2種美食組合 (하고) • 純漢語數字 (-인분)</span>
+                        <span class="text-xs text-amber-700 font-bold block">2種美食組合 (하고) • 完美通關雙倍 (+10 Token)</span>
                     </div>
                     <span class="px-3.5 py-2 bg-amber-500 hover:bg-amber-600 text-slate-900 font-black rounded-xl text-xs shadow-sm shrink-0">
                         開始點餐
@@ -903,51 +903,51 @@
                         gain.gain.exponentialRampToValueAtTime(0.01, now + idx * 0.15 + 0.15);
                         osc.connect(gain);
                         gain.connect(this.ctx.destination);
-                    osc.start(now + idx * 0.15);
-                    osc.stop(now + idx * 0.15 + 0.15);
-                });
-            } catch(e){}
-        }
-        playHeartDeduct() {
-            try {
-                this.initCtx();
-                if (!this.ctx) return;
-                const now = this.ctx.currentTime;
-                const osc = this.ctx.createOscillator();
-                const gain = this.ctx.createGain();
-                osc.type = 'sawtooth';
-                osc.frequency.setValueAtTime(320, now);
-                osc.frequency.exponentialRampToValueAtTime(110, now + 0.35);
-                gain.gain.setValueAtTime(0.35, now);
-                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
-                osc.connect(gain);
-                gain.connect(this.ctx.destination);
-                osc.start(now);
-                osc.stop(now + 0.35);
-            } catch(e){}
-        }
-        playGameOver() {
-            try {
-                this.initCtx();
-                if (!this.ctx) return;
-                const now = this.ctx.currentTime;
-                [330, 294, 262, 220].forEach((freq, idx) => {
+                        osc.start(now + idx * 0.15);
+                        osc.stop(now + idx * 0.15 + 0.15);
+                    });
+                } catch(e){}
+            }
+            playHeartDeduct() {
+                try {
+                    this.initCtx();
+                    if (!this.ctx) return;
+                    const now = this.ctx.currentTime;
                     const osc = this.ctx.createOscillator();
                     const gain = this.ctx.createGain();
                     osc.type = 'sawtooth';
-                    osc.frequency.value = freq;
-                    gain.gain.setValueAtTime(0, now + idx * 0.15);
-                    gain.gain.linearRampToValueAtTime(0.25, now + idx * 0.15 + 0.02);
-                    gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.15 + 0.25);
+                    osc.frequency.setValueAtTime(320, now);
+                    osc.frequency.exponentialRampToValueAtTime(110, now + 0.35);
+                    gain.gain.setValueAtTime(0.35, now);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
                     osc.connect(gain);
                     gain.connect(this.ctx.destination);
-                    osc.start(now + idx * 0.15);
-                    osc.stop(now + idx * 0.15 + 0.25);
-                });
-            } catch(e){}
-        }
-        speak(text) {
-            if (!('speechSynthesis' in window)) return;
+                    osc.start(now);
+                    osc.stop(now + 0.35);
+                } catch(e){}
+            }
+            playGameOver() {
+                try {
+                    this.initCtx();
+                    if (!this.ctx) return;
+                    const now = this.ctx.currentTime;
+                    [330, 294, 262, 220].forEach((freq, idx) => {
+                        const osc = this.ctx.createOscillator();
+                        const gain = this.ctx.createGain();
+                        osc.type = 'sawtooth';
+                        osc.frequency.value = freq;
+                        gain.gain.setValueAtTime(0, now + idx * 0.15);
+                        gain.gain.linearRampToValueAtTime(0.25, now + idx * 0.15 + 0.02);
+                        gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.15 + 0.25);
+                        osc.connect(gain);
+                        gain.connect(this.ctx.destination);
+                        osc.start(now + idx * 0.15);
+                        osc.stop(now + idx * 0.15 + 0.25);
+                    });
+                } catch(e){}
+            }
+            speak(text) {
+                if (!('speechSynthesis' in window)) return;
                 window.speechSynthesis.cancel();
                 const cleanText = text.replace(/[!?,."']/g, '');
                 const utter = new SpeechSynthesisUtterance(cleanText);
@@ -1010,46 +1010,46 @@
             { id: "tteokbokki", nameKo: "떡볶이", nameZh: "辣炒年糕", roma: "tteok-bok-ki", emoji: "🍡" }
         ];
 
-        /* ================= LEVEL DATASETS ================= */
+        /* ================= LEVEL DATASETS (PURE KOREAN - NO CHINESE IN OPTIONS) ================= */
         const L1_DATA = [
             {
                 icon: "🏫",
                 scenario: "早上上學遇見老師與同學",
                 options: [
-                    { text: "안녕하세요 (你好)", ko: "안녕하세요", correct: true },
-                    { text: "감사합니다 (謝謝)", ko: "감사합니다", correct: false }
+                    { text: "안녕하세요", ko: "안녕하세요", correct: true },
+                    { text: "감사합니다", ko: "감사합니다", correct: false }
                 ]
             },
             {
                 icon: "🎁",
                 scenario: "收到朋友送的生日禮物時",
                 options: [
-                    { text: "감사합니다 (謝謝)", ko: "감사합니다", correct: true },
-                    { text: "미안해요 (對不起)", ko: "미안해요", correct: false }
+                    { text: "감사합니다", ko: "감사합니다", correct: true },
+                    { text: "미안해요", ko: "미안해요", correct: false }
                 ]
             },
             {
                 icon: "👟",
                 scenario: "不小心踩到別人的腳時",
                 options: [
-                    { text: "미안해요 (對不起)", ko: "미안해요", correct: true },
-                    { text: "괜찮아요 (沒關係)", ko: "괜찮아요", correct: false }
+                    { text: "미안해요", ko: "미안해요", correct: true },
+                    { text: "괜찮아요", ko: "괜찮아요", correct: false }
                 ]
             },
             {
                 icon: "🤝",
                 scenario: "朋友跟你說對不起時",
                 options: [
-                    { text: "괜찮아요 (沒關係)", ko: "괜찮아요", correct: true },
-                    { text: "맛있어요 (很好吃)", ko: "맛있어요", correct: false }
+                    { text: "괜찮아요", ko: "괜찮아요", correct: true },
+                    { text: "맛있어요", ko: "맛있어요", correct: false }
                 ]
             },
             {
                 icon: "🍕",
                 scenario: "吃到美味的韓國炒年糕時",
                 options: [
-                    { text: "맛있어요 (很好吃)", ko: "맛있어요", correct: true },
-                    { text: "안녕하세요 (你好)", ko: "안녕하세요", correct: false }
+                    { text: "맛있어요", ko: "맛있어요", correct: true },
+                    { text: "안녕하세요", ko: "안녕하세요", correct: false }
                 ]
             }
         ];
@@ -1231,7 +1231,7 @@
             return `
                 <div class="relative ${heightClass} flex items-center justify-center overflow-hidden rounded-xl">
                     <img src="food/${filename}.png" 
-                         alt="${food.nameZh}" 
+                         alt="${food.nameKo}" 
                          class="max-h-full max-w-full object-contain"
                          onerror="this.onerror=null; this.src='food/${filename}.jpg'; this.onerror=function(){ this.style.display='none'; this.nextElementSibling.style.display='block'; }">
                     <span class="text-4xl hidden" style="display:none;">${food.emoji}</span>
@@ -1266,6 +1266,7 @@
             hearts: 3,
             isOptionLocked: false,
             isQuestionAnswered: false,
+            currentQuestionAttempted: false, // 首答判定制：防止重複答對加分
             tracingRewardsEarned: 0,
             
             activeClassTab: '3A',
@@ -1834,7 +1835,7 @@
                     if (state.l1Idx < state.l1Questions.length) {
                         renderL1();
                     } else {
-                        finishLevel("🎉 恭喜通關關卡 1 (情境反應王)！獲得良好表現！");
+                        finishLevel("🎉 恭喜完成關卡 1 (情境反應王)！", 1);
                     }
                 } else if (tabId === 'tab-level2') {
                     state.l2Idx++;
@@ -1843,7 +1844,7 @@
                     } else {
                         state.l2Passed = true;
                         saveToLocalStorage();
-                        finishLevel("🍱 恭喜通關關卡 2 (美食單字大搜查)！成功完成美食指認！");
+                        finishLevel("🍱 恭喜完成關卡 2 (美食單字大搜查)！", 2);
                     }
                 } else if (tabId === 'tab-level3') {
                     state.l3Idx++;
@@ -1852,30 +1853,48 @@
                     } else {
                         state.l3Passed = true;
                         saveToLocalStorage();
-                        finishLevel("🔢 恭喜通關關卡 3 (漢語數字大挑戰)！已掌握數字 1-10！");
+                        finishLevel("🔢 恭喜完成關卡 3 (漢語數字大挑戰)！", 3);
                     }
                 } else if (tabId === 'tab-level4') {
                     state.l4Idx++;
                     if (state.l4Idx < state.l4Questions.length) {
                         renderL4();
                     } else {
-                        finishLevel("🎉 恭喜通關關卡 4 (小吃攤點餐大師)！成就頂級大廚！");
+                        finishLevel("🎉 恭喜完成關卡 4 (小吃攤點餐大師)！", 4);
                     }
                 } else if (tabId === 'tab-level5') {
                     state.l5Idx++;
                     if (state.l5Idx < state.l5Questions.length) {
                         renderL5();
                     } else {
-                        finishLevel("👨‍👩‍👧‍👦 恭喜通關關卡 5 (家庭成員大作戰)！");
+                        finishLevel("👨‍👩‍👧‍👦 恭喜完成關卡 5 (家庭成員大作戰)！", 5);
                     }
                 }
             }, 500);
         }
 
-        function finishLevel(msg) {
-            confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
-            audio.playCorrect();
-            showCustomAlert(msg);
+        function finishLevel(msg, levelNum) {
+            stopTimer();
+            const isPerfect = (state.hearts === 3);
+            let perfectBonus = 0;
+
+            if (isPerfect) {
+                // L4 複合點餐關卡提供 +10 Tokens 完美獎勵，其餘基礎關卡為 +5 Tokens
+                perfectBonus = (levelNum === 4) ? 10 : 5;
+                if (state.isTimedMode) perfectBonus *= 2; // 限時模式雙倍獎勵
+                
+                state.score += perfectBonus;
+                saveToLocalStorage();
+                updateHeaderUI();
+
+                confetti({ particleCount: 150, spread: 90, origin: { y: 0.5 } });
+                audio.playCorrect();
+                showCustomAlert(`✨ PERFECT 完美無瑕！\n❤️ 滿血零失誤完勝！\n🎁 獲得額外 +${perfectBonus} Token 完美加碼獎勵！\n\n${msg}`);
+            } else {
+                confetti({ particleCount: 60, spread: 60, origin: { y: 0.6 } });
+                audio.playCorrect();
+                showCustomAlert(`${msg}\n(本局答錯 ${3 - state.hearts} 題，保留過程中首答發放的 Token。保持 3❤️ 滿血可挑戰額外完美加碼喔！)`);
+            }
             showHome();
         }
 
@@ -1890,6 +1909,7 @@
 
         function renderL1() {
             state.isQuestionAnswered = false;
+            state.currentQuestionAttempted = false;
             const q = state.l1Questions[state.l1Idx];
             document.getElementById('l1-q-index').innerText = state.l1Idx + 1;
             document.getElementById('l1-icon').innerText = q.icon;
@@ -1903,30 +1923,31 @@
             const choices = shuffleArray(q.options);
             choices.forEach(opt => {
                 const btn = document.createElement('button');
-                btn.className = "bubble-card p-5 bg-white border-4 border-teal-200 hover:border-teal-400 rounded-3xl text-center shadow-md transition transform active:scale-95";
+                btn.className = "bubble-card p-6 bg-white border-4 border-teal-200 hover:border-teal-400 rounded-3xl text-center shadow-md transition transform active:scale-95";
                 btn.innerHTML = `
-                    <span class="text-2xl font-black text-teal-900 block mb-1">${opt.text}</span>
-                    <span class="text-xs font-bold text-teal-600">點擊播放語音</span>
+                    <span class="text-3xl font-black text-teal-900 block mb-1">${opt.text}</span>
+                    <span class="text-xs font-bold text-teal-600">點擊播放發音</span>
                 `;
                 btn.onclick = () => {
                     if (state.isQuestionAnswered) return;
-                    state.isQuestionAnswered = true;
-                    optionsContainer.style.pointerEvents = 'none';
 
                     audio.speak(opt.ko);
                     if (opt.correct) {
+                        state.isQuestionAnswered = true;
+                        optionsContainer.style.pointerEvents = 'none';
                         btn.classList.add('border-emerald-500', 'bg-emerald-50');
                         audio.playCorrect();
-                        addScore(10);
+
+                        // 首答判定制：只有在第一下就答對時才加 1 分
+                        if (!state.currentQuestionAttempted) {
+                            addScore(1);
+                        }
                         nextQuestion();
                     } else {
+                        state.currentQuestionAttempted = true; // 標記為已有錯答
                         btn.classList.add('animate-shake', 'border-rose-400', 'bg-rose-50');
                         setTimeout(() => btn.classList.remove('animate-shake'), 400);
                         deductHeart();
-                        setTimeout(() => {
-                            state.isQuestionAnswered = false;
-                            optionsContainer.style.pointerEvents = 'auto';
-                        }, 800);
                     }
                 };
                 optionsContainer.appendChild(btn);
@@ -1945,6 +1966,7 @@
 
         function renderL2() {
             state.isQuestionAnswered = false;
+            state.currentQuestionAttempted = false;
             const target = state.l2Questions[state.l2Idx];
             document.getElementById('l2-q-index').innerText = state.l2Idx + 1;
             document.getElementById('l2-word-korean').innerText = target.nameKo;
@@ -1963,29 +1985,30 @@
 
             choices.forEach(item => {
                 const card = document.createElement('div');
-                card.className = "bubble-card bg-white p-4 rounded-3xl border-4 border-orange-200 hover:border-orange-400 text-center cursor-pointer shadow-md transition transform active:scale-95 flex flex-col items-center justify-center";
+                card.className = "bubble-card bg-white p-5 rounded-3xl border-4 border-orange-200 hover:border-orange-400 text-center cursor-pointer shadow-md transition transform active:scale-95 flex flex-col items-center justify-center";
+                // 移除了中文標籤 item.nameZh，只保留純食物圖片
                 card.innerHTML = `
-                    ${renderFoodDisplay(item, "h-24")}
-                    <span class="text-lg font-black text-slate-800 mt-1">${item.nameZh}</span>
+                    ${renderFoodDisplay(item, "h-28")}
                 `;
                 card.onclick = () => {
                     if (state.isQuestionAnswered) return;
-                    state.isQuestionAnswered = true;
-                    container.style.pointerEvents = 'none';
 
                     if (item.id === target.id) {
+                        state.isQuestionAnswered = true;
+                        container.style.pointerEvents = 'none';
                         card.classList.add('border-emerald-500', 'bg-emerald-50');
                         audio.playCorrect();
-                        addScore(10);
+
+                        // 首答判定制
+                        if (!state.currentQuestionAttempted) {
+                            addScore(1);
+                        }
                         nextQuestion();
                     } else {
+                        state.currentQuestionAttempted = true; // 標記已有錯答
                         card.classList.add('animate-shake', 'border-rose-400', 'bg-rose-50');
                         setTimeout(() => card.classList.remove('animate-shake'), 400);
                         deductHeart();
-                        setTimeout(() => {
-                            state.isQuestionAnswered = false;
-                            container.style.pointerEvents = 'auto';
-                        }, 800);
                     }
                 };
                 container.appendChild(card);
@@ -2009,6 +2032,7 @@
 
         function renderL3() {
             state.isQuestionAnswered = false;
+            state.currentQuestionAttempted = false;
             const target = state.l3Questions[state.l3Idx];
             document.getElementById('l3-q-index').innerText = state.l3Idx + 1;
             document.getElementById('l3-prompt-main').innerText = `阿拉伯數字: ${target.num}`;
@@ -2033,23 +2057,24 @@
                 `;
                 btn.onclick = () => {
                     if (state.isQuestionAnswered) return;
-                    state.isQuestionAnswered = true;
-                    container.style.pointerEvents = 'none';
 
                     audio.speak(item.ko);
                     if (item.num === target.num) {
+                        state.isQuestionAnswered = true;
+                        container.style.pointerEvents = 'none';
                         btn.classList.add('border-emerald-500', 'bg-emerald-50');
                         audio.playCorrect();
-                        addScore(10);
+
+                        // 首答判定制
+                        if (!state.currentQuestionAttempted) {
+                            addScore(1);
+                        }
                         nextQuestion();
                     } else {
+                        state.currentQuestionAttempted = true;
                         btn.classList.add('animate-shake', 'border-rose-400', 'bg-rose-50');
                         setTimeout(() => btn.classList.remove('animate-shake'), 400);
                         deductHeart();
-                        setTimeout(() => {
-                            state.isQuestionAnswered = false;
-                            container.style.pointerEvents = 'auto';
-                        }, 800);
                     }
                 };
                 container.appendChild(btn);
@@ -2078,6 +2103,7 @@
         }
 
         function renderL4() {
+            state.currentQuestionAttempted = false;
             const q = state.l4Questions[state.l4Idx];
             document.getElementById('l4-q-index').innerText = state.l4Idx + 1;
             document.getElementById('l4-demand-korean').innerText = `"${q.demand}"`;
@@ -2116,10 +2142,10 @@
                 const count = state.l4Counts[food.id] || 0;
                 const card = document.createElement('div');
                 card.className = "bubble-card bg-white p-4 rounded-3xl border-3 border-rose-200 text-center flex flex-col items-center justify-between shadow-sm relative";
+                // 移除了中文名稱 food.nameZh，保留純韓文 food.nameKo 與圖片
                 card.innerHTML = `
                     ${renderFoodDisplay(food, "h-20")}
-                    <span class="text-base font-black text-slate-800 mt-1">${food.nameZh}</span>
-                    <span class="text-xs font-extrabold text-rose-700 font-mono">${food.nameKo}</span>
+                    <span class="text-sm font-extrabold text-rose-700 font-mono mt-1">${food.nameKo}</span>
 
                     <div class="flex items-center gap-2 mt-3 bg-rose-50 p-1.5 rounded-2xl border border-rose-200">
                         <button onclick="changeL4FoodCount('${food.id}', -1)" class="w-8 h-8 bg-white hover:bg-rose-100 text-rose-700 font-black rounded-xl text-base shadow-sm border border-rose-200 flex items-center justify-center transition active:scale-95">-</button>
@@ -2184,10 +2210,13 @@
 
             if (isCorrect) {
                 audio.playCorrect();
-                let basePoints = state.l4Tier === 'intermediate' ? 15 : 10;
-                addScore(basePoints);
+                if (!state.currentQuestionAttempted) {
+                    let basePoints = state.l4Tier === 'intermediate' ? 2 : 1;
+                    addScore(basePoints);
+                }
                 nextQuestion();
             } else {
+                state.currentQuestionAttempted = true; // 點錯驗證扣心並標記為失誤
                 deductHeart();
             }
         }
@@ -2203,6 +2232,7 @@
 
         function renderL5() {
             state.isQuestionAnswered = false;
+            state.currentQuestionAttempted = false;
             const q = state.l5Questions[state.l5Idx];
             document.getElementById('l5-q-index').innerText = state.l5Idx + 1;
             document.getElementById('l5-speaker-badge').innerText = q.speaker;
@@ -2221,23 +2251,23 @@
                 btn.innerText = opt.text;
                 btn.onclick = () => {
                     if (state.isQuestionAnswered) return;
-                    state.isQuestionAnswered = true;
-                    grid.style.pointerEvents = 'none';
 
                     audio.speak(opt.text.split(' ')[0]);
                     if (opt.correct) {
+                        state.isQuestionAnswered = true;
+                        grid.style.pointerEvents = 'none';
                         btn.classList.add('border-emerald-500', 'bg-emerald-50');
                         audio.playCorrect();
-                        addScore(10);
+
+                        if (!state.currentQuestionAttempted) {
+                            addScore(1);
+                        }
                         nextQuestion();
                     } else {
+                        state.currentQuestionAttempted = true;
                         btn.classList.add('animate-shake', 'border-rose-400', 'bg-rose-50');
                         setTimeout(() => btn.classList.remove('animate-shake'), 400);
                         deductHeart();
-                        setTimeout(() => {
-                            state.isQuestionAnswered = false;
-                            grid.style.pointerEvents = 'auto';
-                        }, 800);
                     }
                 };
                 grid.appendChild(btn);
@@ -2409,6 +2439,7 @@
             audio.speak(textStr);
         }
 
+        /* ================= DUAL-MASK PIXEL ALIGNMENT & DENSITY EVALUATION ================= */
         function evaluateHandwritingNeatness() {
             if (!tracingCanvas) return;
             audio.playPop();
@@ -2417,6 +2448,7 @@
             const h = tracingCanvas.height;
             const textStr = getCurrentTracingKoreanText();
 
+            // 1. 建立背景參考底圖遮罩 (Template Glyph Mask)
             const refCanvas = document.createElement('canvas');
             refCanvas.width = w;
             refCanvas.height = h;
@@ -2428,7 +2460,7 @@
             refCtx.fillStyle = '#FFFFFF';
             refCtx.textAlign = 'center';
             refCtx.textBaseline = 'middle';
-            refCtx.fillText(textStr, 300, 130);
+            refCtx.fillText(textStr, w / 2, h / 2);
 
             const refImgData = refCtx.getImageData(0, 0, w, h).data;
             const userImgData = tracingCtx.getImageData(0, 0, w, h).data;
@@ -2447,7 +2479,7 @@
                     const b = userImgData[idx + 2];
                     const a = userImgData[idx + 3];
 
-                    // Filter out background template text (#CBD5E1) and blank canvas (#F8FAFC/transparent)
+                    // 排除背景灰字遮罩 (#CBD5E1) 與空白底色 (#F8FAFC / 透明)
                     const isGreyTemplateText = (r >= 180 && r <= 230 && g >= 190 && g <= 240 && b >= 200 && b <= 250);
                     const isEmptyCanvas = (a < 50) || (r > 240 && g > 240 && b > 240);
 
@@ -2466,45 +2498,34 @@
                 return;
             }
 
+            // 防色塊塗黑與塗滿檢測 (Over-fill & Density Check)
             const totalSamplePoints = (w / 3) * (h / 3);
             const strokeRatio = userPixelCount / totalSamplePoints;
             const maxAllowedRatio = penWidth >= 16 ? 0.38 : (penWidth >= 10 ? 0.30 : 0.22);
+
             if (strokeRatio > maxAllowedRatio) {
                 audio.playHeartDeduct();
-                showCustomAlert("⚠️ 檢測到塗鴉面積過大！請沿著灰字線條練習描劃，不要把整個畫布塗滿喔！");
-                clearTracingCanvas();
+                showCustomAlert("⚠️ 檢測到塗滿色塊或塗鴉！請沿著灰字線條練習描劃，不要把整個畫布塗黑喔！");
                 return;
             }
 
             const coverageRatio = Math.min(1.0, overlapCount / Math.max(1, templatePixelCount));
             const precisionRatio = overlapCount / Math.max(1, userPixelCount);
 
-            // 1. 嚴格防塗鴉機制：筆劃越界 (Spill-over) 與低精確度 (Wild Scribble/Streak) 攔截
-            // 若 precisionRatio < 0.45（代表超過 55% 的墨水都畫在字體外面的空白區），判定為橫劃/亂塗
+            // 筆劃外溢過多檢測
             if (precisionRatio < 0.45) {
                 audio.playHeartDeduct();
-                showCustomAlert("⚠️ 檢測到大量筆跡描在字體外（越界塗抹）！請沿著灰字筆劃順序專注描寫，不要畫出字體外面喔！");
-                clearTracingCanvas();
+                showCustomAlert("⚠️ 檢測到大量筆跡描在字體外（越界塗抹）！請沿著灰字筆劃順序專注描寫！");
                 return;
             }
 
-            // 2. 檢測學生是否把實心韓文字體內部「著色塗滿」（Block Coloring）
-            if (coverageRatio > 0.80 && precisionRatio > 0.68) {
-                audio.playHeartDeduct();
-                showCustomAlert("⚠️ 檢測到把字型內部著色塗滿囉！請用一筆一畫（順著筆劃線條）描寫，不需要把文字內部全部塗滿喔！");
-                clearTracingCanvas();
-                return;
-            }
-
-            // 3. 調整評分比重：精確度 (Precision) 佔 70%，覆蓋率 (Coverage) 佔 30%
             let weightedRatio = (coverageRatio * 0.30 + precisionRatio * 0.70);
             let finalScore = Math.round(weightedRatio * 100);
             finalScore = Math.min(100, Math.max(0, finalScore));
 
             if (finalScore < 50) {
                 audio.playHeartDeduct();
-                showCustomAlert("⚠️ 筆劃精確度不足（越界過多），得分未達 50% 門檻，請沿著灰字重新練習！");
-                clearTracingCanvas();
+                showCustomAlert("⚠️ 筆劃精確度不足，得分未達 50% 門檻，請沿著灰字重新練習！");
                 return;
             }
 
@@ -2565,6 +2586,31 @@
             const modal = document.getElementById('neatnessModal');
             if (modal) modal.classList.add('hidden');
             clearTracingCanvas();
+        }
+
+        function showCertificate() {
+            audio.playPop();
+            const certModal = document.getElementById('certModal');
+            const certName = document.getElementById('certStudentName');
+            const certDate = document.getElementById('certDate');
+
+            if (certName) {
+                certName.value = state.isTeacherMode ? '教師示範 (선생님)' : `${state.studentZh} (${state.studentKo})`;
+            }
+            if (certDate) {
+                const today = new Date();
+                const yyyy = today.getFullYear();
+                const mm = String(today.getMonth() + 1).padStart(2, '0');
+                const dd = String(today.getDate()).padStart(2, '0');
+                certDate.innerText = `${yyyy}-${mm}-${dd}`;
+            }
+            if (certModal) certModal.classList.remove('hidden');
+        }
+
+        function closeCertModal() {
+            audio.playPop();
+            const certModal = document.getElementById('certModal');
+            if (certModal) certModal.classList.add('hidden');
         }
 
         /* ================= PHYSICAL KEYBOARD LISTENER FOR PIN ================= */
