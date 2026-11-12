@@ -143,6 +143,41 @@
                     </p>
                 </div>
 
+                <!-- REVIEW & SUMMARY GALLERY SECTION (溫習區) -->
+                <div class="glass-panel p-5 md:p-6 rounded-3xl border-4 border-amber-200/90 shadow-lg">
+                    <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+                        <div class="flex items-center gap-3">
+                            <div class="w-11 h-11 bg-gradient-to-tr from-amber-400 to-rose-400 text-white rounded-2xl flex items-center justify-center text-2xl shadow-sm shrink-0">
+                                📖
+                            </div>
+                            <div>
+                                <div class="flex items-center gap-2">
+                                    <h3 class="text-lg md:text-xl font-black text-slate-800">課堂總結與解說溫習區</h3>
+                                    <span class="text-[11px] font-black bg-amber-100 text-amber-800 px-2.5 py-0.5 rounded-full border border-amber-300">闖關前必看</span>
+                                </div>
+                                <p class="text-xs font-bold text-slate-500 mt-0.5">點擊下方圖卡放大檢視解說，還可以直接點擊單字聽韓語發音！</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center gap-2">
+                            <label class="cursor-pointer px-3 py-1.5 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-black text-xs rounded-xl border border-indigo-200 transition flex items-center gap-1.5 shadow-sm">
+                                <i class="fa-solid fa-image"></i>
+                                <span>+ 加入解說圖片</span>
+                                <input type="file" accept="image/*" multiple class="hidden" onchange="handleCustomReviewUpload(event)">
+                            </label>
+                            <button id="toggleReviewBtn" onclick="toggleReviewGallery()" class="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-black text-xs rounded-xl border border-slate-300 transition flex items-center gap-1">
+                                <span id="toggleReviewText">收起</span>
+                                <i id="toggleReviewIcon" class="fa-solid fa-chevron-up"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Review Thumbnails Grid -->
+                    <div id="reviewGalleryGrid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+                        <!-- Dynamically rendered review cards -->
+                    </div>
+                </div>
+
                 <!-- LEVEL GRID (3 Rows x 2 Columns = 6 Levels) -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
                     
@@ -722,54 +757,121 @@
 
             <!-- Auxiliary Action Buttons -->
             <div class="flex justify-between items-center pt-2 border-t border-slate-100">
-                <button onclick="openHanbokCultureModal()" class="px-3.5 py-2 bg-emerald-100 hover:bg-emerald-200 text-emerald-900 font-black rounded-xl text-xs transition flex items-center gap-1.5">
-                    <span>🏛️ 韓服文化知識</span>
+                <button onclick="openHanbokCultureModal()" class="text-xs font-black text-indigo-600 hover:text-indigo-800 flex items-center gap-1 bg-indigo-50 px-3 py-1.5 rounded-xl border border-indigo-200 transition">
+                    <span>🏛️</span>
+                    <span>韓服文化小百科</span>
                 </button>
-                <button onclick="closeLevel6ModeModal()" class="text-xs font-black text-slate-400 hover:text-slate-600">
-                    取消返回選單
+                <button onclick="closeLevel6ModeModal()" class="text-xs font-black text-slate-400 hover:text-slate-600 px-3 py-1.5">
+                    取消返回
                 </button>
             </div>
         </div>
     </div>
 
-    <!-- Modal: Hanbok Cultural Knowledge Modal -->
-    <div id="hanbokCultureModal" class="fixed inset-0 bg-slate-900/70 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
-        <div class="bg-white p-6 md:p-8 rounded-3xl border-4 border-emerald-400 max-w-lg w-full shadow-2xl animate-pop-in max-h-[90vh] overflow-y-auto relative">
-            <button onclick="closeHanbokCultureModal()" class="absolute top-4 right-4 w-9 h-9 bg-emerald-100 hover:bg-emerald-200 text-emerald-900 rounded-full font-black flex items-center justify-center transition">
-                ✕
-            </button>
-            <div class="flex items-center gap-3 mb-4 border-b border-emerald-100 pb-3">
-                <div class="w-12 h-12 bg-emerald-100 text-emerald-700 rounded-2xl flex items-center justify-center text-2xl font-black">
-                    🏛️
+    <!-- Modal: Hanbok Cultural Knowledge Modal (韓國國立民俗博物館資料) -->
+    <div id="hanbokCultureModal" class="fixed inset-0 bg-slate-900/75 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white p-6 md:p-8 rounded-3xl border-4 border-indigo-400 max-w-lg w-full text-left shadow-2xl animate-pop-in max-h-[88vh] overflow-y-auto">
+            <div class="flex items-center justify-between pb-3 border-b border-slate-200 mb-4">
+                <div class="flex items-center gap-2.5">
+                    <span class="text-3xl">🏛️</span>
+                    <div>
+                        <h3 class="text-xl font-black text-slate-800">韓服文化小百科 (한복 이야기)</h3>
+                        <p class="text-[11px] font-bold text-indigo-600">資料來源：韓國國立民俗博物館 (National Folk Museum of Korea)</p>
+                    </div>
                 </div>
-                <div>
-                    <h3 class="text-xl font-black text-slate-800">韓國國立民俗博物館 • 韓服故事</h3>
-                    <p class="text-xs text-emerald-700 font-bold">National Folk Museum of Korea Insights</p>
+                <button onclick="closeHanbokCultureModal()" class="w-8 h-8 bg-slate-100 hover:bg-slate-200 rounded-full font-black text-slate-600 flex items-center justify-center">✕</button>
+            </div>
+
+            <div class="space-y-3 text-xs md:text-sm">
+                <div class="bg-amber-50 p-3.5 rounded-2xl border border-amber-200">
+                    <h4 class="font-black text-amber-900 mb-1">👕 1. 韓服的基本構造</h4>
+                    <p class="text-slate-700 font-bold leading-relaxed">
+                        女生韓服由短上衣<strong>「赤古里 (저고리)」</strong>與高腰長裙<strong>「韓服裙 (치마)」</strong>組成；男生韓服則搭配寬鬆長褲<strong>「韓服褲 (바지)」</strong>。
+                    </p>
+                </div>
+
+                <div class="bg-rose-50 p-3.5 rounded-2xl border border-rose-200">
+                    <h4 class="font-black text-rose-900 mb-1">🎨 2. 「白衣民族」與五方色 (오방색)</h4>
+                    <p class="text-slate-700 font-bold leading-relaxed">
+                        古代韓國平民平時多穿<strong>白色 (하얀색)</strong> 韓服，因此有「白衣民族」之稱；傳統節日則崇尚<strong>紅、黃、藍、白、黑</strong>五方正色，象徵祈福與避邪！
+                    </p>
+                </div>
+
+                <div class="bg-purple-50 p-3.5 rounded-2xl border border-purple-200">
+                    <h4 class="font-black text-purple-900 mb-1">👝 3. 為什麼韓服沒有口袋？</h4>
+                    <p class="text-slate-700 font-bold leading-relaxed">
+                        傳統韓服不設口袋，人們會另外縫製繡有吉祥花紋的<strong>「福袋 / 荷包 (복주머니)」</strong>隨身攜帶小物，並在裙腰掛上美麗的<strong>「佩飾 (노리개)」</strong>！
+                    </p>
+                </div>
+
+                <div class="bg-teal-50 p-3.5 rounded-2xl border border-teal-200">
+                    <h4 class="font-black text-teal-900 mb-1">🏯 4. 穿韓服免費逛古宮！</h4>
+                    <p class="text-slate-700 font-bold leading-relaxed">
+                        現在前往首爾景福宮、昌德宮等韓國四大古宮，只要穿著成套韓服，就可以<strong>免費入場參觀</strong>喔！
+                    </p>
                 </div>
             </div>
 
-            <div class="space-y-3 text-xs md:text-sm text-slate-700 leading-relaxed mb-4">
-                <div class="bg-emerald-50 p-3.5 rounded-2xl border border-emerald-200">
-                    <h4 class="font-black text-emerald-950 mb-1">1. 「白衣民族 (백의민족)」傳奇</h4>
-                    <p class="text-emerald-900">古代韓國平民常穿純潔的 <strong>하얀색 (白色)</strong> 韓服，因而得名「白衣民族」。</p>
+            <div class="mt-5 pt-3 border-t border-slate-100 flex items-center justify-between gap-2">
+                <a href="https://www.nfm.go.kr/k-box/ui/hanbok/introduce.do?lang=zh" target="_blank" rel="noopener noreferrer" class="px-3.5 py-2 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-black text-xs rounded-xl border border-indigo-200 transition flex items-center gap-1.5">
+                    <i class="fa-solid fa-up-right-from-square"></i>
+                    <span>參觀韓國國立民俗博物館數位韓服箱</span>
+                </a>
+                <button onclick="closeHanbokCultureModal()" class="px-5 py-2 bg-slate-800 hover:bg-slate-900 text-white font-black text-xs rounded-xl shadow">
+                    知道了
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Review Infographic Lightbox (溫習解說大圖投影視窗) -->
+    <div id="reviewLightboxModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-md z-50 flex items-center justify-center p-3 sm:p-5 hidden">
+        <div class="bg-white p-4 sm:p-6 rounded-3xl border-4 border-amber-300 max-w-4xl w-full shadow-2xl animate-pop-in max-h-[92vh] flex flex-col overflow-hidden">
+            <!-- Top Bar -->
+            <div class="flex items-center justify-between gap-2 pb-3 border-b border-slate-200 shrink-0">
+                <div class="flex items-center gap-2.5">
+                    <span id="lightboxBadge" class="px-3 py-1 bg-amber-100 text-amber-800 font-black text-xs rounded-full border border-amber-300">單元 1</span>
+                    <h3 id="lightboxTitle" class="text-lg sm:text-xl font-black text-slate-800">韓語情境反應王 總結與複習</h3>
                 </div>
-                <div class="bg-emerald-50 p-3.5 rounded-2xl border border-emerald-200">
-                    <h4 class="font-black text-emerald-950 mb-1">2. 傳統五方色 (오방색) 與王室尊榮</h4>
-                    <p class="text-emerald-900">陰陽五行「紅、黃、藍、白、黑」象徵宇宙福祉，<strong>빨간색 (紅色)</strong> 與 <strong>노란색 (黃色)</strong> 古代為王室專屬！</p>
-                </div>
-                <div class="bg-emerald-50 p-3.5 rounded-2xl border border-emerald-200">
-                    <h4 class="font-black text-emerald-950 mb-1">3. 韓服為什麼沒有口袋？</h4>
-                    <p class="text-emerald-900">傳統韓服無口袋，所以人們會隨身配戴精緻的 <strong>荷包福袋 (복주머니)</strong> 與 <strong>佩飾 (노리개)</strong>！</p>
-                </div>
-                <div class="bg-emerald-50 p-3.5 rounded-2xl border border-emerald-200">
-                    <h4 class="font-black text-emerald-950 mb-1">4. 穿韓服免費進宮參觀！</h4>
-                    <p class="text-emerald-900">只要穿著整套韓服（赤古里上衣 + 芝麻裙/褲子），即可免費參觀首爾景福宮與昌德宮！</p>
+                <div class="flex items-center gap-2">
+                    <span id="lightboxCounter" class="text-xs font-black text-slate-500 bg-slate-100 px-2.5 py-1 rounded-full">1 / 6</span>
+                    <button onclick="closeReviewLightbox()" class="w-9 h-9 bg-rose-100 hover:bg-rose-200 text-rose-700 rounded-full font-black flex items-center justify-center transition">
+                        ✕
+                    </button>
                 </div>
             </div>
 
-            <button onclick="closeHanbokCultureModal()" class="w-full py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-black rounded-xl text-xs shadow transition">
-                Got it! 知道了
-            </button>
+            <!-- Main Infographic Viewport -->
+            <div class="relative flex-1 min-h-0 my-3 bg-amber-50/50 rounded-2xl border-2 border-amber-100 flex items-center justify-center overflow-y-auto p-2">
+                <div id="lightboxMediaContainer" class="w-full flex items-center justify-center">
+                    <!-- Image or illustrated fallback card rendered here -->
+                </div>
+            </div>
+
+            <!-- Interactive Audio Pronunciation Strip -->
+            <div id="lightboxAudioSection" class="bg-sky-50/90 border-2 border-sky-200 rounded-2xl p-3 mb-3 shrink-0">
+                <div class="text-[11px] font-black text-sky-800 mb-2 flex items-center gap-1.5">
+                    <span>🔊 點擊單字 / 句型按鈕聆聽韓語標準發音：</span>
+                </div>
+                <div id="lightboxVocabButtons" class="flex flex-wrap gap-2">
+                    <!-- Dynamic TTS buttons -->
+                </div>
+            </div>
+
+            <!-- Bottom Navigation Controls -->
+            <div class="flex items-center justify-between gap-3 shrink-0">
+                <button onclick="navigateReviewLightbox(-1)" class="px-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-800 font-black text-xs sm:text-sm rounded-xl border border-slate-300 transition flex items-center gap-1.5">
+                    <i class="fa-solid fa-arrow-left"></i>
+                    <span>上一張圖卡</span>
+                </button>
+                <button onclick="closeReviewLightbox()" class="px-5 py-2.5 bg-amber-400 hover:bg-amber-500 text-slate-900 font-black text-xs sm:text-sm rounded-xl shadow transition">
+                    完成溫習，去闖關！
+                </button>
+                <button onclick="navigateReviewLightbox(1)" class="px-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-800 font-black text-xs sm:text-sm rounded-xl border border-slate-300 transition flex items-center gap-1.5">
+                    <span>下一張圖卡</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </button>
+            </div>
         </div>
     </div>
 
@@ -1213,6 +1315,353 @@
             { id: 'white',  filename: 'white',  ko: '하얀색', roma: 'ha-yan-saek',  hex: '#F7FAFC', file: 'colour/white.jpg' }
         ];
 
+        /* ================= REVIEW INFOGRAPHICS DATASET (溫習區解說圖卡) ================= */
+        const REVIEW_TOPICS = [
+            {
+                id: 'rev_l1',
+                badge: '關卡 1 總結',
+                title: '韓語情境反應王 總結與複習',
+                shortTitle: '禮貌問候總結',
+                icon: '👋',
+                accent: 'from-teal-100 to-emerald-100 border-teal-300 text-teal-900',
+                file: 'conclusion.jpg',
+                vocab: [
+                    { ko: '안녕하세요', zh: '你好' },
+                    { ko: '감사합니다', zh: '謝謝' },
+                    { ko: '죄송합니다', zh: '抱歉(正式)' },
+                    { ko: '미안합니다', zh: '對不起' },
+                    { ko: '괜찮아요', zh: '沒關係' }
+                ],
+                summaryItems: [
+                    { ko: '안녕하세요', zh: '你好 (An-nyeong-ha-se-yo)', desc: '最基本且禮貌的問候，適用於任何場合。' },
+                    { ko: '감사합니다', zh: '謝謝 (Gam-sa-ham-ni-da)', desc: '最正式且禮貌的致謝說話，適用於長輩及陌生人。' },
+                    { ko: '죄송합니다', zh: '抱歉 (Joe-song-ham-ni-da)', desc: '最正式的道歉，適用於長輩及陌生人。' },
+                    { ko: '미안합니다', zh: '對不起 (Mi-an-ham-ni-da)', desc: '正式道歉，較常用於同輩之間。' },
+                    { ko: '괜찮아요', zh: '沒關係 (Gwaen-cha-na-yo)', desc: '表示沒有關係，適用於回應道歉。' }
+                ]
+            },
+            {
+                id: 'rev_l2',
+                badge: '關卡 2 & 4 總結',
+                title: '美食大搜查 總結與複習',
+                shortTitle: '點餐與讚賞',
+                icon: '🍱',
+                accent: 'from-amber-100 to-orange-100 border-amber-300 text-amber-900',
+                file: 'conclusion2.jpg',
+                vocab: [
+                    { ko: '떡볶이 주세요!', zh: '請給我辣炒年糕' },
+                    { ko: '주세요!', zh: '請給我' },
+                    { ko: '네, 잠시만요!', zh: '好的，請稍等' },
+                    { ko: '정말 맛있어요!', zh: '真的很好吃!' },
+                    { ko: '많이 드세요!', zh: '請慢用!' }
+                ],
+                summaryItems: [
+                    { ko: 'Step 1: 주세요! (請給我)', zh: 'Ju-se-yo!', desc: '在小吃攤點餐時使用，禮貌地向老闆請求。例：떡볶이 주세요!' },
+                    { ko: 'Step 2: 맛있어요! (很好吃)', zh: 'Ma-si-sso-yo!', desc: '吃完食物後表達讚賞，能讓老闆很高興。例：정말 맛있어요!' }
+                ]
+            },
+            {
+                id: 'rev_l3',
+                badge: '關卡 3 總結',
+                title: '漢語數字 1–10 (일-십) 總結',
+                shortTitle: '漢語數字 1–10',
+                icon: '🔢',
+                accent: 'from-sky-100 to-blue-100 border-sky-300 text-sky-900',
+                file: 'numbers.jpg',
+                vocab: [
+                    { ko: '일', zh: '1 (il)' },
+                    { ko: '이', zh: '2 (i)' },
+                    { ko: '삼', zh: '3 (sam)' },
+                    { ko: '사', zh: '4 (sa)' },
+                    { ko: '오', zh: '5 (o)' },
+                    { ko: '육', zh: '6 (yuk)' },
+                    { ko: '칠', zh: '7 (chil)' },
+                    { ko: '팔', zh: '8 (pal)' },
+                    { ko: '구', zh: '9 (gu)' },
+                    { ko: '십', zh: '10 (sip)' }
+                ],
+                summaryItems: [
+                    { ko: '1 일 (il) • 2 이 (i) • 3 삼 (sam) • 4 사 (sa) • 5 오 (o)', zh: '數字 1 - 5', desc: '與廣東話讀音非常相似，配合「인분 (人份)」即可點餐！' },
+                    { ko: '6 육 (yuk) • 7 칠 (chil) • 8 팔 (pal) • 9 구 (gu) • 10 십 (sip)', zh: '數字 6 - 10', desc: '熟記 1 到 10 漢字音數字，輕鬆應付年齡與數量表達！' }
+                ]
+            },
+            {
+                id: 'rev_l5_girl',
+                badge: '關卡 5 (女生視角)',
+                title: '家庭成員稱呼：女生視角 (여학생 시각)',
+                shortTitle: '家庭(女生視角)',
+                icon: '👧',
+                accent: 'from-pink-100 to-rose-100 border-pink-300 text-pink-900',
+                file: 'girl.jpg',
+                vocab: [
+                    { ko: '아빠', zh: '爸爸' },
+                    { ko: '엄마', zh: '媽媽' },
+                    { ko: '오빠', zh: '哥哥(女生叫)' },
+                    { ko: '언니', zh: '姐姐(女生叫)' },
+                    { ko: '남동생', zh: '弟弟' },
+                    { ko: '여동생', zh: '妹妹' }
+                ],
+                summaryItems: [
+                    { ko: '아빠 (爸爸) / 엄마 (媽媽)', zh: '父母稱呼', desc: '男女生對爸爸媽媽的稱呼相同。' },
+                    { ko: '오빠 (哥哥) / 언니 (姐姐)', zh: '女生專用兄姐稱呼', desc: '女生稱呼哥哥叫 오빠 (Oppa)，稱呼姐姐叫 언니 (Unni)。' },
+                    { ko: '남동생 (弟弟) / 여동생 (妹妹)', zh: '弟妹稱呼', desc: '남 (男) + 동생 (弟妹)；여 (女) + 동생 (弟妹)。' }
+                ]
+            },
+            {
+                id: 'rev_l5_boy',
+                badge: '關卡 5 (男生視角)',
+                title: '家庭成員稱呼：男生視角 (남학생 시각)',
+                shortTitle: '家庭(男生視角)',
+                icon: '👦',
+                accent: 'from-indigo-100 to-blue-100 border-indigo-300 text-indigo-900',
+                file: 'boy.jpg',
+                vocab: [
+                    { ko: '아빠', zh: '爸爸' },
+                    { ko: '엄마', zh: '媽媽' },
+                    { ko: '형', zh: '哥哥(男生叫)' },
+                    { ko: '누나', zh: '姐姐(男生叫)' },
+                    { ko: '남동생', zh: '弟弟' },
+                    { ko: '여동생', zh: '妹妹' }
+                ],
+                summaryItems: [
+                    { ko: '아빠 (爸爸) / 엄마 (媽媽)', zh: '父母稱呼', desc: '男女生對爸爸媽媽的稱呼相同。' },
+                    { ko: '형 (哥哥) / 누나 (姐姐)', zh: '男生專用兄姐稱呼', desc: '男生稱呼哥哥叫 형 (Hyung)，稱呼姐姐叫 누나 (Nuna)。' },
+                    { ko: '남동생 (弟弟) / 여동생 (妹妹)', zh: '弟妹稱呼', desc: '男女生對弟弟妹妹的稱呼相同。' }
+                ]
+            },
+            {
+                id: 'rev_l6',
+                badge: '關卡 6 總結',
+                title: '색깔 공부 | 色彩學習 9 大顏色',
+                shortTitle: '韓語色彩學習',
+                icon: '🎨',
+                accent: 'from-purple-100 to-fuchsia-100 border-purple-300 text-purple-900',
+                file: 'colour.jpg',
+                vocab: [
+                    { ko: '빨간색', zh: '紅色' },
+                    { ko: '주황색', zh: '橙色' },
+                    { ko: '노란색', zh: '黃色' },
+                    { ko: '초록색', zh: '綠色' },
+                    { ko: '파란색', zh: '藍色' },
+                    { ko: '보라색', zh: '紫色' },
+                    { ko: '분홍색', zh: '粉紅色' },
+                    { ko: '검은색', zh: '黑色' },
+                    { ko: '하얀색', zh: '白色' }
+                ],
+                summaryItems: [
+                    { ko: '빨간색 (紅) • 주황색 (橙) • 노란색 (黃)', zh: '暖色系', desc: '字尾都有「색 (色)」字。' },
+                    { ko: '초록색 (綠) • 파란색 (藍) • 보라색 (紫)', zh: '冷色系', desc: '搭配韓服顏色圖卡一起記憶更深刻！' },
+                    { ko: '분홍색 (粉紅) • 검은색 (黑) • 하얀색 (白)', zh: '常用色彩', desc: '古代韓國平民常穿 하얀색 (白色) 韓服。' }
+                ]
+            }
+        ];
+
+        let customReviewSlides = [];
+        let currentLightboxIndex = 0;
+        let isReviewExpanded = true;
+
+        function getAllReviewSlides() {
+            return [...REVIEW_TOPICS, ...customReviewSlides];
+        }
+
+        function renderReviewGallery() {
+            const grid = document.getElementById('reviewGalleryGrid');
+            if (!grid) return;
+            grid.innerHTML = '';
+
+            const allSlides = getAllReviewSlides();
+            allSlides.forEach((item, idx) => {
+                const card = document.createElement('div');
+                card.className = `bubble-card bg-gradient-to-br ${item.accent || 'from-amber-50 to-orange-50 border-amber-300 text-slate-800'} border-2 p-2.5 rounded-2xl cursor-pointer flex flex-col justify-between shadow-sm hover:shadow-md transition`;
+                card.onclick = () => openReviewLightbox(idx);
+
+                const imgSrc = item.customUrl || item.file;
+                card.innerHTML = `
+                    <div class="relative w-full aspect-[16/10] bg-white rounded-xl overflow-hidden border border-white/80 mb-2 flex items-center justify-center">
+                        <img src="${imgSrc}" 
+                             alt="${item.shortTitle}" 
+                             class="w-full h-full object-cover"
+                             data-topic-id="${item.id}"
+                             data-attempt="0"
+                             onerror="handleReviewThumbError(this)">
+                        <span class="absolute top-1 left-1 bg-slate-900/70 text-white text-[9px] font-black px-1.5 py-0.5 rounded-md backdrop-blur-xs">
+                            ${item.badge}
+                        </span>
+                    </div>
+                    <div class="flex items-center justify-between gap-1 px-0.5">
+                        <span class="font-black text-xs truncate">${item.icon} ${item.shortTitle}</span>
+                        <span class="w-5 h-5 bg-white/90 rounded-full flex items-center justify-center text-[10px] shadow-xs shrink-0">
+                            <i class="fa-solid fa-magnifying-glass-plus"></i>
+                        </span>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function handleReviewThumbError(imgEl) {
+            const topicId = imgEl.dataset.topicId;
+            const topic = getAllReviewSlides().find(t => t.id === topicId);
+            if (!topic) return;
+
+            const attempt = parseInt(imgEl.dataset.attempt || '0', 10);
+            const fallbacks = [`review/${topic.file}`, `images/${topic.file}`];
+            if (attempt < fallbacks.length) {
+                imgEl.dataset.attempt = String(attempt + 1);
+                imgEl.src = fallbacks[attempt];
+                return;
+            }
+
+            imgEl.style.display = 'none';
+            const parent = imgEl.parentElement;
+            if (parent && !parent.querySelector('.thumb-fallback')) {
+                const fb = document.createElement('div');
+                fb.className = 'thumb-fallback flex flex-col items-center justify-center p-2 text-center w-full h-full bg-amber-50/70';
+                fb.innerHTML = `
+                    <span class="text-2xl mb-0.5">${topic.icon}</span>
+                    <span class="text-[10px] font-black text-slate-700 leading-tight line-clamp-2">${topic.shortTitle}</span>
+                `;
+                parent.appendChild(fb);
+            }
+        }
+
+        function toggleReviewGallery() {
+            audio.playPop();
+            isReviewExpanded = !isReviewExpanded;
+            const grid = document.getElementById('reviewGalleryGrid');
+            const text = document.getElementById('toggleReviewText');
+            const icon = document.getElementById('toggleReviewIcon');
+            if (isReviewExpanded) {
+                grid.classList.remove('hidden');
+                text.innerText = '收起';
+                icon.className = 'fa-solid fa-chevron-up';
+            } else {
+                grid.classList.add('hidden');
+                text.innerText = '展開圖卡';
+                icon.className = 'fa-solid fa-chevron-down';
+            }
+        }
+
+        function handleCustomReviewUpload(event) {
+            const files = Array.from(event.target.files || []);
+            if (files.length === 0) return;
+
+            files.forEach((file, i) => {
+                const objUrl = URL.createObjectURL(file);
+                const cleanName = file.name.replace(/\.[^/.]+$/, '');
+                customReviewSlides.push({
+                    id: `custom_${Date.now()}_${i}`,
+                    badge: '教師新增',
+                    title: cleanName,
+                    shortTitle: cleanName,
+                    icon: '🖼️',
+                    accent: 'from-violet-100 to-purple-100 border-violet-300 text-violet-900',
+                    customUrl: objUrl,
+                    vocab: [],
+                    summaryItems: []
+                });
+            });
+
+            event.target.value = '';
+            audio.playCorrect();
+            renderReviewGallery();
+            openReviewLightbox(getAllReviewSlides().length - files.length);
+        }
+
+        function openReviewLightbox(index) {
+            audio.playPop();
+            const slides = getAllReviewSlides();
+            if (slides.length === 0) return;
+            currentLightboxIndex = (index + slides.length) % slides.length;
+            renderLightboxSlide();
+            document.getElementById('reviewLightboxModal').classList.remove('hidden');
+        }
+
+        function closeReviewLightbox() {
+            audio.playPop();
+            document.getElementById('reviewLightboxModal').classList.add('hidden');
+        }
+
+        function navigateReviewLightbox(step) {
+            audio.playPop();
+            const slides = getAllReviewSlides();
+            currentLightboxIndex = (currentLightboxIndex + step + slides.length) % slides.length;
+            renderLightboxSlide();
+        }
+
+        function renderLightboxSlide() {
+            const slides = getAllReviewSlides();
+            const slide = slides[currentLightboxIndex];
+            if (!slide) return;
+
+            document.getElementById('lightboxBadge').innerText = slide.badge;
+            document.getElementById('lightboxTitle').innerText = slide.title;
+            document.getElementById('lightboxCounter').innerText = `${currentLightboxIndex + 1} / ${slides.length}`;
+
+            const mediaContainer = document.getElementById('lightboxMediaContainer');
+            const imgSrc = slide.customUrl || slide.file;
+            mediaContainer.innerHTML = `
+                <img src="${imgSrc}" 
+                     alt="${slide.title}" 
+                     class="max-h-[52vh] w-auto max-w-full object-contain rounded-xl shadow-md"
+                     data-attempt="0"
+                     onerror="handleLightboxImageError(this)">
+            `;
+
+            const audioSection = document.getElementById('lightboxAudioSection');
+            const vocabContainer = document.getElementById('lightboxVocabButtons');
+            if (slide.vocab && slide.vocab.length > 0) {
+                audioSection.classList.remove('hidden');
+                vocabContainer.innerHTML = slide.vocab.map(v => `
+                    <button onclick="audio.speak('${v.ko.replace(/'/g, "\\'")}')" 
+                            class="px-3 py-1.5 bg-white hover:bg-sky-100 text-slate-800 border-2 border-sky-200 rounded-xl font-black text-xs sm:text-sm shadow-xs transition transform active:scale-95 flex items-center gap-1.5">
+                        <span class="text-sky-600">🔊</span>
+                        <span>${v.ko}</span>
+                        <span class="text-[11px] font-bold text-slate-500">(${v.zh})</span>
+                    </button>
+                `).join('');
+            } else {
+                audioSection.classList.add('hidden');
+            }
+        }
+
+        function handleLightboxImageError(imgEl) {
+            const slides = getAllReviewSlides();
+            const slide = slides[currentLightboxIndex];
+            if (!slide) return;
+
+            const attempt = parseInt(imgEl.dataset.attempt || '0', 10);
+            const fallbacks = [`review/${slide.file}`, `images/${slide.file}`];
+            if (attempt < fallbacks.length) {
+                imgEl.dataset.attempt = String(attempt + 1);
+                imgEl.src = fallbacks[attempt];
+                return;
+            }
+
+            const mediaContainer = document.getElementById('lightboxMediaContainer');
+            const itemsHtml = (slide.summaryItems || []).map(item => `
+                <div class="bg-white p-3.5 rounded-2xl border-2 border-amber-200 shadow-xs text-left">
+                    <div class="flex items-center justify-between gap-2 mb-1">
+                        <span class="font-black text-base text-amber-900">${item.ko}</span>
+                        <span class="text-xs font-black bg-amber-100 text-amber-800 px-2 py-0.5 rounded-full">${item.zh}</span>
+                    </div>
+                    <p class="text-xs font-bold text-slate-600">${item.desc}</p>
+                </div>
+            `).join('');
+
+            mediaContainer.innerHTML = `
+                <div class="w-full max-w-2xl p-4 space-y-2.5">
+                    <div class="text-center mb-2">
+                        <span class="text-4xl">${slide.icon}</span>
+                        <p class="text-xs font-bold text-amber-700 mt-1">（請將 <code class="bg-amber-100 px-1.5 py-0.5 rounded">${slide.file}</code> 放置於網頁同一資料夾，即可顯示完整手繪解說圖）</p>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                        ${itemsHtml}
+                    </div>
+                </div>
+            `;
+        }
+
         /* ================= FOOD DATABASE ================= */
         const FOODS = [
             { id: "banana_milk", nameKo: "바나나 우유", nameZh: "香蕉牛奶", roma: "ba-na-na u-yu", emoji: "🍌" },
@@ -1225,6 +1674,30 @@
             { id: "ramyen", nameKo: "라면", nameZh: "韓式拉麵", roma: "ra-myeon", emoji: "🍜" },
             { id: "tteokbokki", nameKo: "떡볶이", nameZh: "辣炒年糕", roma: "tteok-bok-ki", emoji: "🍡" }
         ];
+
+        function renderFoodDisplay(food, heightClass = "h-20") {
+            const filenameMap = {
+                'banana_milk': 'ba-na-na u-yu',
+                'bingsu': 'bing-su',
+                'chicken': 'chi-kin',
+                'eomuk': 'eo-muk',
+                'hatdogeu': 'hat-do-geu',
+                'hotteok': 'ho-tteok',
+                'gimbap': 'kimbap',
+                'ramyen': 'ra-myeon',
+                'tteokbokki': 'tteok-bok-ki'
+            };
+            const filename = filenameMap[food.id] || food.id;
+            return `
+                <div class="relative ${heightClass} flex items-center justify-center overflow-hidden rounded-xl">
+                    <img src="food/${filename}.png" 
+                         alt="${food.nameKo}" 
+                         class="max-h-full max-w-full object-contain"
+                         onerror="this.onerror=null; this.src='food/${filename}.jpg'; this.onerror=function(){ this.style.display='none'; this.nextElementSibling.style.display='block'; }">
+                    <span class="text-4xl hidden" style="display:none;">${food.emoji}</span>
+                </div>
+            `;
+        }
 
         /* ================= LEVEL DATASETS ================= */
         const L1_DATA = [
@@ -1285,123 +1758,151 @@
 
         const L4_DATA_TIERS = {
             beginner: [
-                { demand: "떡볶이 삼인분 주세요!", foods: [{ id: "tteokbokki", count: 3 }], hint: "提示：請點 3 份辣炒年糕 (떡볶이)" },
-                { demand: "치킨 이인분 주세요!", foods: [{ id: "chicken", count: 2 }], hint: "提示：請點 2 份韓式炸雞 (치킨)" },
-                { demand: "김밥 일인분 주세요!", foods: [{ id: "gimbap", count: 1 }], hint: "提示：請點 1 份紫菜包飯 (김밥)" },
-                { demand: "바나나 우유 사인분 주세요!", foods: [{ id: "banana_milk", count: 4 }], hint: "提示：請點 4 份香蕉牛奶 (바나나 우유)" },
-                { demand: "라면 오인분 주세요!", foods: [{ id: "ramyen", count: 5 }], hint: "提示：請點 5 份韓式拉麵 (라면)" }
+                {
+                    demand: "떡볶이 삼인분 주세요!",
+                    foods: [{ id: "tteokbokki", count: 3 }],
+                    hint: "提示：請點 3 份辣炒年糕 (떡볶이)"
+                },
+                {
+                    demand: "치킨 이인분 주세요!",
+                    foods: [{ id: "chicken", count: 2 }],
+                    hint: "提示：請點 2 份韓式炸雞 (치킨)"
+                },
+                {
+                    demand: "김밥 일인분 주세요!",
+                    foods: [{ id: "gimbap", count: 1 }],
+                    hint: "提示：請點 1 份紫菜包飯 (김밥)"
+                },
+                {
+                    demand: "바나나 우유 사인분 주세요!",
+                    foods: [{ id: "banana_milk", count: 4 }],
+                    hint: "提示：請點 4 份香蕉牛奶 (바나나 우유)"
+                },
+                {
+                    demand: "라면 오인분 주세요!",
+                    foods: [{ id: "ramyen", count: 5 }],
+                    hint: "提示：請點 5 份韓式拉麵 (라면)"
+                }
             ],
             intermediate: [
-                { demand: "떡볶이 이인분하고 치킨 일인분 주세요!", foods: [{ id: "tteokbokki", count: 2 }, { id: "chicken", count: 1 }], hint: "提示：請點 2 份辣炒年糕 和 1 份炸雞" },
-                { demand: "김밥 삼인분하고 라면 이인분 주세요!", foods: [{ id: "gimbap", count: 3 }, { id: "ramyen", count: 2 }], hint: "提示：請點 3 份紫菜包飯 和 2 份拉麵" },
-                { demand: "어묵 사인분하고 호떡 이인분 주세요!", foods: [{ id: "eomuk", count: 4 }, { id: "hotteok", count: 2 }], hint: "提示：請點 4 份魚糕串 和 2 份黑糖煎餅" },
-                { demand: "빙수 일인분하고 바나나 우유 이인분 주세요!", foods: [{ id: "bingsu", count: 1 }, { id: "banana_milk", count: 2 }], hint: "提示：請點 1 份刨冰 和 2 份香蕉牛奶" },
-                { demand: "핫도그 이인분하고 떡볶이 삼인분 주세요!", foods: [{ id: "hatdogeu", count: 2 }, { id: "tteokbokki", count: 3 }], hint: "提示：請點 2 份熱狗 和 3 份辣炒年糕" }
+                {
+                    demand: "떡볶이 이인분하고 치킨 일인분 주세요!",
+                    foods: [{ id: "tteokbokki", count: 2 }, { id: "chicken", count: 1 }],
+                    hint: "提示：請點 2 份辣炒年糕 和 1 份炸雞"
+                },
+                {
+                    demand: "김밥 삼인분하고 라면 이인분 주세요!",
+                    foods: [{ id: "gimbap", count: 3 }, { id: "ramyen", count: 2 }],
+                    hint: "提示：請點 3 份紫菜包飯 和 2 份拉麵"
+                },
+                {
+                    demand: "어묵 사인분하고 호떡 이인분 주세요!",
+                    foods: [{ id: "eomuk", count: 4 }, { id: "hotteok", count: 2 }],
+                    hint: "提示：請點 4 份魚糕串 和 2 份黑糖煎餅"
+                },
+                {
+                    demand: "빙수 일인분하고 바나나 우유 이인분 주세요!",
+                    foods: [{ id: "bingsu", count: 1 }, { id: "banana_milk", count: 2 }],
+                    hint: "提示：請點 1 份刨冰 和 2 份香蕉牛奶"
+                },
+                {
+                    demand: "핫도그 이인분하고 떡볶이 삼인분 주세요!",
+                    foods: [{ id: "hatdogeu", count: 2 }, { id: "tteokbokki", count: 3 }],
+                    hint: "提示：請點 2 份熱狗 和 3 份辣炒年糕"
+                }
             ]
         };
 
         const L5_DATA = [
-            { speaker: "👦 男生視角", avatar: "👨", target: "我的「哥哥」", options: [{ text: "형 (Hyeong)", correct: true }, { text: "오빠 (Oppa)", correct: false }, { text: "누나 (Nuna)", correct: false }, { text: "언니 (Eonni)", correct: false }] },
-            { speaker: "👦 男生視角", avatar: "👩", target: "我的「姐姐」", options: [{ text: "누나 (Nuna)", correct: true }, { text: "언니 (Eonni)", correct: false }, { text: "형 (Hyeong)", correct: false }, { text: "오빠 (Oppa)", correct: false }] },
-            { speaker: "👦 男生視角", avatar: "👦", target: "我的「弟弟」", options: [{ text: "남동생 (Namdongsaeng)", correct: true }, { text: "여동생 (Yeodongsaeng)", correct: false }, { text: "형 (Hyeong)", correct: false }, { text: "오빠 (Oppa)", correct: false }] },
-            { speaker: "👦 男生視角", avatar: "👧", target: "我的「妹妹」", options: [{ text: "여동생 (Yeodongsaeng)", correct: true }, { text: "남동생 (Namdongsaeng)", correct: false }, { text: "누나 (Nuna)", correct: false }, { text: "언니 (Eonni)", correct: false }] },
-            { speaker: "👧 女生視角", avatar: "👨", target: "我的「哥哥」", options: [{ text: "오빠 (Oppa)", correct: true }, { text: "형 (Hyeong)", correct: false }, { text: "언니 (Eonni)", correct: false }, { text: "누나 (Nuna)", correct: false }] },
-            { speaker: "👧 女生視角", avatar: "👩", target: "我的「姐姐」", options: [{ text: "언니 (Eonni)", correct: true }, { text: "누나 (Nuna)", correct: false }, { text: "오빠 (Oppa)", correct: false }, { text: "형 (Hyeong)", correct: false }] },
-            { speaker: "👧 女生視角", avatar: "👦", target: "我的「弟弟」", options: [{ text: "남동생 (Namdongsaeng)", correct: true }, { text: "여동생 (Yeodongsaeng)", correct: false }, { text: "오빠 (Oppa)", correct: false }, { text: "형 (Hyeong)", correct: false }] },
-            { speaker: "👧 女生視角", avatar: "👧", target: "我的「妹妹」", options: [{ text: "여동생 (Yeodongsaeng)", correct: true }, { text: "남동생 (Namdongsaeng)", correct: false }, { text: "언니 (Eonni)", correct: false }, { text: "누나 (Nuna)", correct: false }] }
+            {
+                speaker: "👦 男生視角",
+                avatar: "👨",
+                target: "我的「哥哥」",
+                options: [
+                    { text: "형 (Hyeong)", correct: true },
+                    { text: "오빠 (Oppa)", correct: false },
+                    { text: "누나 (Nuna)", correct: false },
+                    { text: "언니 (Eonni)", correct: false }
+                ]
+            },
+            {
+                speaker: "👦 男生視角",
+                avatar: "👩",
+                target: "我的「姐姐」",
+                options: [
+                    { text: "누나 (Nuna)", correct: true },
+                    { text: "언니 (Eonni)", correct: false },
+                    { text: "형 (Hyeong)", correct: false },
+                    { text: "오빠 (Oppa)", correct: false }
+                ]
+            },
+            {
+                speaker: "👦 男生視角",
+                avatar: "👦",
+                target: "我的「弟弟」",
+                options: [
+                    { text: "남동생 (Namdongsaeng)", correct: true },
+                    { text: "여동생 (Yeodongsaeng)", correct: false },
+                    { text: "형 (Hyeong)", correct: false },
+                    { text: "오빠 (Oppa)", correct: false }
+                ]
+            },
+            {
+                speaker: "👦 男生視角",
+                avatar: "👧",
+                target: "我的「妹妹」",
+                options: [
+                    { text: "여동생 (Yeodongsaeng)", correct: true },
+                    { text: "남동생 (Namdongsaeng)", correct: false },
+                    { text: "누나 (Nuna)", correct: false },
+                    { text: "언니 (Eonni)", correct: false }
+                ]
+            },
+            {
+                speaker: "👧 女生視角",
+                avatar: "👨",
+                target: "我的「哥哥」",
+                options: [
+                    { text: "오빠 (Oppa)", correct: true },
+                    { text: "형 (Hyeong)", correct: false },
+                    { text: "언니 (Eonni)", correct: false },
+                    { text: "누나 (Nuna)", correct: false }
+                ]
+            },
+            {
+                speaker: "👧 女生視角",
+                avatar: "👩",
+                target: "我的「姐姐」",
+                options: [
+                    { text: "언니 (Eonni)", correct: true },
+                    { text: "누나 (Nuna)", correct: false },
+                    { text: "오빠 (Oppa)", correct: false },
+                    { text: "형 (Hyeong)", correct: false }
+                ]
+            },
+            {
+                speaker: "👧 女生視角",
+                avatar: "👦",
+                target: "我的「弟弟」",
+                options: [
+                    { text: "남동생 (Namdongsaeng)", correct: true },
+                    { text: "여동생 (Yeodongsaeng)", correct: false },
+                    { text: "오빠 (Oppa)", correct: false },
+                    { text: "형 (Hyeong)", correct: false }
+                ]
+            },
+            {
+                speaker: "👧 女生視角",
+                avatar: "👧",
+                target: "我的「妹妹」",
+                options: [
+                    { text: "여동생 (Yeodongsaeng)", correct: true },
+                    { text: "남동생 (Namdongsaeng)", correct: false },
+                    { text: "언니 (Eonni)", correct: false },
+                    { text: "누나 (Nuna)", correct: false }
+                ]
+            }
         ];
-
-        /* ================= SVG FALLBACK ENGINE FOR HANBOK ================= */
-        function generateHanbokSVG(colorHex, isDark = false) {
-            const skirtColor = colorHex;
-            const topColor = colorHex === '#F7FAFC' ? '#E2E8F0' : colorHex;
-            const strokeColor = isDark ? '#FFFFFF' : '#333333';
-            return `
-              <svg viewBox="0 0 200 240" class="w-full h-full max-h-48 md:max-h-56 filter drop-shadow">
-                <circle cx="100" cy="120" r="90" fill="${colorHex}" opacity="0.15" />
-                <circle cx="100" cy="65" r="32" fill="#FFE0BD" />
-                <path d="M 70,60 C 70,30 130,30 130,60 C 130,45 70,45 70,60 Z" fill="#4A3728" />
-                <path d="M 68,60 C 65,85 75,95 78,95 C 82,95 72,75 72,60 Z" fill="#4A3728" />
-                <circle cx="78" cy="95" r="4" fill="${skirtColor}" />
-                <circle cx="88" cy="65" r="3.5" fill="#333" />
-                <circle cx="112" cy="65" r="3.5" fill="#333" />
-                <circle cx="89" cy="63" r="1" fill="#FFF" />
-                <circle cx="113" cy="63" r="1" fill="#FFF" />
-                <circle cx="82" cy="72" r="5" fill="#FFB6C1" opacity="0.6" />
-                <circle cx="118" cy="72" r="5" fill="#FFB6C1" opacity="0.6" />
-                <path d="M 94,74 Q 100,80 106,74" fill="none" stroke="#B91C1C" stroke-width="2" stroke-linecap="round" />
-                <path d="M 80,105 L 45,200 C 45,210 155,210 155,200 L 120,105 Z" fill="${skirtColor}" stroke="${strokeColor}" stroke-width="2" />
-                <path d="M 50,195 Q 100,210 150,195" fill="none" stroke="#FFD700" stroke-width="3" stroke-dasharray="6,4" />
-                <path d="M 70,105 L 45,130 L 60,140 L 78,118 L 78,135 L 122,135 L 122,118 L 140,140 L 155,130 L 130,105 Z" fill="${topColor}" stroke="${strokeColor}" stroke-width="2" />
-                <path d="M 85,105 L 100,125 L 115,105" fill="none" stroke="#FFFFFF" stroke-width="5" stroke-linecap="round" />
-                <path d="M 98,122 L 95,170 M 102,122 L 106,180" fill="none" stroke="${skirtColor}" stroke-width="5" stroke-linecap="round" />
-                <path d="M 75,205 C 75,215 90,215 90,205 Z" fill="#FFF" stroke="#333" stroke-width="1.5" />
-                <path d="M 110,205 C 110,215 125,215 125,205 Z" fill="#FFF" stroke="#333" stroke-width="1.5" />
-              </svg>
-            `;
-        }
-
-        function handleHanbokImageError(imgElem) {
-            if (!imgElem || !imgElem.dataset || !imgElem.dataset.colorId) return;
-            const colorId = imgElem.dataset.colorId;
-            const colorItem = HANBOK_COLORS.find(c => c.id === colorId);
-            if (!colorItem) return;
-
-            const fname = colorItem.filename || colorItem.id;
-            const candidates = [
-                `colour/${fname}.png`,
-                `colour/${fname}.jpeg`,
-                `colour/${fname}.JPG`,
-                `colour/${fname}.PNG`
-            ];
-            if (colorId === 'purple') {
-                candidates.push('colour/purple.jpg', 'colour/purple.png');
-            }
-
-            const attempt = parseInt(imgElem.dataset.attempt || '0', 10);
-            if (attempt < candidates.length) {
-                imgElem.dataset.attempt = String(attempt + 1);
-                imgElem.src = candidates[attempt];
-                return;
-            }
-
-            imgElem.style.display = 'none';
-            const parent = imgElem.parentElement;
-            if (!parent) return;
-            let fallback = parent.querySelector('.svg-fallback-box');
-            if (!fallback) {
-                fallback = document.createElement('div');
-                fallback.className = 'svg-fallback-box w-full h-full flex items-center justify-center min-h-[140px]';
-                parent.appendChild(fallback);
-            }
-            fallback.style.display = 'flex';
-            fallback.innerHTML = generateHanbokSVG(colorItem.hex, colorItem.id === 'black');
-        }
-        window.handleHanbokImageError = handleHanbokImageError;
-
-        function renderFoodDisplay(food, heightClass = "h-20") {
-            const filenameMap = {
-                'banana_milk': 'ba-na-na u-yu',
-                'bingsu': 'bing-su',
-                'chicken': 'chi-kin',
-                'eomuk': 'eo-muk',
-                'hatdogeu': 'hat-do-geu',
-                'hotteok': 'ho-tteok',
-                'gimbap': 'kimbap',
-                'ramyen': 'ra-myeon',
-                'tteokbokki': 'tteok-bok-ki'
-            };
-            const filename = filenameMap[food.id] || food.id;
-            return `
-                <div class="relative ${heightClass} flex items-center justify-center overflow-hidden rounded-xl">
-                    <img src="food/${filename}.png" 
-                         alt="${food.nameKo}" 
-                         class="max-h-full max-w-full object-contain"
-                         onerror="this.onerror=null; this.src='food/${filename}.jpg'; this.onerror=function(){ this.style.display='none'; this.nextElementSibling.style.display='block'; }">
-                    <span class="text-4xl hidden" style="display:none;">${food.emoji}</span>
-                </div>
-            `;
-        }
 
         /* ================= SHUFFLE UTILITY ================= */
         function shuffleArray(arr) {
@@ -1417,7 +1918,7 @@
         let state = {
             isLoggedIn: false,
             isTeacherMode: false,
-            studentId: null,
+            studentId: 0,
             studentZh: '同學',
             studentKo: '',
             grade: 'P3',
@@ -1425,6 +1926,10 @@
             class: '',
             seat: '',
             score: 0,
+            l2Passed: false,
+            l3Passed: false,
+            
+            // Star Progress across all levels
             l1Stars: 0,
             l2Stars: 0,
             l3Stars: 0,
@@ -1432,9 +1937,7 @@
             l4IntermediateStars: 0,
             l5Stars: 0,
             l6Stars: { A: 0, B: 0, AB: 0 },
-            l2Passed: false,
-            l3Passed: false,
-            
+
             hearts: 3,
             isQuestionAnswered: false,
             currentQuestionAttempted: false,
@@ -1455,10 +1958,15 @@
             l3Questions: [], l3Idx: 0,
             l4Questions: [], l4Idx: 0, l4Counts: {}, l4VisibleFoods: [], l4HintRevealed: false,
             l5Questions: [], l5Idx: 0,
-            l6Mode: 'A', l6Questions: [], l6Idx: 0, l6CorrectCount: 0
+            
+            // Level 6 State
+            l6Mode: 'A',
+            l6Questions: [],
+            l6Idx: 0,
+            l6CorrectCount: 0
         };
 
-        /* ================= LOCAL STORAGE & STAR PROGRESS ================= */
+        /* ================= LOCAL STORAGE & HEADER UI ================= */
         function loadFromLocalStorage() {
             if (!state.isLoggedIn || state.isTeacherMode || !state.studentKo) return;
             const key = `p3_korean_${state.studentKo}`;
@@ -1467,6 +1975,8 @@
                 try {
                     const data = JSON.parse(dataStr);
                     state.score = data.score || 0;
+                    state.l2Passed = !!data.l2Passed;
+                    state.l3Passed = !!data.l3Passed;
                     state.l1Stars = data.l1Stars || 0;
                     state.l2Stars = data.l2Stars || 0;
                     state.l3Stars = data.l3Stars || 0;
@@ -1474,11 +1984,11 @@
                     state.l4IntermediateStars = data.l4IntermediateStars || 0;
                     state.l5Stars = data.l5Stars || 0;
                     state.l6Stars = data.l6Stars || { A: 0, B: 0, AB: 0 };
-                    state.l2Passed = !!data.l2Passed;
-                    state.l3Passed = !!data.l3Passed;
                 } catch(e) {}
             } else {
                 state.score = 0;
+                state.l2Passed = false;
+                state.l3Passed = false;
                 state.l1Stars = 0;
                 state.l2Stars = 0;
                 state.l3Stars = 0;
@@ -1486,8 +1996,6 @@
                 state.l4IntermediateStars = 0;
                 state.l5Stars = 0;
                 state.l6Stars = { A: 0, B: 0, AB: 0 };
-                state.l2Passed = false;
-                state.l3Passed = false;
             }
             state.tracingRewardsEarned = 0;
             updateHeaderUI();
@@ -1501,25 +2009,75 @@
             const key = `p3_korean_${state.studentKo}`;
             const data = {
                 score: state.score,
+                l2Passed: state.l2Passed,
+                l3Passed: state.l3Passed,
                 l1Stars: state.l1Stars,
                 l2Stars: state.l2Stars,
                 l3Stars: state.l3Stars,
                 l4BeginnerStars: state.l4BeginnerStars,
                 l4IntermediateStars: state.l4IntermediateStars,
                 l5Stars: state.l5Stars,
-                l6Stars: state.l6Stars,
-                l2Passed: state.l2Passed,
-                l3Passed: state.l3Passed
+                l6Stars: state.l6Stars
             };
             localStorage.setItem(key, JSON.stringify(data));
         }
 
-        function renderStarIcons(count, max = 3) {
-            let str = '';
-            for (let i = 0; i < max; i++) {
-                str += i < count ? '⭐' : '☆';
+        function updateHeaderUI() {
+            const greetingEl = document.getElementById('heroStudentGreeting');
+            if (greetingEl) {
+                greetingEl.innerText = !state.isLoggedIn 
+                    ? '同學' 
+                    : (state.isTeacherMode ? '教師示範 (선생님)' : `${state.studentZh} 同學`);
             }
-            return str;
+            
+            const greetingP4El = document.getElementById('heroStudentGreetingP4');
+            if (greetingP4El) {
+                greetingP4El.innerText = !state.isLoggedIn 
+                    ? '同學' 
+                    : (state.isTeacherMode ? '教師示範 (선생님)' : `${state.studentZh} 同學`);
+            }
+            
+            const nameDisplay = document.getElementById('headerStudentName');
+            if (nameDisplay) {
+                nameDisplay.innerText = !state.isLoggedIn 
+                    ? '請先登入學生身分' 
+                    : (state.isTeacherMode ? '教師示範 (선생님)' : `${state.studentZh} (${state.studentKo})`);
+            }
+            
+            const badgeGrade = document.getElementById('headerStudentBadge');
+            if (badgeGrade) {
+                badgeGrade.innerText = !state.isLoggedIn 
+                    ? '未登入' 
+                    : (state.isTeacherMode ? '全解鎖示範' : `${state.class} 班`);
+            }
+            
+            const scoreVal = document.getElementById('headerScoreValue');
+            if (scoreVal) scoreVal.innerText = state.score;
+            
+            const tracingBannerName = document.getElementById('tracingBannerStudentName');
+            if (tracingBannerName) {
+                tracingBannerName.innerText = !state.isLoggedIn 
+                    ? '同學' 
+                    : (state.isTeacherMode ? '教師示範 (선생님)' : `${state.studentZh} (${state.studentKo})`);
+            }
+            
+            const tracingTitle = document.getElementById('tracingStudentTitle');
+            if (tracingTitle) {
+                tracingTitle.innerText = !state.isLoggedIn 
+                    ? '同學' 
+                    : (state.isTeacherMode ? '教師示範 (선생님)' : `${state.studentZh} (${state.studentKo})`);
+            }
+
+            const certName = document.getElementById('certStudentName');
+            if (certName) {
+                certName.value = !state.isLoggedIn 
+                    ? '同學' 
+                    : (state.isTeacherMode ? '教師示範 (선생님)' : `${state.studentZh} (${state.studentKo})`);
+            }
+        }
+
+        function renderStarIcons(count, max = 3) {
+            return '★'.repeat(count) + '☆'.repeat(Math.max(0, max - count));
         }
 
         function updateAllStarDisplays() {
@@ -1532,79 +2090,30 @@
             const l3El = document.getElementById('l3-stars-count');
             if (l3El) l3El.innerText = `${state.l3Stars}/3`;
 
-            const l4Total = (state.l4BeginnerStars || 0) + (state.l4IntermediateStars || 0);
             const l4El = document.getElementById('l4-stars-count');
-            if (l4El) l4El.innerText = `${l4Total}/6`;
+            if (l4El) l4El.innerText = `${state.l4BeginnerStars + state.l4IntermediateStars}/6`;
 
-            const l4BegEl = document.getElementById('starsBadgeL4Beginner');
-            if (l4BegEl) l4BegEl.innerText = renderStarIcons(state.l4BeginnerStars || 0, 3);
+            const l4Beg = document.getElementById('starsBadgeL4Beginner');
+            if (l4Beg) l4Beg.innerText = `${renderStarIcons(state.l4BeginnerStars, 3)} (${state.l4BeginnerStars}/3)`;
 
-            const l4IntEl = document.getElementById('starsBadgeL4Intermediate');
-            if (l4IntEl) l4IntEl.innerText = renderStarIcons(state.l4IntermediateStars || 0, 3);
+            const l4Int = document.getElementById('starsBadgeL4Intermediate');
+            if (l4Int) l4Int.innerText = `${renderStarIcons(state.l4IntermediateStars, 3)} (${state.l4IntermediateStars}/3)`;
 
             const l5El = document.getElementById('l5-stars-count');
             if (l5El) l5El.innerText = `${state.l5Stars}/3`;
 
-            const l6Total = (state.l6Stars.A || 0) + (state.l6Stars.B || 0) + (state.l6Stars.AB || 0);
+            const totalL6 = (state.l6Stars.A || 0) + (state.l6Stars.B || 0) + (state.l6Stars.AB || 0);
             const l6El = document.getElementById('l6-stars-count');
-            if (l6El) l6El.innerText = `${l6Total}/9`;
+            if (l6El) l6El.innerText = `${totalL6}/9`;
 
             const badgeA = document.getElementById('starsBadgeA');
-            if (badgeA) badgeA.innerText = renderStarIcons(state.l6Stars.A || 0, 3);
+            if (badgeA) badgeA.innerText = `${renderStarIcons(state.l6Stars.A, 3)} (${state.l6Stars.A}/3)`;
 
             const badgeB = document.getElementById('starsBadgeB');
-            if (badgeB) badgeB.innerText = renderStarIcons(state.l6Stars.B || 0, 3);
+            if (badgeB) badgeB.innerText = `${renderStarIcons(state.l6Stars.B, 3)} (${state.l6Stars.B}/3)`;
 
             const badgeAB = document.getElementById('starsBadgeAB');
-            if (badgeAB) badgeAB.innerText = renderStarIcons(state.l6Stars.AB || 0, 3);
-        }
-
-        function updateHeaderUI() {
-            const greetingEl = document.getElementById('heroStudentGreeting');
-            if (greetingEl) {
-                greetingEl.innerText = !state.isLoggedIn ? '同學' : (state.isTeacherMode ? '教師示範 (선생님)' : state.studentZh);
-            }
-            
-            const greetingP4El = document.getElementById('heroStudentGreetingP4');
-            if (greetingP4El) {
-                greetingP4El.innerText = !state.isLoggedIn ? '同學' : (state.isTeacherMode ? '教師示範 (선생님)' : state.studentZh);
-            }
-            
-            const nameDisplay = document.getElementById('headerStudentName');
-            if (nameDisplay) {
-                nameDisplay.innerText = !state.isLoggedIn
-                    ? '請先登入學生身分'
-                    : (state.isTeacherMode ? '教師示範 (선생님)' : `${state.studentZh} (${state.studentKo})`);
-            }
-            
-            const badgeGrade = document.getElementById('headerStudentBadge');
-            if (badgeGrade) {
-                badgeGrade.innerText = !state.isLoggedIn
-                    ? '未登入'
-                    : (state.isTeacherMode ? '全解鎖示範' : `${state.class} 班`);
-            }
-            
-            const scoreVal = document.getElementById('headerScoreValue');
-            if (scoreVal) scoreVal.innerText = state.score;
-            
-            const tracingBannerName = document.getElementById('tracingBannerStudentName');
-            if (tracingBannerName) {
-                tracingBannerName.innerText = !state.isLoggedIn
-                    ? '同學'
-                    : (state.isTeacherMode ? '教師示範 (선생님)' : `${state.studentZh} (${state.studentKo})`);
-            }
-            
-            const tracingTitle = document.getElementById('tracingStudentTitle');
-            if (tracingTitle) {
-                tracingTitle.innerText = !state.isLoggedIn
-                    ? '同學'
-                    : (state.isTeacherMode ? '教師示範 (선생님)' : `${state.studentZh} (${state.studentKo})`);
-            }
-
-            const certName = document.getElementById('certStudentName');
-            if (certName) {
-                certName.value = state.isTeacherMode ? '教師示範 (선생님)' : `${state.studentZh} (${state.studentKo})`;
-            }
+            if (badgeAB) badgeAB.innerText = `${renderStarIcons(state.l6Stars.AB, 3)} (${state.l6Stars.AB}/3)`;
         }
 
         /* ================= HEARTS & PENALTY ENGINE ================= */
@@ -1616,11 +2125,7 @@
         function renderHeartsDisplay() {
             const topHearts = document.getElementById('hearts-display');
             if (topHearts) {
-                let topHtml = '';
-                for (let i = 0; i < 3; i++) {
-                    topHtml += i < state.hearts ? '❤️' : '🖤';
-                }
-                topHearts.innerText = topHtml;
+                topHearts.innerText = '❤️'.repeat(Math.max(0, state.hearts)) + '🖤'.repeat(Math.max(0, 3 - state.hearts));
             }
 
             const currentTab = document.querySelector('.tab-content:not(.hidden)');
@@ -1700,7 +2205,7 @@
                 
                 state.timerInterval = setInterval(() => {
                     state.timeLeft--;
-                    if (timerText) timerText.innerText = `${Math.max(0, state.timeLeft)}s`;
+                    if (timerText) timerText.innerText = `${state.timeLeft}s`;
                     if (state.timeLeft <= 0) {
                         stopTimer();
                         handleTimeUp();
@@ -1719,11 +2224,11 @@
         }
 
         function handleTimeUp() {
-            state.currentQuestionAttempted = true;
             audio.playWrong();
+            state.currentQuestionAttempted = true;
             deductHeart();
             if (state.hearts > 0) {
-                showCustomAlert("⏰ 時間到！已扣除 1 個心心，請繼續作答！");
+                showCustomAlert("⏰ 時間到！扣除 1 個心心 ❤️，請重新作答或繼續挑戰！");
                 startTimer();
             }
         }
@@ -1808,7 +2313,6 @@
             filtered.forEach(st => {
                 const card = document.createElement('div');
                 card.className = "bubble-card bg-amber-50 hover:bg-amber-100 border-2 border-amber-200 p-3.5 rounded-2xl cursor-pointer text-center transition flex flex-col items-center justify-center";
-                // 不顯示學號/座號，避免其他同學推算並誤用帳戶
                 card.innerHTML = `
                     <span class="text-base font-black text-slate-800 block">${st.name}</span>
                     <span class="text-xs font-bold text-slate-500 block mt-0.5">${st.kr}</span>
@@ -2141,11 +2645,12 @@
             state.l6CorrectCount = 0;
 
             const pool = shuffleArray([...HANBOK_COLORS]).slice(0, 5);
-            state.l6Questions = pool.map(color => {
+            const abTypes = shuffleArray(['A', 'A', 'B', 'B', Math.random() < 0.5 ? 'A' : 'B']);
+            state.l6Questions = pool.map((color, idx) => {
                 let qType = 'A';
                 if (state.l6Mode === 'A') qType = 'A';
                 else if (state.l6Mode === 'B') qType = 'B';
-                else qType = Math.random() < 0.5 ? 'A' : 'B';
+                else qType = abTypes[idx];
 
                 const distractors = shuffleArray(HANBOK_COLORS.filter(c => c.id !== color.id)).slice(0, 3);
                 const choices = shuffleArray([color, ...distractors]);
@@ -2158,9 +2663,11 @@
             });
 
             const modeBadge = document.getElementById('l6-mode-badge');
-            if (state.l6Mode === 'A') modeBadge.innerText = '📖 模式 A: 看圖選字';
-            else if (state.l6Mode === 'B') modeBadge.innerText = '🎧 模式 B: 聽音選圖';
-            else modeBadge.innerText = '⚡ 模式 A+B: 綜合大闖關';
+            if (modeBadge) {
+                if (state.l6Mode === 'A') modeBadge.innerText = '📖 模式 A: 看圖選字';
+                else if (state.l6Mode === 'B') modeBadge.innerText = '🎧 模式 B: 聽音選圖';
+                else modeBadge.innerText = '⚡ 模式 A+B: 綜合大闖關';
+            }
 
             document.getElementById('tab-level6').classList.remove('hidden');
             renderL6();
@@ -2169,9 +2676,8 @@
         function renderL6() {
             state.isQuestionAnswered = false;
             state.currentQuestionAttempted = false;
-
             const q = state.l6Questions[state.l6Idx];
-            const target = q.target;
+            if (!q) return;
 
             document.getElementById('l6-q-index').innerText = state.l6Idx + 1;
             renderHeartsDisplay();
@@ -2184,51 +2690,54 @@
             optionsContainer.innerHTML = '';
 
             if (q.qType === 'A') {
-                // Mode A: Visual-to-Text (Show Image -> Select Korean Text)
-                promptBadge.innerHTML = `<i class="fa-solid fa-eye"></i> <span>請看下方的韓服顏色圖片，選出對應的韓文顏色單字：</span>`;
+                // Mode A: Show Hanbok Image -> Pick Korean Color Word
+                if (promptBadge) {
+                    promptBadge.innerHTML = '<i class="fa-solid fa-eye"></i> <span>請看下方的韓服顏色圖片，選出對應的韓文顏色單字：</span>';
+                }
                 boxA.classList.remove('hidden');
                 boxB.classList.add('hidden');
 
-                const imgElem = document.getElementById('l6-question-image');
-                const parent = imgElem.parentElement;
-                const oldSvg = parent.querySelector('.svg-fallback-box');
-                if (oldSvg) oldSvg.style.display = 'none';
+                const imgEl = document.getElementById('l6-question-image');
+                if (imgEl) {
+                    imgEl.dataset.colorId = q.target.id;
+                    imgEl.dataset.attempt = '0';
+                    imgEl.src = q.target.file;
+                }
 
-                imgElem.style.display = 'block';
-                imgElem.dataset.colorId = target.id;
-                imgElem.dataset.attempt = '0';
-                imgElem.src = target.file;
-
-                optionsContainer.className = "grid grid-cols-1 sm:grid-cols-2 gap-4";
                 q.choices.forEach(opt => {
                     const btn = document.createElement('button');
                     btn.className = "bubble-card p-5 bg-white border-4 border-purple-200 hover:border-purple-400 rounded-3xl text-center shadow-md transition transform active:scale-95 flex flex-col items-center justify-center";
                     btn.innerHTML = `
-                        <span class="text-3xl font-black text-purple-950 block mb-1">${opt.ko}</span>
-                        <span class="text-xs font-bold text-slate-500">(${opt.roma})</span>
+                        <span class="text-2xl md:text-3xl font-black text-purple-950 block">${opt.ko}</span>
+                        <span class="text-xs font-bold text-purple-600 mt-1">${opt.roma}</span>
                     `;
-                    btn.onclick = () => handleL6Answer(opt.id === target.id, btn, opt.ko);
+                    btn.onclick = () => handleL6Answer(opt.id === q.target.id, btn, opt.ko);
                     optionsContainer.appendChild(btn);
                 });
-
             } else {
-                // Mode B: Audio-to-Visual (Hear Korean Audio -> Select Hanbok Image Card)
-                promptBadge.innerHTML = `<i class="fa-solid fa-ear-listen"></i> <span>請細聽韓文顏色發音，選出正確顏色的韓服圖卡：</span>`;
+                // Mode B: Play Korean Audio -> Pick Matching Hanbok Image Card
+                if (promptBadge) {
+                    promptBadge.innerHTML = '<i class="fa-solid fa-headphones"></i> <span>請仔細聆聽韓文顏色發音，選出正確顏色的韓服圖卡：</span>';
+                }
                 boxA.classList.add('hidden');
                 boxB.classList.remove('hidden');
 
-                audio.speak(target.ko);
+                audio.speak(q.target.ko);
 
-                optionsContainer.className = "grid grid-cols-2 gap-4";
                 q.choices.forEach(opt => {
                     const card = document.createElement('div');
-                    card.className = "bubble-card bg-white p-4 rounded-3xl border-4 border-indigo-200 hover:border-indigo-400 text-center cursor-pointer shadow-md transition transform active:scale-95 flex flex-col items-center justify-center min-h-[160px]";
+                    card.className = "bubble-card p-3 bg-white border-4 border-blue-200 hover:border-blue-400 rounded-3xl text-center cursor-pointer shadow-md transition transform active:scale-95 flex flex-col items-center justify-center";
                     card.innerHTML = `
-                        <div class="w-full h-32 md:h-36 flex items-center justify-center overflow-hidden rounded-xl bg-slate-50 p-1.5">
-                            <img src="${opt.file}" alt="${opt.id}" data-color-id="${opt.id}" data-attempt="0" class="max-h-full max-w-full object-contain rounded-lg" onerror="if (typeof handleHanbokImageError === 'function') handleHanbokImageError(this)" />
+                        <div class="w-full h-32 md:h-36 bg-slate-50 rounded-2xl overflow-hidden flex items-center justify-center p-1">
+                            <img src="${opt.file}" 
+                                 alt="${opt.id}" 
+                                 data-color-id="${opt.id}" 
+                                 data-attempt="0"
+                                 class="max-h-full max-w-full object-contain rounded-xl" 
+                                 onerror="if (typeof handleHanbokImageError === 'function') handleHanbokImageError(this)" />
                         </div>
                     `;
-                    card.onclick = () => handleL6Answer(opt.id === target.id, card, opt.ko);
+                    card.onclick = () => handleL6Answer(opt.id === q.target.id, card, opt.ko);
                     optionsContainer.appendChild(card);
                 });
             }
@@ -2238,18 +2747,76 @@
 
         function playCurrentL6Audio() {
             const q = state.l6Questions[state.l6Idx];
-            if (q && q.target) audio.speak(q.target.ko);
+            if (q && q.target) {
+                audio.speak(q.target.ko);
+            }
         }
 
-        function handleL6Answer(isCorrect, elem, spokenKo) {
+        function createHanbokSvgDataUri(colorObj) {
+            const hex = colorObj.hex || '#805AD5';
+            const isLight = colorObj.id === 'white' || colorObj.id === 'yellow';
+            const stroke = isLight ? '#4A5568' : '#FFFFFF';
+            const svg = `
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 220" width="200" height="220">
+                    <rect width="200" height="220" rx="24" fill="#F8FAFC"/>
+                    <!-- Hair & Head -->
+                    <circle cx="100" cy="54" r="24" fill="#2D3748"/>
+                    <circle cx="100" cy="58" r="20" fill="#FBD38D"/>
+                    <circle cx="93" cy="56" r="2.5" fill="#2D3748"/>
+                    <circle cx="107" cy="56" r="2.5" fill="#2D3748"/>
+                    <path d="M95 65 Q100 70 105 65" stroke="#E53E3E" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+                    <!-- Chima (Skirt) -->
+                    <path d="M72 108 L128 108 L152 192 Q100 202 48 192 Z" fill="${hex}" stroke="#334155" stroke-width="3"/>
+                    <!-- Jeogori (Top) -->
+                    <path d="M68 84 L132 84 L146 124 L130 130 L122 108 L78 108 L70 130 L54 124 Z" fill="${hex}" stroke="#334155" stroke-width="3"/>
+                    <!-- White Collar (Git) & Goreum Ribbon -->
+                    <path d="M88 84 L100 102 L112 84" fill="none" stroke="${stroke}" stroke-width="4" stroke-linecap="round"/>
+                    <path d="M100 104 L94 142 M100 104 L108 138" stroke="${stroke}" stroke-width="3.5" stroke-linecap="round"/>
+                    <!-- Shoes -->
+                    <ellipse cx="86" cy="198" rx="10" ry="5" fill="#1E293B"/>
+                    <ellipse cx="114" cy="198" rx="10" ry="5" fill="#1E293B"/>
+                </svg>
+            `.trim();
+            return 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(svg);
+        }
+
+        function handleHanbokImageError(imgEl) {
+            const colorId = imgEl.dataset.colorId;
+            const colorObj = HANBOK_COLORS.find(c => c.id === colorId) || HANBOK_COLORS[0];
+            const attempt = parseInt(imgEl.dataset.attempt || '0', 10);
+
+            const baseNames = colorObj.id === 'purple' ? ['pruple', 'purple'] : [colorObj.filename];
+            const exts = ['jpg', 'png', 'jpeg', 'JPG', 'PNG'];
+            const candidates = [];
+            baseNames.forEach(name => {
+                exts.forEach(ext => {
+                    const path = `colour/${name}.${ext}`;
+                    if (path !== colorObj.file) candidates.push(path);
+                });
+            });
+
+            if (attempt < candidates.length) {
+                imgEl.dataset.attempt = String(attempt + 1);
+                imgEl.src = candidates[attempt];
+                return;
+            }
+
+            imgEl.onerror = null;
+            imgEl.src = createHanbokSvgDataUri(colorObj);
+        }
+        window.handleHanbokImageError = handleHanbokImageError;
+
+        function handleL6Answer(isCorrect, element, spokenKo) {
             if (state.isQuestionAnswered) return;
 
-            if (spokenKo) audio.speak(spokenKo);
+            audio.speak(spokenKo);
+            const optionsContainer = document.getElementById('l6-options-container');
 
             if (isCorrect) {
                 state.isQuestionAnswered = true;
-                document.getElementById('l6-options-container').style.pointerEvents = 'none';
-                elem.classList.add('border-emerald-500', 'bg-emerald-50');
+                optionsContainer.style.pointerEvents = 'none';
+                element.classList.remove('border-purple-200', 'border-blue-200');
+                element.classList.add('border-emerald-500', 'bg-emerald-50');
                 audio.playCorrect();
 
                 if (!state.currentQuestionAttempted) {
@@ -2265,56 +2832,53 @@
                     } else {
                         finishL6();
                     }
-                }, 600);
+                }, 550);
             } else {
                 state.currentQuestionAttempted = true;
-                elem.classList.add('animate-shake', 'border-rose-400', 'bg-rose-50');
-                setTimeout(() => elem.classList.remove('animate-shake'), 400);
+                element.classList.add('animate-shake', 'border-rose-400', 'bg-rose-50');
+                setTimeout(() => element.classList.remove('animate-shake'), 400);
                 deductHeart();
             }
         }
 
         function finishL6() {
             stopTimer();
-            const isPerfect = (state.hearts === 3 && state.l6CorrectCount === 5);
-            let starsEarned = 1;
-            if (isPerfect) starsEarned = 3;
-            else if (state.hearts === 2 || state.l6CorrectCount >= 4) starsEarned = 2;
+            const earnedStars = Math.max(1, Math.min(3, state.hearts));
+            const modeKey = state.l6Mode || 'A';
 
-            const currentBest = state.l6Stars[state.l6Mode] || 0;
-            if (starsEarned > currentBest) {
-                state.l6Stars[state.l6Mode] = starsEarned;
+            if (earnedStars > (state.l6Stars[modeKey] || 0)) {
+                state.l6Stars[modeKey] = earnedStars;
                 saveToLocalStorage();
-                updateAllStarDisplays();
             }
+            updateAllStarDisplays();
 
-            const facts = [
-                "古代韓國平民平時主要穿純潔的「하얀색 (白色)」韓服，因此有「白衣民族」的美譽！",
-                "傳統韓服沒有口袋，所以人們會在腰間掛上精緻的「복주머니 (福袋)」與「노리개 (佩飾)」！",
-                "韓國傳統崇尚「紅、黃、藍、白、黑」五方色 (오방색)，象徵陰陽五行與祈福避邪！",
-                "只要穿著整套韓服，就可以免費進入首爾景福宮與昌德宮參觀喔！"
-            ];
-            const randFact = facts[Math.floor(Math.random() * facts.length)];
+            const modeTitleMap = {
+                A: '模式 A: 看圖選字',
+                B: '模式 B: 聽音選圖',
+                AB: '模式 A+B: 綜合大闖關'
+            };
+            const modeLabel = modeTitleMap[modeKey] || '韓服色彩試衣間';
 
-            if (isPerfect) {
-                let perfectBonus = state.isTimedMode ? 20 : 10;
-                state.score += perfectBonus;
+            if (earnedStars === 3) {
+                let bonus = 10;
+                if (state.isTimedMode) bonus *= 2;
+                state.score += bonus;
                 saveToLocalStorage();
                 updateHeaderUI();
 
                 confetti({ particleCount: 150, spread: 90, origin: { y: 0.5 } });
                 audio.playCorrect();
-                showCustomAlert(`🏆 PERFECT CLEAR 完美通關！\n⭐⭐⭐ 獲得滿分三星成就！\n🎁 獲得額外 +${perfectBonus} Token 完美加碼獎勵！\n\n🏛️ 韓服文化冷知識：\n${randFact}`);
+                showCustomAlert(`✨ PERFECT CLEAR 完美通關！\n👘 韓服色彩試衣間 (${modeLabel})\n⭐⭐⭐ 獲得滿分 3 顆星！\n🎁 額外獎勵 +${bonus} Token！`);
             } else {
                 confetti({ particleCount: 60, spread: 60, origin: { y: 0.6 } });
                 audio.playCorrect();
-                showCustomAlert(`🎉 恭喜完成「韓服色彩試衣間」挑戰！\n獲得 ${renderStarIcons(starsEarned, 3)} 星級評價！\n\n🏛️ 韓服文化冷知識：\n${randFact}`);
+                showCustomAlert(`🎉 恭喜完成「韓服色彩試衣間 (${modeLabel})」！\n獲得 ${renderStarIcons(earnedStars, 3)} (${earnedStars}/3 顆星)！\n保持 3❤️ 滿血通關可獲得 3 顆星與完美加碼喔！`);
             }
 
             showHome();
         }
 
-        /* ================= NEXT QUESTION & FINISH LEVEL (L1-L5) ================= */
+        /* ================= NEXT QUESTION & FINISH LEVEL (L1 - L5) ================= */
         function nextQuestion() {
             stopTimer();
             setTimeout(() => {
@@ -2367,25 +2931,25 @@
 
         function finishLevel(msg, levelNum) {
             stopTimer();
-            const isPerfect = (state.hearts === 3);
-            const starsEarned = Math.max(1, Math.min(3, state.hearts));
+            const earnedStars = Math.max(1, Math.min(3, state.hearts));
 
-            // 記錄各關卡最高星級
-            if (levelNum === 1 && starsEarned > state.l1Stars) state.l1Stars = starsEarned;
-            else if (levelNum === 2 && starsEarned > state.l2Stars) state.l2Stars = starsEarned;
-            else if (levelNum === 3 && starsEarned > state.l3Stars) state.l3Stars = starsEarned;
+            if (levelNum === 1 && earnedStars > state.l1Stars) state.l1Stars = earnedStars;
+            else if (levelNum === 2 && earnedStars > state.l2Stars) state.l2Stars = earnedStars;
+            else if (levelNum === 3 && earnedStars > state.l3Stars) state.l3Stars = earnedStars;
             else if (levelNum === 4) {
-                if (state.l4Tier === 'beginner' && starsEarned > state.l4BeginnerStars) {
-                    state.l4BeginnerStars = starsEarned;
-                } else if (state.l4Tier === 'intermediate' && starsEarned > state.l4IntermediateStars) {
-                    state.l4IntermediateStars = starsEarned;
+                if (state.l4Tier === 'intermediate') {
+                    if (earnedStars > state.l4IntermediateStars) state.l4IntermediateStars = earnedStars;
+                } else {
+                    if (earnedStars > state.l4BeginnerStars) state.l4BeginnerStars = earnedStars;
                 }
-            } else if (levelNum === 5 && starsEarned > state.l5Stars) state.l5Stars = starsEarned;
+            } else if (levelNum === 5 && earnedStars > state.l5Stars) state.l5Stars = earnedStars;
 
             saveToLocalStorage();
             updateAllStarDisplays();
 
+            const isPerfect = (state.hearts === 3);
             let perfectBonus = 0;
+
             if (isPerfect) {
                 perfectBonus = (levelNum === 4) ? 10 : 5;
                 if (state.isTimedMode) perfectBonus *= 2;
@@ -2396,11 +2960,11 @@
 
                 confetti({ particleCount: 150, spread: 90, origin: { y: 0.5 } });
                 audio.playCorrect();
-                showCustomAlert(`✨ PERFECT 完美無瑕！\n⭐⭐⭐ 獲得滿分三星成就！\n❤️ 滿血零失誤完勝！\n🎁 獲得額外 +${perfectBonus} Token 完美加碼獎勵！\n\n${msg}`);
+                showCustomAlert(`✨ PERFECT 完美無瑕！\n⭐⭐⭐ 獲得滿分 3 顆星！\n❤️ 滿血零失誤完勝！\n🎁 獲得額外 +${perfectBonus} Token 完美加碼獎勵！\n\n${msg}`);
             } else {
                 confetti({ particleCount: 60, spread: 60, origin: { y: 0.6 } });
                 audio.playCorrect();
-                showCustomAlert(`${msg}\n獲得 ${renderStarIcons(starsEarned, 3)} 星級評價！\n(本局答錯 ${3 - state.hearts} 題，保持 3❤️ 滿血可挑戰三星與額外完美加碼喔！)`);
+                showCustomAlert(`${msg}\n獲得 ${renderStarIcons(earnedStars, 3)} (${earnedStars}/3 顆星)！\n(保持 3❤️ 滿血可挑戰 3 顆星與額外完美加碼喔！)`);
             }
             showHome();
         }
@@ -2652,7 +3216,7 @@
 
                     <div class="flex items-center gap-2 mt-3 bg-rose-50 p-1.5 rounded-2xl border border-rose-200">
                         <button onclick="changeL4FoodCount('${food.id}', -1)" class="w-8 h-8 bg-white hover:bg-rose-100 text-rose-700 font-black rounded-xl text-base shadow-sm border border-rose-200 flex items-center justify-center transition active:scale-95">-</button>
-                        <span class="text-lg font-black text-slate-800 w-10 text-center font-mono">${count} 份</span>
+                        <span class="text-lg font-black text-slate-800 w-8 text-center font-mono">${count} 份</span>
                         <button onclick="changeL4FoodCount('${food.id}', 1)" class="w-8 h-8 bg-rose-500 hover:bg-rose-600 text-white font-black rounded-xl text-base shadow-sm flex items-center justify-center transition active:scale-95">+</button>
                     </div>
                 `;
@@ -2661,6 +3225,7 @@
         }
 
         function changeL4FoodCount(foodId, delta) {
+            if (state.isQuestionAnswered) return;
             audio.playPop();
             const current = state.l4Counts[foodId] || 0;
             const nextVal = Math.max(0, Math.min(10, current + delta));
@@ -2669,6 +3234,7 @@
         }
 
         function resetL4Selection() {
+            if (state.isQuestionAnswered) return;
             audio.playPop();
             state.l4Counts = {};
             renderL4FoodGrid();
@@ -3096,7 +3662,9 @@
             const certDate = document.getElementById('certDate');
 
             if (certName) {
-                certName.value = state.isTeacherMode ? '教師示範 (선생님)' : `${state.studentZh} (${state.studentKo})`;
+                certName.value = !state.isLoggedIn 
+                    ? '同學' 
+                    : (state.isTeacherMode ? '教師示範 (선생님)' : `${state.studentZh} (${state.studentKo})`);
             }
             if (certDate) {
                 const today = new Date();
@@ -3114,29 +3682,34 @@
             if (certModal) certModal.classList.add('hidden');
         }
 
-        /* ================= PHYSICAL KEYBOARD LISTENER FOR PIN ================= */
+        /* ================= PHYSICAL KEYBOARD LISTENER ================= */
         window.addEventListener('keydown', (e) => {
             const pinModal = document.getElementById('pinModal');
             if (pinModal && !pinModal.classList.contains('hidden')) {
                 const key = e.key.toUpperCase();
                 if ((key >= '0' && key <= '9') || ['A', 'B', 'C', 'D'].includes(key)) {
-                    e.preventDefault();
                     pressPinKey(key);
                 } else if (e.key === 'Backspace') {
-                    e.preventDefault();
                     pressPinBackspace();
                 } else if (e.key === 'Enter') {
-                    e.preventDefault();
                     if (state.inputPinStr.length === 4) verifyPin();
                 } else if (e.key === 'Escape') {
-                    e.preventDefault();
                     closePinModal();
                 }
+                return;
+            }
+
+            const lightboxModal = document.getElementById('reviewLightboxModal');
+            if (lightboxModal && !lightboxModal.classList.contains('hidden')) {
+                if (e.key === 'ArrowLeft') navigateReviewLightbox(-1);
+                else if (e.key === 'ArrowRight') navigateReviewLightbox(1);
+                else if (e.key === 'Escape') closeReviewLightbox();
             }
         });
 
         /* ================= INITIALIZATION ================= */
         window.onload = function() {
+            renderReviewGallery();
             switchClassTab('3A');
             updateHeaderUI();
             updateAllStarDisplays();
