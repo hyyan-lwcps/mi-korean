@@ -70,6 +70,46 @@
         .animate-pulse-gentle {
             animation: pulseGentle 2s ease-in-out infinite;
         }
+
+        /* 補強 Tailwind CDN 預設未包含的 3px 框線與細微陰影類別 */
+        .border-3 {
+            border-width: 3px;
+        }
+        .shadow-xs {
+            box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+        }
+        .backdrop-blur-xs {
+            backdrop-filter: blur(2px);
+        }
+
+        /* 結業證書專用列印樣式 */
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+            .no-print {
+                display: none !important;
+            }
+            #certModal,
+            #printableCertModal,
+            #printableCertModal * {
+                visibility: visible;
+            }
+            #certModal {
+                position: fixed;
+                inset: 0;
+                background: #ffffff !important;
+                display: flex !important;
+                align-items: center;
+                justify-content: center;
+                padding: 0;
+            }
+            #printableCertModal {
+                box-shadow: none !important;
+                max-width: 100% !important;
+                width: 90% !important;
+            }
+        }
     </style>
 </head>
 <body class="min-h-screen flex flex-col text-slate-800 antialiased selection:bg-amber-200">
@@ -597,8 +637,9 @@
                     
                     <!-- Mode A Content: Image Container -->
                     <div id="l6-question-box-A" class="w-full flex justify-center items-center">
-                        <div class="relative max-w-xs w-full bg-slate-50 p-3 rounded-2xl border-2 border-purple-100 shadow-inner">
+                        <div class="relative max-w-xs w-full bg-slate-50 p-3 rounded-2xl border-2 border-purple-100 shadow-inner min-h-[13rem] md:min-h-[15rem] flex items-center justify-center">
                             <img id="l6-question-image" alt="Hanbok Color" class="w-full h-48 md:h-56 object-contain rounded-xl" onerror="if (typeof handleHanbokImageError === 'function') handleHanbokImageError(this)" />
+                            <div id="l6-question-fallback" class="hidden w-full h-48 md:h-56 rounded-xl flex flex-col items-center justify-center gap-2 border-2 border-slate-300 shadow-inner"></div>
                         </div>
                     </div>
 
@@ -1277,6 +1318,12 @@
         function closeCustomAlert() {
             audio.playPop();
             document.getElementById('customAlertModal').classList.add('hidden');
+            if (state.resumeTimerAfterAlert) {
+                state.resumeTimerAfterAlert = false;
+                if (state.isTimedMode && !state.isQuestionAnswered && state.hearts > 0) {
+                    startTimer();
+                }
+            }
         }
 
         /* ================= STUDENT DATABASE ================= */
@@ -1304,15 +1351,15 @@
 
         /* ================= HANBOK 9 COLORS DATASET ================= */
         const HANBOK_COLORS = [
-            { id: 'red',    filename: 'red',    ko: '빨간색', roma: 'ppal-gan-saek', hex: '#E53E3E', file: 'colour/red.jpg' },
-            { id: 'orange', filename: 'orange', ko: '주황색', roma: 'ju-hwang-saek', hex: '#ED8936', file: 'colour/orange.jpg' },
-            { id: 'yellow', filename: 'yellow', ko: '노란색', roma: 'no-ran-saek',  hex: '#ECC94B', file: 'colour/yellow.jpg' },
-            { id: 'green',  filename: 'green',  ko: '초록색', roma: 'cho-rok-saek', hex: '#38A169', file: 'colour/green.jpg' },
-            { id: 'blue',   filename: 'blue',   ko: '파란색', roma: 'pa-ran-saek',  hex: '#3182CE', file: 'colour/blue.jpg' },
-            { id: 'purple', filename: 'pruple', ko: '보라색', roma: 'bo-ra-saek',   hex: '#805AD5', file: 'colour/pruple.jpg' },
-            { id: 'pink',   filename: 'pink',   ko: '분홍색', roma: 'bun-hong-saek',hex: '#ED64A6', file: 'colour/pink.jpg' },
-            { id: 'black',  filename: 'black',  ko: '검은색', roma: 'geom-eun-saek',hex: '#2D3748', file: 'colour/black.jpg' },
-            { id: 'white',  filename: 'white',  ko: '하얀색', roma: 'ha-yan-saek',  hex: '#F7FAFC', file: 'colour/white.jpg' }
+            { id: 'red',    filename: 'red',    ko: '빨간색', roma: 'ppal-gan-saek', hex: '#E53E3E', emoji: '🟥', file: 'colour/red.jpg' },
+            { id: 'orange', filename: 'orange', ko: '주황색', roma: 'ju-hwang-saek', hex: '#ED8936', emoji: '🟧', file: 'colour/orange.jpg' },
+            { id: 'yellow', filename: 'yellow', ko: '노란색', roma: 'no-ran-saek',  hex: '#ECC94B', emoji: '🟨', file: 'colour/yellow.jpg' },
+            { id: 'green',  filename: 'green',  ko: '초록색', roma: 'cho-rok-saek', hex: '#38A169', emoji: '🟩', file: 'colour/green.jpg' },
+            { id: 'blue',   filename: 'blue',   ko: '파란색', roma: 'pa-ran-saek',  hex: '#3182CE', emoji: '🟦', file: 'colour/blue.jpg' },
+            { id: 'purple', filename: 'pruple', ko: '보라색', roma: 'bo-ra-saek',   hex: '#805AD5', emoji: '🟪', file: 'colour/pruple.jpg' },
+            { id: 'pink',   filename: 'pink',   ko: '분홍색', roma: 'bun-hong-saek',hex: '#ED64A6', emoji: '🩷', file: 'colour/pink.jpg' },
+            { id: 'black',  filename: 'black',  ko: '검은색', roma: 'geom-eun-saek',hex: '#2D3748', emoji: '⬛', file: 'colour/black.jpg' },
+            { id: 'white',  filename: 'white',  ko: '하얀색', roma: 'ha-yan-saek',  hex: '#F7FAFC', emoji: '⬜', file: 'colour/white.jpg' }
         ];
 
         /* ================= REVIEW INFOGRAPHICS DATASET (溫習區解說圖卡) ================= */
@@ -1952,6 +1999,7 @@
             l4Tier: 'beginner',
             timeLeft: 10,
             timerInterval: null,
+            resumeTimerAfterAlert: false,
 
             l1Questions: [], l1Idx: 0,
             l2Questions: [], l2Idx: 0,
@@ -2155,6 +2203,7 @@
         }
 
         function deductHeart() {
+            if (state.hearts <= 0) return;
             audio.playHeartDeduct();
             state.hearts--;
             renderHeartsDisplay();
@@ -2166,6 +2215,7 @@
             }
 
             if (state.hearts <= 0) {
+                state.isQuestionAnswered = true;
                 stopTimer();
                 audio.playGameOver();
                 setTimeout(() => {
@@ -2183,13 +2233,14 @@
             }
             state.score -= 15;
             state.hearts = 1;
+            state.isQuestionAnswered = false;
             saveToLocalStorage();
             updateHeaderUI();
             renderHeartsDisplay();
             document.getElementById('gameOverModal').classList.add('hidden');
             audio.playCorrect();
+            state.resumeTimerAfterAlert = true;
             showCustomAlert("🚑 成功使用 15 Token 復活！獲得 1 個心心 ❤️ 繼續挑戰！");
-            startTimer();
         }
 
         /* ================= TIMER MECHANISM ================= */
@@ -2228,14 +2279,15 @@
             state.currentQuestionAttempted = true;
             deductHeart();
             if (state.hearts > 0) {
-                showCustomAlert("⏰ 時間到！扣除 1 個心心 ❤️，請重新作答或繼續挑戰！");
-                startTimer();
+                state.resumeTimerAfterAlert = true;
+                showCustomAlert("⏰ 時間到！扣除 1 個心心 ❤️，請按確定繼續挑戰！");
             }
         }
 
         /* ================= NAVIGATION & ROUTING ================= */
         function showHome() {
             stopTimer();
+            state.resumeTimerAfterAlert = false;
             document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
             document.getElementById('tab-home').classList.remove('hidden');
             document.getElementById('timer-bar-container').classList.add('hidden');
@@ -2698,9 +2750,18 @@
                 boxB.classList.add('hidden');
 
                 const imgEl = document.getElementById('l6-question-image');
+                const fallbackEl = document.getElementById('l6-question-fallback');
+                if (fallbackEl) {
+                    fallbackEl.classList.add('hidden');
+                    fallbackEl.innerHTML = '';
+                }
                 if (imgEl) {
+                    imgEl.style.display = 'block';
                     imgEl.dataset.colorId = q.target.id;
                     imgEl.dataset.attempt = '0';
+                    imgEl.onerror = function() {
+                        handleHanbokImageError(this);
+                    };
                     imgEl.src = q.target.file;
                 }
 
@@ -2735,6 +2796,7 @@
                                  data-attempt="0"
                                  class="max-h-full max-w-full object-contain rounded-xl" 
                                  onerror="if (typeof handleHanbokImageError === 'function') handleHanbokImageError(this)" />
+                            <div class="hanbok-emoji-fallback hidden w-full h-full rounded-xl flex flex-col items-center justify-center gap-1 border border-slate-300"></div>
                         </div>
                     `;
                     card.onclick = () => handleL6Answer(opt.id === q.target.id, card, opt.ko);
@@ -2750,34 +2812,6 @@
             if (q && q.target) {
                 audio.speak(q.target.ko);
             }
-        }
-
-        function createHanbokSvgDataUri(colorObj) {
-            const hex = colorObj.hex || '#805AD5';
-            const isLight = colorObj.id === 'white' || colorObj.id === 'yellow';
-            const stroke = isLight ? '#4A5568' : '#FFFFFF';
-            const svg = `
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 220" width="200" height="220">
-                    <rect width="200" height="220" rx="24" fill="#F8FAFC"/>
-                    <!-- Hair & Head -->
-                    <circle cx="100" cy="54" r="24" fill="#2D3748"/>
-                    <circle cx="100" cy="58" r="20" fill="#FBD38D"/>
-                    <circle cx="93" cy="56" r="2.5" fill="#2D3748"/>
-                    <circle cx="107" cy="56" r="2.5" fill="#2D3748"/>
-                    <path d="M95 65 Q100 70 105 65" stroke="#E53E3E" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-                    <!-- Chima (Skirt) -->
-                    <path d="M72 108 L128 108 L152 192 Q100 202 48 192 Z" fill="${hex}" stroke="#334155" stroke-width="3"/>
-                    <!-- Jeogori (Top) -->
-                    <path d="M68 84 L132 84 L146 124 L130 130 L122 108 L78 108 L70 130 L54 124 Z" fill="${hex}" stroke="#334155" stroke-width="3"/>
-                    <!-- White Collar (Git) & Goreum Ribbon -->
-                    <path d="M88 84 L100 102 L112 84" fill="none" stroke="${stroke}" stroke-width="4" stroke-linecap="round"/>
-                    <path d="M100 104 L94 142 M100 104 L108 138" stroke="${stroke}" stroke-width="3.5" stroke-linecap="round"/>
-                    <!-- Shoes -->
-                    <ellipse cx="86" cy="198" rx="10" ry="5" fill="#1E293B"/>
-                    <ellipse cx="114" cy="198" rx="10" ry="5" fill="#1E293B"/>
-                </svg>
-            `.trim();
-            return 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(svg);
         }
 
         function handleHanbokImageError(imgEl) {
@@ -2802,7 +2836,103 @@
             }
 
             imgEl.onerror = null;
-            imgEl.src = createHanbokSvgDataUri(colorObj);
+            imgEl.style.display = 'none';
+
+            const isModeA = imgEl.id === 'l6-question-image';
+            const fallbackEl = isModeA
+                ? document.getElementById('l6-question-fallback')
+                : (imgEl.parentElement ? imgEl.parentElement.querySelector('.hanbok-emoji-fallback') : null);
+
+            if (fallbackEl) {
+                fallbackEl.style.backgroundColor = 'transparent';
+                fallbackEl.className = isModeA
+                    ? 'w-full h-48 md:h-56 rounded-xl flex items-center justify-center'
+                    : 'hanbok-emoji-fallback w-full h-full rounded-xl flex items-center justify-center';
+                fallbackEl.innerHTML = createHanbokCharacterSvg(
+                    colorObj,
+                    isModeA ? 'w-44 h-44 md:w-52 md:h-52' : 'w-28 h-28 md:h-32'
+                );
+                fallbackEl.classList.remove('hidden');
+            }
+        }
+
+        function createHanbokCharacterSvg(colorObj, sizeClass = 'w-44 h-44') {
+            const isWhite = colorObj.id === 'white';
+            const isYellow = colorObj.id === 'yellow';
+            const mainFill = isWhite ? '#FFFFFF' : colorObj.hex;
+            const garmentStroke = isWhite ? '#CBD5E1' : 'rgba(15, 23, 42, 0.18)';
+            const pleatStroke = isWhite ? '#CBD5E1' : 'rgba(255, 255, 255, 0.55)';
+            const sashColor = isWhite ? '#E2E8F0' : '#FFFFFF';
+            const collarStroke = isWhite ? '#94A3B8' : '#FFFFFF';
+            const hemDashColor = isYellow ? '#D97706' : '#FACC15';
+
+            return `
+                <svg viewBox="0 0 200 200" class="${sizeClass} select-none" xmlns="http://www.w3.org/2000/svg" aria-label="${colorObj.ko}">
+                    <!-- 灰色圓形背景 -->
+                    <circle cx="100" cy="100" r="78" fill="#DCDFE4" />
+
+                    <!-- 白色貼紙外框輪廓層 -->
+                    <g stroke="#FFFFFF" stroke-width="8" stroke-linejoin="round" stroke-linecap="round" fill="#FFFFFF">
+                        <ellipse cx="90" cy="163" rx="8.5" ry="4.5" />
+                        <ellipse cx="110" cy="163" rx="8.5" ry="4.5" />
+                        <path d="M 83 103 L 117 103 L 134 157 Q 100 162 66 157 Z" />
+                        <path d="M 83 82 L 66 112 L 75 117 L 87 95 Z" />
+                        <path d="M 117 82 L 134 112 L 125 117 L 113 95 Z" />
+                        <rect x="82" y="80" width="36" height="25" rx="6" />
+                        <circle cx="100" cy="60" r="21" />
+                        <path d="M 78 62 L 75 76" />
+                    </g>
+
+                    <!-- 韓服鞋 (꽃신) -->
+                    <ellipse cx="90" cy="163" rx="8" ry="4.2" fill="#FFFFFF" stroke="#334155" stroke-width="1.5" />
+                    <ellipse cx="110" cy="163" rx="8" ry="4.2" fill="#FFFFFF" stroke="#334155" stroke-width="1.5" />
+
+                    <!-- 韓服長裙 (치마) -->
+                    <path d="M 83 103 L 117 103 L 134 157 Q 100 162 66 157 Z" fill="${mainFill}" stroke="${garmentStroke}" stroke-width="1.2" />
+                    <!-- 裙襬百褶線條 -->
+                    <line x1="91" y1="106" x2="82" y2="156" stroke="${pleatStroke}" stroke-width="1.3" stroke-linecap="round" />
+                    <line x1="100" y1="106" x2="100" y2="158" stroke="${pleatStroke}" stroke-width="1.3" stroke-linecap="round" />
+                    <line x1="109" y1="106" x2="118" y2="156" stroke="${pleatStroke}" stroke-width="1.3" stroke-linecap="round" />
+                    <!-- 裙襬黃色虛線花邊 -->
+                    <path d="M 69 152.5 Q 100 157.5 131 152.5" fill="none" stroke="${hemDashColor}" stroke-width="2.6" stroke-dasharray="4 3" stroke-linecap="round" />
+
+                    <!-- 左右袖子與小手 -->
+                    <circle cx="69" cy="115" r="3.6" fill="#FAD7C3" />
+                    <circle cx="131" cy="115" r="3.6" fill="#FAD7C3" />
+                    <path d="M 83 82 L 66 111 L 75 116 L 87 95 Z" fill="${mainFill}" stroke="${garmentStroke}" stroke-width="1.2" />
+                    <path d="M 117 82 L 134 111 L 125 116 L 113 95 Z" fill="${mainFill}" stroke="${garmentStroke}" stroke-width="1.2" />
+                    <!-- 白色袖口 (끝동) -->
+                    <path d="M 66 111 L 75 116 L 77.5 111.5 L 68.5 106.5 Z" fill="#FFFFFF" stroke="${garmentStroke}" stroke-width="0.8" />
+                    <path d="M 134 111 L 125 116 L 122.5 111.5 L 131.5 106.5 Z" fill="#FFFFFF" stroke="${garmentStroke}" stroke-width="0.8" />
+
+                    <!-- 韓服短上衣 (저고리) -->
+                    <path d="M 82 81 Q 100 78 118 81 L 117 103 L 83 103 Z" fill="${mainFill}" stroke="${garmentStroke}" stroke-width="1.2" />
+                    <!-- 白色 V 字衣領 (동정) -->
+                    <path d="M 90 80 L 100 94 L 110 80" fill="none" stroke="${collarStroke}" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round" />
+                    <!-- 白色腰帶與衣帶 (고름) -->
+                    <rect x="82.5" y="100" width="35" height="3.8" rx="1.5" fill="${sashColor}" stroke="${garmentStroke}" stroke-width="0.6" />
+                    <path d="M 98 103.5 L 95.5 116.5" stroke="${sashColor}" stroke-width="2.6" stroke-linecap="round" />
+                    <path d="M 102 103.5 L 105.5 115.5" stroke="${sashColor}" stroke-width="2.6" stroke-linecap="round" />
+
+                    <!-- 頭部與髮型 -->
+                    <circle cx="100" cy="60" r="20.5" fill="#3B2314" />
+                    <!-- 左側傳統髮飾 (댕기) -->
+                    <path d="M 79 63 L 75.5 76" stroke="#1E293B" stroke-width="3" stroke-linecap="round" />
+                    <circle cx="79" cy="62.5" r="2.2" fill="#FACC15" />
+
+                    <!-- 臉龐 -->
+                    <circle cx="100" cy="62" r="18.2" fill="#FAD7C3" />
+                    <!-- 瀏海弧線 -->
+                    <path d="M 81.8 60 C 82 44, 118 44, 118.2 60 C 113 50, 105 49, 100 49 C 95 49, 87 50, 81.8 60 Z" fill="#3B2314" />
+
+                    <!-- 眼睛、腮紅與微笑 -->
+                    <circle cx="93" cy="62" r="2" fill="#1E293B" />
+                    <circle cx="107" cy="62" r="2" fill="#1E293B" />
+                    <circle cx="88" cy="66.5" r="2.8" fill="#F48FB1" opacity="0.75" />
+                    <circle cx="112" cy="66.5" r="2.8" fill="#F48FB1" opacity="0.75" />
+                    <path d="M 96.5 67.5 Q 100 71.5 103.5 67.5" fill="none" stroke="#E53E3E" stroke-width="2" stroke-linecap="round" />
+                </svg>
+            `;
         }
         window.handleHanbokImageError = handleHanbokImageError;
 
@@ -3349,6 +3479,7 @@
         /* ================= TRACING ENGINE & CANVAS LOGIC ================= */
         let isDrawing = false;
         let tracingCanvas, tracingCtx;
+        let tracingEventsBound = false;
         let penColor = '#1E293B';
         let penWidth = 12;
 
@@ -3369,35 +3500,42 @@
             
             tracingCanvas.width = 600;
             tracingCanvas.height = 260;
-            
-            tracingCanvas.onmousedown = startDraw;
-            tracingCanvas.onmousemove = draw;
-            tracingCanvas.onmouseup = stopDraw;
-            tracingCanvas.onmouseleave = stopDraw;
 
-            tracingCanvas.ontouchstart = (e) => {
-                e.preventDefault();
-                const touch = e.touches[0];
-                const mouseEvent = new MouseEvent("mousedown", {
-                    clientX: touch.clientX,
-                    clientY: touch.clientY
-                });
-                tracingCanvas.dispatchEvent(mouseEvent);
-            };
-            tracingCanvas.ontouchmove = (e) => {
-                e.preventDefault();
-                const touch = e.touches[0];
-                const mouseEvent = new MouseEvent("mousemove", {
-                    clientX: touch.clientX,
-                    clientY: touch.clientY
-                });
-                tracingCanvas.dispatchEvent(mouseEvent);
-            };
-            tracingCanvas.ontouchend = (e) => {
-                e.preventDefault();
-                const mouseEvent = new MouseEvent("mouseup", {});
-                tracingCanvas.dispatchEvent(mouseEvent);
-            };
+            if (!tracingEventsBound) {
+                tracingEventsBound = true;
+                tracingCanvas.addEventListener('mousedown', startDraw);
+                tracingCanvas.addEventListener('mousemove', draw);
+                tracingCanvas.addEventListener('mouseup', stopDraw);
+                tracingCanvas.addEventListener('mouseleave', stopDraw);
+
+                tracingCanvas.addEventListener('touchstart', (e) => {
+                    e.preventDefault();
+                    const touch = e.touches[0];
+                    if (!touch) return;
+                    const mouseEvent = new MouseEvent("mousedown", {
+                        clientX: touch.clientX,
+                        clientY: touch.clientY
+                    });
+                    tracingCanvas.dispatchEvent(mouseEvent);
+                }, { passive: false });
+
+                tracingCanvas.addEventListener('touchmove', (e) => {
+                    e.preventDefault();
+                    const touch = e.touches[0];
+                    if (!touch) return;
+                    const mouseEvent = new MouseEvent("mousemove", {
+                        clientX: touch.clientX,
+                        clientY: touch.clientY
+                    });
+                    tracingCanvas.dispatchEvent(mouseEvent);
+                }, { passive: false });
+
+                tracingCanvas.addEventListener('touchend', (e) => {
+                    e.preventDefault();
+                    const mouseEvent = new MouseEvent("mouseup", {});
+                    tracingCanvas.dispatchEvent(mouseEvent);
+                }, { passive: false });
+            }
 
             drawTracingBackground();
         }
